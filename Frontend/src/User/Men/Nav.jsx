@@ -10,6 +10,8 @@ import cart from '../../assets/cart.svg';
 const Nav = () => {
     return (
         <>
+
+        {/* First Nav  */}
         <div className="miniNav-container">
                     <div className="miniNav-contents">
                         <div className="miniNav-contents-left">
@@ -20,6 +22,8 @@ const Nav = () => {
                         </div>
                     </div>
                 </div>
+
+                {/* Main Nav  */}
             <div className="nav-container">
                 <div className="nav-contents">
                     <div className="logo">
@@ -39,8 +43,34 @@ const Nav = () => {
                             <img src={search}/>
                         </div>
                     </div>
-                    <div className="nav-links"></div>
+                    <div className="nav-links">
+                        <img src={profile}/>
+                        <img src={fav}/>
+                        <img src={cart}/>
+                    </div>
                 </div>
+            </div>
+
+            {/* Categories Nav  */}
+            <div className="ctgry-nav">
+                <div className="category-nav-container">
+                    <button>Sale</button>
+                    <button>New in</button>
+                    <button>Clothing</button>
+                    <button>Shoes</button>
+                    <button>Accessories</button>
+                    <button>Gifting</button>
+                    <button>Brands</button>
+                    <button>Activewear</button>
+                    <button>Grooming</button>
+                    <button>Tailoring</button>
+                    <button>Topman</button>
+                </div>
+            </div>
+
+            {/* Bottom Nav */}
+            <div className="btm-nav">
+                <p>FREE DELIVERY WORLDWIDE</p>
             </div>
         </>
     )
