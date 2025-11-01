@@ -1,10 +1,10 @@
 import React from "react";
-import MiniNav from "./MiniNav";
+import Nav from "./Nav";
 
 const MenLanding = () => {
     return(
         <>
-        <MiniNav />
+        <Nav />
         </>
     )
 }
