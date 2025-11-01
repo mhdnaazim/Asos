@@ -1,0 +1,207 @@
+@font-face {
+    font-family: "Futura Cyrillic Heavy";
+    src: url("/Font/FuturaCyrillicHeavy.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Medium";
+    src: url("/Font/FuturaCyrillicMedium.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Light";
+    src: url("/Font/FuturaCyrillicLight.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Book";
+    src: url("/Font/FuturaCyrillicBook.ttf") format("truetype");
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.menCollective-container {
+    height: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.menCollective-head {
+    height: 120px;
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menCollective-head-left p {
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 34px;
+}
+
+.menCollective-head-right button {
+    background: transparent;
+    height: 50px;
+    padding: 0 10px;
+    outline: none;
+    border: 3px solid #000;
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.menCollective-content {
+    background-color: transparent;
+    height: 820px;
+    width: 92%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.collective-cards-container {
+    height: 680px;
+    width: 100%;
+}
+
+.collective-card {
+    height: 635px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+
+.collective-card img {
+    object-fit: cover;
+    height: 560px;
+    width: 100%;
+}
+
+.collective-card-des {
+    background-color: transparent;
+    height: 75px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px 15px;
+    transition: opacity 0.4s ease;
+}
+
+.collective-card-des p {
+    color: #2d2d2d;
+    font-family: "Futura Cyrillic Book";
+    font-size: 16px;
+    letter-spacing: 1px;
+    width: 90%;
+}
+
+.collective-card-des h4 {
+    color: #666666;
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 16px;
+}
+
+.collectives-bottom{
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    padding-top: 5px;
+}
+
+.collectives-bottom button{
+    background-color: #000;
+    color: #fff;
+    height: 38px;
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 16px;
+    padding: 0 35px;
+}
+
+
+/* ==== Carousel Arrows ==== */
+.custom-arrow {
+    background: transparent;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    height: 45px;
+    width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.custom-arrow span {
+    font-size: 38px;
+    color: #000;
+    transition: color 0.3s ease;
+}
+
+.prev-arrow {
+    left: -50px;    /* pushes it outside to the left of slider */
+}
+
+.next-arrow {
+    right: -50px;   /* pushes it outside to the right of slider */
+}
+
+
+/* ==== Dots Container ==== */
+.slick-dots {
+  position: absolute;
+  bottom: -35px; /* adjust vertical spacing */
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ==== Each Dot ==== */
+.slick-dots li {
+  margin: 0;
+  width: 12px;
+  height: 12px;
+}
+
+/* ==== Remove Default Bullet Symbol ==== */
+.slick-dots li button:before {
+  content: "";
+}
+
+/* ==== Make Dots Circles ==== */
+.slick-dots li button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #808080; /* gray inactive */
+  border: none;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+/* ==== Active Dot ==== */
+.slick-dots li.slick-active button {
+  background: #000000; /* black active */
+  transform: scale(1.1);
+}
+

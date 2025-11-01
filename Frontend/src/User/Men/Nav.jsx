@@ -6,28 +6,32 @@ import search from '../../assets/search icon.png'
 import profile from '../../assets/profile.svg';
 import fav from '../../assets/fav.svg';
 import cart from '../../assets/cart.svg';
+import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
+
+    const navigate = useNavigate()
+
     return (
         <>
 
-        {/* First Nav  */}
-        <div className="miniNav-container">
-                    <div className="miniNav-contents">
-                        <div className="miniNav-contents-left">
-                            <p>Help & FAQs</p>
-                        </div>
-                        <div className="miniNav-contents-right">
-                            <img src={india}/>
-                        </div>
+            {/* First Nav  */}
+            <div className="miniNav-container">
+                <div className="miniNav-contents">
+                    <div className="miniNav-contents-left">
+                        <p>Help & FAQs</p>
+                    </div>
+                    <div className="miniNav-contents-right">
+                        <img src={india} />
                     </div>
                 </div>
+            </div>
 
-                {/* Main Nav  */}
+            {/* Main Nav  */}
             <div className="nav-container">
                 <div className="nav-contents">
                     <div className="logo">
-                        <img src={logo}/>
+                        <img onClick={() => navigate("/")} src={logo} />
                     </div>
                     <div className="sections">
                         <div className="section-left">
@@ -39,14 +43,14 @@ const Nav = () => {
                     </div>
                     <div className="search-container">
                         <div className="searchbar">
-                            <input type="text" placeholder="Search for items and brands"/>
-                            <img src={search}/>
+                            <input type="text" placeholder="Search for items and brands" />
+                            <img src={search} />
                         </div>
                     </div>
                     <div className="nav-links">
-                        <img src={profile}/>
-                        <img src={fav}/>
-                        <img src={cart}/>
+                        <img src={profile} />
+                        <img src={fav} />
+                        <img src={cart} />
                     </div>
                 </div>
             </div>
