@@ -2,7 +2,7 @@ import React from "react";
 import './Nav.css';
 import india from '../../assets/in.png'
 import logo from '../../assets/Logo.svg';
-import search from '../../assets/search icon.png'
+import search from '../../assets/searchIcon.svg'
 import profile from '../../assets/profile.svg';
 import fav from '../../assets/fav.svg';
 import cart from '../../assets/cart.svg';
