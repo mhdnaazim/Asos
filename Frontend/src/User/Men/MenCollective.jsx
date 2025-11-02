@@ -101,6 +101,6 @@ const MenCollective = () => {
             </div>
         </div>
     );
-}
+};
 
 export default MenCollective;
