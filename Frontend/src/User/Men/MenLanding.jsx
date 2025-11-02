@@ -4,6 +4,9 @@ import MenBanner from "./MenBanner";
 import MenCollective from "./MenCollective";
 import MenNew from "./MenNew";
 import MenBestSellers from "./MenBestSellers";
+import MenBrands from "./MenBrands";
+import Social from "./Social";
+import Footer from "./Footer";
 
 const MenLanding = () => {
     return(
@@ -13,6 +16,9 @@ const MenLanding = () => {
         <MenCollective />
         <MenNew />
         <MenBestSellers />
+        <MenBrands />
+        <Social />
+        <Footer />
         </>
     )
 }
