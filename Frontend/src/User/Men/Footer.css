@@ -37,10 +37,154 @@
 .footer-top{
     height: 250px;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-top-container{
+    height: 100%;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-section{
+    height: 100%;
+    width: 24.9%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    gap: 20px;
+}
+
+.footer-section p{
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 16px;
+    color: #666666;
+    letter-spacing: 1px;
+}
+
+.footer-section ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-section ul li{
+    font-family: "Futura Cyrillic Book";
+    font-size: 13px;
+    color: #666666;
+    letter-spacing: 1px;
+}
+
+.footer-countries{
+    height: 100%;
+    width: 24.9%;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-countries p{
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 16px;
+    color: #666666;
+    letter-spacing: 1px;
+}
+
+.footer-countries h5{
+    font-family: "Futura Cyrillic Light";
+    font-size: 13px;
+    color: #666666;
+    letter-spacing: 1px;
+    display: flex;
+    gap: 10px;
+}
+
+.footer-countries h5 img{
+    object-fit: contain;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    border: 1px solid #c0c0c0;
+}
+
+.footer-countries h5 hr{
+    color: #666666;
+    width: 2px;
+}
+
+.footer-countries h5 span{
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 14px;
+    color: #666666;
+    letter-spacing: 1px;
+}
+
+.country-images{
+    height: 70px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    justify-content: center;
+}
+
+.country-images img{
+    object-fit: contain;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    border: 1px solid #c0c0c0;
 }
 
 .footer-bottom{
     height: 60px;
     width: 100%;
     border-top: 0.5px solid #ebebeb;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-bottom-container{
+    height: 100%;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-bottom-container-left{
+    height: 100%;
+    width: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.footer-bottom-container-left p{
+    font-family: "Futura Cyrillic Book";
+    font-size: 12px;
+    color: #2d2d2d;
+}
+
+.footer-bottom-container-right{
+    height: 100%;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+}
+
+.footer-bottom-container-right p{
+    font-family: "Futura Cyrillic Book";
+    font-size: 12px;
+    color: #2d2d2d;
+}
+
+.footer-bottom-container-right hr{
+    color: #666666;
+    height: 12px;
 }

@@ -250,3 +250,25 @@
     font-weight: 600;
     letter-spacing: 3px;
 }
+
+.men-btn,
+.women-btn{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.men-btn p,
+.women-btn p{
+    color: #fff;
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.women-btn{
+    background-color: #525050;
+}

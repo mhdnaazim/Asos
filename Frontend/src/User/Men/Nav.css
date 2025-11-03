@@ -136,6 +136,10 @@
     cursor: pointer;
 }
 
+.section-right{
+    background-color: #525050;
+}
+
 .section-left p,
 .section-right p {
     color: #fff;

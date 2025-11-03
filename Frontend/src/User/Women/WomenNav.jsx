@@ -34,10 +34,10 @@ const WomenNav = () => {
                         <img onClick={() => navigate("/")} src={logo} />
                     </div>
                     <div className="sections">
-                        <div className="section-left">
+                        <div onClick={() => navigate("/women")} className="women-btn">
                             <p>WOMEN</p>
                         </div>
-                        <div className="section-right">
+                        <div onClick={() => navigate("/")} className="men-btn">
                             <p>MEN</p>
                         </div>
                     </div>

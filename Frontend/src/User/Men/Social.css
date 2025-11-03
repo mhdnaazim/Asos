@@ -28,7 +28,7 @@
     display: flex;
     align-items: center;
     justify-content: end;
-    gap: 50px;
+    gap: 60px;
     padding-right: 50px;
 }
 
@@ -50,7 +50,7 @@
     display: flex;
     align-items: center;
     justify-content: start;
-    gap: 30px;
+    gap: 40px;
     padding-left: 50px;
 }
 
