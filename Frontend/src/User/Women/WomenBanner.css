@@ -1,0 +1,13 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.women-banner{
+    background-image: url(../../assets/womenBanner.jpg);
+    height: 790px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
