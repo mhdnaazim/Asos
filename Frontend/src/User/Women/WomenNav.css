@@ -269,6 +269,10 @@
     letter-spacing: 1px;
 }
 
+.men-btn:hover{
+    background-color: #646464;
+}
+
 .women-btn{
     background-color: #525050;
 }

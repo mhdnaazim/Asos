@@ -136,7 +136,11 @@
     cursor: pointer;
 }
 
-.section-right{
+.section-left:hover {
+    background-color: #646464;
+}
+
+.section-right {
     background-color: #525050;
 }
 
@@ -231,14 +235,14 @@
     letter-spacing: 1.5px;
 }
 
-.category-nav-container button:hover{
+.category-nav-container button:hover {
     cursor: pointer;
     background-color: #fff;
     color: #525050;
 }
 
 /* Bottom Nav  */
-.btm-nav{
+.btm-nav {
     background-color: #fff;
     height: 48px;
     width: 100%;
@@ -247,7 +251,7 @@
     justify-content: center;
 }
 
-.btm-nav p{
+.btm-nav p {
     color: #000;
     font-family: "Futura Cyrillic Medium";
     font-size: 14px;
