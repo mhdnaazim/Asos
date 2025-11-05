@@ -29,7 +29,7 @@
 }
 
 .menCollective-container {
-    height: 900px;
+    height: 860px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -114,6 +114,22 @@
     color: #666666;
     font-family: "Futura Cyrillic Heavy";
     font-size: 16px;
+    display: flex;
+    gap: 10px;
+}
+
+.collective-card-des h3{
+    color: #D01345;
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 16px;
+    display: flex;
+    gap: 10px;
+}
+
+.collective-card-des h3 span{
+    color: #666666;
+    text-decoration: line-through;
+    font-family: "Futura Cyrillic Light";
 }
 
 .collectives-bottom{

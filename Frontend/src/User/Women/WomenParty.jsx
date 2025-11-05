@@ -7,13 +7,31 @@ import wp1 from '../../assets/wp1.avif';
 import wp2 from '../../assets/wp2.avif';
 import wp3 from '../../assets/wp3.avif';
 import wp4 from '../../assets/wp4.avif';
+import wp5 from '../../assets/wp5.avif';
+import wp6 from '../../assets/wp6.avif';
+import wp7 from '../../assets/wp7.avif';
+import wp8 from '../../assets/wp8.avif';
+import wp9 from '../../assets/wp9.avif';
+import wp10 from '../../assets/wp10.avif';
+import wp11 from '../../assets/wp11.avif';
+import wp12 from '../../assets/wp12.avif';
+import wp13 from '../../assets/wp13.avif';
 
 const WomenParty = () => {
     const womenParty = [
         { title: "Missyempire mesh insert bardot maxi dress in black", price: "57.00", image: wp1 },
         { title: "Mango slash neck long sleeve maxi dress in brown", price: "84.00", image: wp2 },
         { title: "4th & Reckless slinky ruched wrap shoulder detail long sleeve top in white", price: "64.00", image: wp3 },
-        { title: "Topshop sequin wide leg trousers in black", price: "76.00", image: wp4 }
+        { title: "Topshop sequin wide leg trousers in black", price: "76.00", image: wp4 },
+        { title: "SEQWL salado embellished closed toe heels in beige", price: "42.00", image: wp5 },
+        { title: "Mango high neck sleeveless blouse in white", price: "51.00", image: wp6 },
+        { title: "Fashionkilla slinky double layered top", price: "48.00", image: wp7 },
+        { title: "Topshop sequin wide leg trousers in black", price: "76.00", image: wp8 },
+        { title: "Jaded Rose sequin modest maxi dress with ruched in silver", price: "143.00", image: wp9 },
+        { title: "Topshop sequin bandeau midi in buttermilk", price: "125.00", image: wp10 },
+        { title: "Topshop metallic knot midi skirt in silver", price: "76.00", image: wp11 },
+        { title: "Pieces slash nech sequin top in burgandy", price: "48.00", image: wp12 },
+        { title: "Azalea Wang kaisseye studded court shoes in burgandy", price: "153.00", image: wp13 }
     ]
 
     const PrevArrow = ({ onClick }) => (
