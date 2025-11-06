@@ -241,6 +241,74 @@
     color: #525050;
 }
 
+
+/* Category Tiles  */
+
+.sale-tile{
+    position: absolute;
+    z-index: 3;
+    height: 400px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sale-tile-container{
+    background-color: #fff;
+    position: absolute;
+    z-index: 4;
+    height: 100%;
+    width: 63%;
+    display: none;
+}
+
+.category-nav-container button:hover .sale-tile {
+  display: flex;
+}
+
+.category-nav-container button.active-btn{
+    background-color: #fff;
+    color: #000;
+}
+
+.sale-tile-container hr{
+    height: 80%;
+}   
+
+.tile-section{
+    height: 100%;
+    width: 24%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.tile-section ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.tile-section ul li{
+    font-family: "Futura Cyrillic Book";
+    font-size: 15px;
+    color: #525050;
+}
+
+.tile-section ul li:hover{
+    color: #007aff;
+    cursor: pointer;
+}
+
+.tile-section h3{
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 16px;
+    color: #525050;
+}
+
 /* Bottom Nav  */
 .btm-nav {
     background-color: #fff;
@@ -249,6 +317,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 2;
 }
 
 .btm-nav p {
@@ -257,4 +327,30 @@
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 3px;
+}
+
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: min-content;
+  width: 100%;
+  background: #111;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.navbar.hidden {
+  transform: translateY(-100%);
+}
+
+.navbar.visible {
+  transform: translateY(0);
 }

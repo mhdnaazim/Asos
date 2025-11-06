@@ -10,4 +10,11 @@
     width: 100%;
     background-repeat: no-repeat;
     background-size: cover;
+    transition: filter 0.3s ease;
+    margin-top: 180px;
+}
+
+.men-banner.blurred {
+    filter: blur(3px);
+    pointer-events: none;
 }

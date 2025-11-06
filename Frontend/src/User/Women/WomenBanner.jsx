@@ -4,7 +4,7 @@ import './WomenBanner.css';
 const WomenBanner = () => {
   return (
     <>
-      <div className="women-banner"></div>
+      <div className={`men-banner ${showSale ? "blurred" : ""}`}></div>
     </>
   )
 }

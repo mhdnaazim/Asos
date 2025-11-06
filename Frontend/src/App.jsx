@@ -2,11 +2,13 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MenLanding from "./User/Men/MenLanding";
 import WomenLanding from "./User/Women/WomenLanding";
+import { StoreProvider } from "./Context/StoreContext";
 
 const App = () => {
   return (
     <>
-      <BrowserRouter>
+      <StoreProvider>
+        <BrowserRouter>
         <Routes>
 
           {/* Men  */}
@@ -17,6 +19,7 @@ const App = () => {
 
         </Routes>
       </BrowserRouter>
+      </StoreProvider>
     </>
   )
 }
