@@ -80,6 +80,11 @@
     letter-spacing: 1px;
 }
 
+.footer-section ul li:hover{
+    color: #007aff;
+    cursor: pointer;
+}
+
 .footer-countries{
     height: 100%;
     width: 24.9%;

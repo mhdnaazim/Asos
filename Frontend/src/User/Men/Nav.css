@@ -307,6 +307,7 @@
     font-family: "Futura Cyrillic Heavy";
     font-size: 16px;
     color: #525050;
+    letter-spacing: 1px;
 }
 
 /* Bottom Nav  */
@@ -327,30 +328,4 @@
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 3px;
-}
-
-
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: min-content;
-  width: 100%;
-  background: #111;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
-  z-index: 1000;
-}
-
-.navbar.hidden {
-  transform: translateY(-100%);
-}
-
-.navbar.visible {
-  transform: translateY(0);
 }

@@ -1,0 +1,96 @@
+@font-face {
+    font-family: "Futura Cyrillic Heavy";
+    src: url("/Font/FuturaCyrillicHeavy.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Medium";
+    src: url("/Font/FuturaCyrillicMedium.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Light";
+    src: url("/Font/FuturaCyrillicLight.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Book";
+    src: url("/Font/FuturaCyrillicBook.ttf") format("truetype");
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.signup-container{
+    background-color: #fff;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup-inputs{
+    height: 500px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+}
+
+.signup-top{
+    height: min-content;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.signup-inputs p{
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 25px;
+}
+
+.signup-inputs img{
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
+}
+
+.signup-inputs input{
+    height: 50px;
+    width: 350px;
+    padding-left: 10px;
+    font-family: "Futura Cyrillic Medium";
+    font-size: 16px;
+    color: #666666d5;
+    letter-spacing: 1px;
+    border: 1px solid #2d2d2d;
+    outline: none;
+}
+
+.signup-inputs button{
+    height: 50px;
+    width: 350px;
+    background-color: #2d2d2d;
+    color: #fff;
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 18px;
+    letter-spacing: 1px;
+    margin-top: 15px;
+}
+
+.signup-inputs button:hover{
+    background-color: #000;
+
+}
