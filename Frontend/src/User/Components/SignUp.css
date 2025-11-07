@@ -58,7 +58,8 @@
 
 .signup-inputs p{
     font-family: "Futura Cyrillic Heavy";
-    font-size: 25px;
+    font-size: 45px;
+    letter-spacing: 2px;
 }
 
 .signup-inputs img{
@@ -92,5 +93,17 @@
 
 .signup-inputs button:hover{
     background-color: #000;
+}
 
+.signup-inputs h4{
+    font-family: "Futura Cyrillic Book";
+    font-size: 17px;
+    color: #525050;
+    letter-spacing: 1px;
+}
+
+.signup-inputs h4 span{
+    font-family: "Futura Cyrillic Heavy";
+    color: #007aff;
+    cursor: pointer;
 }

@@ -4,6 +4,9 @@ import MenLanding from "./User/Men/MenLanding";
 import WomenLanding from "./User/Women/WomenLanding";
 import { StoreProvider } from "./Context/StoreContext";
 import SignUp from "./User/Components/SignUp";
+import Login from "./User/Components/Login";
+import Dashboard from "./Admin/Dashboard";
+import Sidebar from "./Admin/Sidebar";
 
 const App = () => {
   return (
@@ -14,12 +17,16 @@ const App = () => {
 
           {/* Components  */}
           <Route path="/signUp" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
 
           {/* Men  */}
           <Route path="/" element={<MenLanding />}/>
 
           {/* Women  */}
           <Route path="/women" element={<WomenLanding />} />
+
+          {/* Admin  */}
+          <Route path="/dashboard" element={<Sidebar />} />
 
         </Routes>
       </BrowserRouter>
