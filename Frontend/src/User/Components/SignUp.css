@@ -77,7 +77,10 @@
     color: #666666d5;
     letter-spacing: 1px;
     border: 1px solid #2d2d2d;
-    outline: none;
+}
+
+.signup-inputs input:focus{
+    outline: 1px solid #007aff;
 }
 
 .signup-inputs button{

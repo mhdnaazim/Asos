@@ -1,20 +1,20 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-.women-banner{
+.women-banner {
     background-image: url(../../assets/womenBanner.jpg);
     height: 790px;
     width: 100%;
     background-repeat: no-repeat;
     background-size: cover;
     transition: filter 0.3s ease;
-    margin-top: 180px;
+    z-index: 5;
 }
 
-.men-banner.blurred {
+.women-banner.blurred {
     filter: blur(3px);
     pointer-events: none;
 }

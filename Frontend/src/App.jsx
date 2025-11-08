@@ -6,7 +6,6 @@ import { StoreProvider } from "./Context/StoreContext";
 import SignUp from "./User/Components/SignUp";
 import Login from "./User/Components/Login";
 import Dashboard from "./Admin/Dashboard";
-import Sidebar from "./Admin/Sidebar";
 
 const App = () => {
   return (
@@ -26,7 +25,7 @@ const App = () => {
           <Route path="/women" element={<WomenLanding />} />
 
           {/* Admin  */}
-          <Route path="/dashboard" element={<Sidebar />} />
+          <Route path="/dashboard" element={<Dashboard />} />
 
         </Routes>
       </BrowserRouter>

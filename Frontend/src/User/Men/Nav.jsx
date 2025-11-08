@@ -3,37 +3,17 @@ import './Nav.css';
 import india from '../../assets/in.png'
 import logo from '../../assets/Logo.svg';
 import search from '../../assets/searchIcon.svg'
-import profile from '../../assets/profile.svg';
+import profile from '../../assets/profileIcon.svg';
 import fav from '../../assets/fav.svg';
 import cart from '../../assets/cart.svg';
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../../Context/StoreContext";
 
 const Nav = () => {
+
     const navigate = useNavigate();
-
     const { showSale, setShowSale } = useStore();
-    const [showNav, setShowNav] = useState(true);
-    const [lastScrollY, setLastScrollY] = useState(0);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const currentScrollY = window.scrollY;
-
-            if (currentScrollY > lastScrollY && currentScrollY > 50) {
-                // scrolling down
-                setShowNav(false);
-            } else {
-                // scrolling up
-                setShowNav(true);
-            }
-
-            setLastScrollY(currentScrollY);
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [lastScrollY]);
+    const [dropdown, setDropdown] = useState(false)
 
     const handleMouseEnter = () => {
         setShowSale(true)
@@ -79,11 +59,27 @@ const Nav = () => {
                         </div>
                     </div>
                     <div className="nav-links">
-                        <img src={profile} />
+                        <div
+                            className="profile-icon-container"
+                            onMouseEnter={() => setDropdown(true)}
+                            onMouseLeave={() => setDropdown(false)}
+                        >
+                            <img src={profile} />
+
+                            {dropdown && (
+                                <div className="profile-dropdown">
+                                    <div className="profile-dropdown-top">
+                                        <p>Sign in</p>
+                                    </div>
+                                    <div className="profile-dropdown-btm"></div>
+                                </div>
+                            )}
+                        </div>
                         <img src={fav} />
                         <img src={cart} />
                     </div>
                 </div>
+
             </div>
 
             {/* Categories Nav  */}
