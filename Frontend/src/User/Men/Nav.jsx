@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useStore } from "../../Context/StoreContext";
 import './Nav.css';
 import india from '../../assets/in.png'
 import logo from '../../assets/Logo.svg';
@@ -6,23 +8,32 @@ import search from '../../assets/searchIcon.svg'
 import profile from '../../assets/profileIcon.svg';
 import fav from '../../assets/fav.svg';
 import cart from '../../assets/cart.svg';
-import { useNavigate } from "react-router-dom";
-import { useStore } from "../../Context/StoreContext";
+import myProfile from '../../assets/profileIcon.svg';
+import myOrders from '../../assets/orders.png';
 
 const Nav = () => {
 
     const navigate = useNavigate();
     const { showSale, setShowSale } = useStore();
-    const [dropdown, setDropdown] = useState(false)
+    const [dropdown, setDropdown] = useState(false);
+    const [isHovering, setIsHovering] = useState(false);
 
     const handleMouseEnter = () => {
-        setShowSale(true)
-    }
+        setShowSale(true);
+    };
 
     const handleMouseLeave = () => {
-        setShowSale(false)
-    }
+        setShowSale(false);
+    };
 
+    // Delay dropdown close when not hovering
+    useEffect(() => {
+        let timer;
+        if (!isHovering) {
+            timer = setTimeout(() => setDropdown(false), 250);
+        }
+        return () => clearTimeout(timer);
+    }, [isHovering]);
 
     return (
         <>
@@ -61,17 +72,33 @@ const Nav = () => {
                     <div className="nav-links">
                         <div
                             className="profile-icon-container"
-                            onMouseEnter={() => setDropdown(true)}
-                            onMouseLeave={() => setDropdown(false)}
+                            onMouseEnter={() => {
+                                setDropdown(true);
+                                setIsHovering(true);
+                            }}
+                            onMouseLeave={() => setIsHovering(false)}
                         >
                             <img src={profile} />
 
                             {dropdown && (
-                                <div className="profile-dropdown">
+                                <div
+                                    className="profile-dropdown"
+                                    onMouseEnter={() => setIsHovering(true)}
+                                    onMouseLeave={() => setIsHovering(false)}
+                                >
                                     <div className="profile-dropdown-top">
                                         <p>Sign in</p>
                                     </div>
-                                    <div className="profile-dropdown-btm"></div>
+                                    <div className="profile-dropdown-btm">
+                                        <div className="drp-section">
+                                            <img src={myProfile} />
+                                            <p>My Account</p>
+                                        </div>
+                                        <div className="drp-section">
+                                            <img src={myOrders} />
+                                            <p>My Orders</p>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -79,7 +106,6 @@ const Nav = () => {
                         <img src={cart} />
                     </div>
                 </div>
-
             </div>
 
             {/* Categories Nav  */}
@@ -176,9 +202,7 @@ const Nav = () => {
                 <p>FREE DELIVERY WORLDWIDE</p>
             </div>
         </>
-
-
-    )
-}
+    );
+};
 
 export default Nav;
