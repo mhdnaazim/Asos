@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useStore } from "../../Context/StoreContext";
 import './WomenNav.css';
 import '../Men/Nav.css';
 import india from '../../assets/in.png'
@@ -7,12 +9,15 @@ import search from '../../assets/searchIcon.svg'
 import profile from '../../assets/profileIcon.svg';
 import fav from '../../assets/fav.svg';
 import cart from '../../assets/cart.svg';
-import { useNavigate } from "react-router-dom";
+import myProfile from '../../assets/profileIcon.svg';
+import myOrders from '../../assets/orders.png';
 
 const WomenNav = () => {
 
     const navigate = useNavigate();
-    const [showSale, setShowSale] = useState(false)
+    const { showSale, setShowSale } = useStore();
+    const [dropdown, setDropdown] = useState(false);
+    const [isHovering, setIsHovering] = useState(false);
 
     const handleMouseEnter = () => {
         setShowSale(true)
@@ -21,6 +26,14 @@ const WomenNav = () => {
     const handleMouseLeave = () => {
         setShowSale(false)
     }
+
+    useEffect(() => {
+        let timer;
+        if (!isHovering) {
+            timer = setTimeout(() => setDropdown(false), 250);
+        }
+        return () => clearTimeout(timer);
+    }, [isHovering]);
 
     return (
         <>
@@ -58,7 +71,38 @@ const WomenNav = () => {
                         </div>
                     </div>
                     <div className="nav-links">
-                        <img src={profile} />
+                        <div
+                            className="profile-icon-container"
+                            onMouseEnter={() => {
+                                setDropdown(true);
+                                setIsHovering(true);
+                            }}
+                            onMouseLeave={() => setIsHovering(false)}
+                        >
+                            <img src={profile} />
+
+                            {dropdown && (
+                                <div
+                                    className="profile-dropdown"
+                                    onMouseEnter={() => setIsHovering(true)}
+                                    onMouseLeave={() => setIsHovering(false)}
+                                >
+                                    <div className="profile-dropdown-top">
+                                        <p onClick={() => navigate("/login")}>Sign in</p>
+                                    </div>
+                                    <div className="profile-dropdown-btm">
+                                        <div className="drp-section">
+                                            <img src={myProfile} />
+                                            <p>My Account</p>
+                                        </div>
+                                        <div className="drp-section">
+                                            <img src={myOrders} />
+                                            <p>My Orders</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                         <img src={fav} />
                         <img src={cart} />
                     </div>

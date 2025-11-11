@@ -87,7 +87,7 @@ const Nav = () => {
                                     onMouseLeave={() => setIsHovering(false)}
                                 >
                                     <div className="profile-dropdown-top">
-                                        <p>Sign in</p>
+                                        <p onClick={() => navigate("/login")}>Login</p>
                                     </div>
                                     <div className="profile-dropdown-btm">
                                         <div className="drp-section">

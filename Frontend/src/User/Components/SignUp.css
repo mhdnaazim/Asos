@@ -111,6 +111,11 @@
     cursor: pointer;
 }
 
+.signup-inputs h4 span:hover{
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
 .interested {
     height: min-content;
     width: 100%;
