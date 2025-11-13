@@ -181,6 +181,7 @@
 }
 
 .searchbar input {
+    color: #525050;
     font-family: "Futura Cyrillic Light";
     font-size: 16px;
     font-weight: 600;
@@ -189,7 +190,11 @@
     width: 93%;
     border: none;
     outline: none;
+}
 
+.searchbar input::placeholder{
+    color: #525050;
+    font-family: "Futura Cyrillic Light";
 }
 
 .nav-links {

@@ -30,7 +30,7 @@ const Nav = () => {
     useEffect(() => {
         let timer;
         if (!isHovering) {
-            timer = setTimeout(() => setDropdown(false), 250);
+            timer = setTimeout(() => setDropdown(false), 200);
         }
         return () => clearTimeout(timer);
     }, [isHovering]);
