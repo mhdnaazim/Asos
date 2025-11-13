@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SignUp.css';
 import asos from '../../assets/asos.svg';
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [interest, setInterest] = useState("");
 
     return (
         <>
@@ -22,11 +23,23 @@ const SignUp = () => {
                         <h5>MOSTLY INTERESTED IN:</h5>
                         <div className="interest-checkbox">
                             <label>
-                                <input type="checkbox" value="menswear" />
+                                <input
+                                    type="radio"
+                                    name='interest'
+                                    value="Menswear"
+                                    checked={interest === "Menswear"}
+                                    onChange={(e) => setInterest(e.target.value)}
+                                />
                                 Menswear
                             </label>
                             <label>
-                                <input type="checkbox" value="Womenswear" />
+                                <input
+                                    type="radio"
+                                    name='interest'
+                                    value="Womenswear"
+                                    checked={interest === "Womenswear"}
+                                    onChange={(e) => setInterest(e.target.value)}
+                                />
                                 Womenswear
                             </label>
                         </div>

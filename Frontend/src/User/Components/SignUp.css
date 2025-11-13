@@ -155,7 +155,7 @@
     color: #007aff;
 }
 
-.interest-checkbox input[type="checkbox"] {
+.interest-checkbox input[type="radio"] {
     appearance: none;
     width: 18px;
     height: 18px;
@@ -166,12 +166,12 @@
     position: relative;
 }
 
-.interest-checkbox input[type="checkbox"]:checked {
+.interest-checkbox input[type="radio"]:checked {
     border-color: #007aff;
     background-color: #007aff;
 }
 
-.interest-checkbox input[type="checkbox"]:checked::after {
+.interest-checkbox input[type="radio"]:checked::after {
     content: "✓";
     position: absolute;
     color: #fff;

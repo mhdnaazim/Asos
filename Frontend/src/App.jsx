@@ -5,7 +5,7 @@ import WomenLanding from "./User/Women/WomenLanding";
 import { StoreProvider } from "./Context/StoreContext";
 import SignUp from "./User/Components/SignUp";
 import Login from "./User/Components/Login";
-import Dashboard from "./Admin/Dashboard";
+import Dashboard from './Admin/Dashboard'
 
 const App = () => {
   return (
