@@ -30,8 +30,8 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import LogoutIcon from "@mui/icons-material/Logout";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import "../App.css";
 import asos from "../assets/Logo.svg";
+import "../App.css";
 
 const drawerWidth = 250;
 
@@ -91,9 +91,13 @@ const Dashboard = () => {
 
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState("Manage Users");
-
+  
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
+  
+  // Pagination state
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleLogout = () => {
     navigate("/login");
@@ -120,9 +124,6 @@ const Dashboard = () => {
     { id: 12, name: "Mia White", email: "mia@example.com", role: "Moderator" },
   ];
 
-  // Pagination state
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   // Pagination handlers
   const handleChangePage = (event, newPage) => {
@@ -193,9 +194,9 @@ const Dashboard = () => {
                   sx={[
                     open
                       ? {
-                          opacity: 1,
-                          color: selected === item.text ? "#000" : "#444",
-                        }
+                        opacity: 1,
+                        color: selected === item.text ? "#000" : "#444",
+                      }
                       : { opacity: 0 },
                   ]}
                 />
@@ -230,7 +231,7 @@ const Dashboard = () => {
               edge="start"
               sx={{ mr: 2, ...(open && { display: "none" }) }}
             >
-              <ChevronRightIcon />
+              <ChevronRightIcon />/
             </IconButton>
             <Typography
               variant="h6"
@@ -266,9 +267,9 @@ const Dashboard = () => {
               }}
             >
               <Typography variant="h6" gutterBottom
-              sx={{
-                fontFamily: "Poppins",
-              }}
+                sx={{
+                  fontFamily: "Poppins",
+                }}
               >
                 Manage Users
               </Typography>
@@ -277,12 +278,13 @@ const Dashboard = () => {
               <TableContainer
                 component={Paper}
                 sx={{
-                  borderRadius: "12px",
+                  borderRadius: "15px",
                   boxShadow: "0 3px 15px rgba(0,0,0,0.05)",
+                  marginTop: "20px"
                 }}
               >
                 <Table>
-                  <TableHead sx={{ backgroundColor: "black"}}>
+                  <TableHead sx={{ backgroundColor: "black" }}>
                     <TableRow>
                       <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
                         ID
