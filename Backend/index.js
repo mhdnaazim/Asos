@@ -1,17 +1,18 @@
 import express from 'express';
 import cors from 'cors';
-import mysql from 'mysql2';
+import userRoutes from './Routes/userRoutes.js'
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-const db = mysql.createConnection(
-    {
-        host: "localhost",
-        user: "root",
-        password: "sql123",
-        database: "asos"
-    }
-)
+
+app.use("/api/user", userRoutes);
+
+
+const port = 3000;
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});

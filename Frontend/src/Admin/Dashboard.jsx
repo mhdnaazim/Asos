@@ -231,7 +231,7 @@ const Dashboard = () => {
               edge="start"
               sx={{ mr: 2, ...(open && { display: "none" }) }}
             >
-              <ChevronRightIcon />/
+              <ChevronRightIcon />
             </IconButton>
             <Typography
               variant="h6"
