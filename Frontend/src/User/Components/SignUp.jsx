@@ -24,11 +24,7 @@ const SignUp = () => {
         }
 
         try {
-            const response = await axios.post(`${URL}/user/addUser`, {
-                email: user.email,
-                password: user.password,
-                interest: user.interest
-            });
+            const response = await axios.post(`${URL}/user/addUser`,user);
 
             if (response.status === 200) {
                 alert("Registration Successful");
@@ -42,7 +38,6 @@ const SignUp = () => {
         } catch (error) {
             console.log(error);
         }
-
     };
 
     const handleChange = (e) => {
@@ -116,7 +111,7 @@ const SignUp = () => {
 
                     <h4>
                         Already Signed?
-                        <span onClick={() => navigate("/login")}> Login</span>
+                        <span onClick={() => navigate("/login")}>Login</span>
                     </h4>
                 </div>
             </div>

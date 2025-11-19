@@ -6,6 +6,7 @@ import { StoreProvider } from "./Context/StoreContext";
 import SignUp from "./User/Components/SignUp";
 import Login from "./User/Components/Login";
 import Dashboard from './Admin/Dashboard'
+import UserEdit from "./Admin/UserEdit";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
 
           {/* Admin  */}
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/edit" element={<UserEdit />} />
 
         </Routes>
       </BrowserRouter>

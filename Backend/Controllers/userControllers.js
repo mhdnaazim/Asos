@@ -1,10 +1,12 @@
 import db from '../Config/db.js';
 
+
+// User Registration 
 export const addUser = (req, res) => {
     const { email, password, interest } = req.body;
 
     const checkSql = "SELECT * FROM users WHERE email = ?";
-    
+
     db.query(checkSql, [email], (err, result) => {
         if (err) {
             console.log(err);
@@ -29,19 +31,19 @@ export const addUser = (req, res) => {
 };
 
 
-
 // Fetch Users
 export const fetchUsers = ((req, res) => {
+    const sql = "SELECT * FROM users";
 
-    db.query("SELECT * FROM users", (err, result) => {
+    db.query(sql, (err, result) => {
         if (err) {
-            console.log(err);
-            res.status(500).json("Server Error");
+            return res.status(500).json("Server Error");
         } else {
-            res.status(200).json(result);
+            return res.status(200).json(result);
         }
-    })
-})
+    });
+});
+
 
 // Delete User
 export const delUser = ((req, res) => {
@@ -56,3 +58,35 @@ export const delUser = ((req, res) => {
         }
     });
 });
+
+// Edit User 
+export const editUser = ((req, res) => {
+    const id = req.params.id;
+    const sql = "SELECT * FROM users WHERE userid = ?"
+
+    db.query(sql, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json("Server Error")
+        } else {
+            res.status(200).json(result[0])
+        }
+    })
+})
+
+// Updated User 
+export const updatedUser = ((req, res) => {
+    const id = req.params.id;
+    const { email, password, interest } = req.body
+    const values = [ email, password, interest, id ]
+    const sql = "UPDATE users SET email = ?, password = ?, interest = ? WHERE userid = ?"
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json("Server Error");
+        } else {
+            res.status(200).json(result);
+        }
+    })
+})

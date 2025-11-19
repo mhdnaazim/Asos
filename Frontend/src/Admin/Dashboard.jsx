@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -93,10 +93,10 @@ const Dashboard = () => {
 
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState("Manage Users");
-  
+
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
-  
+
   // Pagination state
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -110,23 +110,6 @@ const Dashboard = () => {
     { text: "Manage Products", icon: <InventoryIcon /> },
   ];
 
-  // Sample user data
-  const users = [
-    { id: 1, name: "John Doe", email: "john@example.com", role: "Admin" },
-    { id: 2, name: "Sarah Smith", email: "sarah@example.com", role: "User" },
-    { id: 3, name: "Michael Lee", email: "michael@example.com", role: "User" },
-    { id: 4, name: "Emma Brown", email: "emma@example.com", role: "Moderator" },
-    { id: 5, name: "David Miller", email: "david@example.com", role: "User" },
-    { id: 6, name: "Sophia Wilson", email: "sophia@example.com", role: "User" },
-    { id: 7, name: "James Anderson", email: "james@example.com", role: "Admin" },
-    { id: 8, name: "Olivia Taylor", email: "olivia@example.com", role: "Moderator" },
-    { id: 9, name: "William Scott", email: "william@example.com", role: "User" },
-    { id: 10, name: "Ava Thomas", email: "ava@example.com", role: "User" },
-    { id: 11, name: "Lucas Clark", email: "lucas@example.com", role: "User" },
-    { id: 12, name: "Mia White", email: "mia@example.com", role: "Moderator" },
-  ];
-
-
   // Pagination handlers
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -137,7 +120,39 @@ const Dashboard = () => {
     setPage(0);
   };
 
-  
+
+  const URL = import.meta.env.VITE_API_URL;
+  const [userList, setUserList] = useState([])
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get(`${URL}/user/fetchUsers`);
+      console.log("URL is:", URL);
+      setUserList(response.data);
+      console.log(response.data);
+
+    } catch (error) {
+    }
+  }
+
+  const handleDelete = async (userid) => {
+    try {
+      const response = await axios.delete(`${URL}/user/delUser/${userid}`)
+      fetchUsers()
+      return;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleEdit = (userid) => {
+    navigate(`/edit/${userid}`);
+  }
+
+  useEffect(() => {
+    fetchUsers()
+  }, [])
+
 
   return (
     <Box sx={{ display: "flex", bgcolor: "#f4f6f8" }}>
@@ -290,16 +305,19 @@ const Dashboard = () => {
                 <Table>
                   <TableHead sx={{ backgroundColor: "black" }}>
                     <TableRow>
-                      <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
-                        ID
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>
+                        Id
                       </TableCell>
-                      <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>
                         Email
                       </TableCell>
-                      <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>
                         Password
                       </TableCell>
-                      <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>
+                        Interest
+                      </TableCell>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>
                         Usertype
                       </TableCell>
                       <TableCell
@@ -311,26 +329,26 @@ const Dashboard = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {users
+                    {userList
                       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                      .map((user) => (
+                      .map((item) => (
                         <TableRow
-                          key={user.id + user.email}
                           sx={{
                             "&:hover": {
                               backgroundColor: "#f9f9f9",
                             },
                           }}
                         >
-                          <TableCell>{user.id}</TableCell>
-                          <TableCell>{user.name}</TableCell>
-                          <TableCell>{user.email}</TableCell>
-                          <TableCell>{user.role}</TableCell>
+                          <TableCell>{item.userid}</TableCell>
+                          <TableCell>{item.email}</TableCell>
+                          <TableCell>{item.password}</TableCell>
+                          <TableCell>{item.interest}</TableCell>
+                          <TableCell>{item.usertype}</TableCell>
                           <TableCell align="center">
-                            <IconButton color="primary" size="small" sx={{ mr: 1 }}>
+                            <IconButton onClick={() => handleEdit(item.userid)} color="primary" size="small" sx={{ mr: 1 }}>
                               <EditIcon />
                             </IconButton>
-                            <IconButton color="error" size="small">
+                            <IconButton onClick={() => handleDelete(item.userid)} color="error" size="small">
                               <DeleteIcon />
                             </IconButton>
                           </TableCell>
@@ -341,7 +359,7 @@ const Dashboard = () => {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 15]}
                   component="div"
-                  count={users.length}
+                  count={userList.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   onPageChange={handleChangePage}
