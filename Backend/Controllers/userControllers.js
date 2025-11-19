@@ -69,7 +69,7 @@ export const editUser = ((req, res) => {
             console.log(err);
             res.status(500).json("Server Error")
         } else {
-            res.status(200).json(result[0])
+            res.status(200).json(result)
         }
     })
 })
@@ -77,9 +77,9 @@ export const editUser = ((req, res) => {
 // Updated User 
 export const updatedUser = ((req, res) => {
     const id = req.params.id;
-    const { email, password, interest } = req.body
-    const values = [ email, password, interest, id ]
-    const sql = "UPDATE users SET email = ?, password = ?, interest = ? WHERE userid = ?"
+    const { email, password, interest, usertype } = req.body
+    const values = [ email, password, interest, usertype, id ]
+    const sql = "UPDATE users SET email = ?, password = ?, interest = ?, usertype = ? WHERE userid = ?"
 
     db.query(sql, values, (err, result) => {
         if (err) {

@@ -127,9 +127,7 @@ const Dashboard = () => {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(`${URL}/user/fetchUsers`);
-      console.log("URL is:", URL);
       setUserList(response.data);
-      console.log(response.data);
 
     } catch (error) {
     }
@@ -146,7 +144,7 @@ const Dashboard = () => {
   }
 
   const handleEdit = (userid) => {
-    navigate(`/edit/${userid}`);
+    navigate(`/edit/${userid}`)
   }
 
   useEffect(() => {

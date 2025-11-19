@@ -1,56 +1,62 @@
 import React, { useState } from "react";
 import '../User/Components/SignUp.css';
 import asos from "../assets/asos.svg";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import axios, { AxiosError } from "axios";
 
 const UserEdit = () => {
 
     const URL = import.meta.env.VITE_API_URL;
-    const {id} = useParams()
+    console.log("URL is:", URL);
+
+    const navigate = useNavigate();
+    const { id } = useParams()
     const [updatedUser, setUpdatedUser] = useState({
         email: "",
         password: "",
         interest: "",
-    });
-    const navigate = useNavigate()
+        usertype: ""
+    })
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUpdatedUser((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleFetchUser = async () => {
+    const handleFetch = async () => {
         try {
             const response = await axios.get(`${URL}/user/editUser/${id}`);
             setUpdatedUser({
-                email: response.data.email,
-                password: response.data.password,
-                interest: response.data.interest
+                email: response.data[0].email,
+                password: response.data[0].password,
+                interest: response.data[0].interest,
+                usertype: response.data[0].usertype
             })
-            console.log("API Response:", response.data);
         } catch (error) {
-            console.log(error);
-        }
-    }
 
-    const handleSave = async () => {
-        try {
-            const response = await axios.put(`${URL}/user/updatedUser/${id}`, updatedUser);
-            console.log(response);
-            if(response.status === 200){
-                alert("User Updated Successfully");
-                navigate("/dashboard")
-            }
-        } catch (error) {
-            console.log(error);
         }
     }
 
     useEffect(() => {
-        handleFetchUser()
+        handleFetch()
     }, [])
+
+    const handleUpdate = async () => {
+        try {
+            const response = await axios.put(`${URL}/user/updatedUser/${id}`, updatedUser);
+            if (response.status === 200) {
+                alert("User Updated Successfully");
+                navigate("/dashboard");
+            } else {
+                alert("error updating user")
+            }
+        } catch (error) {
+
+        }
+    }
+
 
     return (
         <>
@@ -70,7 +76,7 @@ const UserEdit = () => {
                     />
 
                     <input
-                        type="password"
+                        type="text"
                         placeholder="New Password"
                         name="password"
                         value={updatedUser.password}
@@ -79,22 +85,59 @@ const UserEdit = () => {
 
                     <div className="interested">
                         <h5>INTEREST:</h5>
-
                         <div className="interest-checkbox">
                             <label>
-                                <input type="radio" name="interest" value="Menswear" checked={updatedUser.interest === "Menswear"} onChange={handleChange} />
+                                <input
+                                    type="radio"
+                                    name="interest"
+                                    value="Menswear"
+                                    checked={updatedUser.interest == "Menswear"}
+                                    onChange={handleChange}
+                                />
                                 Menswear
                             </label>
 
                             <label>
-                                <input type="radio" name="interest" value="Womenswear" checked={updatedUser.interest === "Womenswear"} onChange={handleChange} />
+                                <input
+                                    type="radio"
+                                    name="interest"
+                                    value="Womenswear"
+                                    checked={updatedUser.interest == "Womenswear"}
+                                    onChange={handleChange}
+                                />
                                 Womenswear
                             </label>
                         </div>
                     </div>
 
+                    <div className="interested">
+                        <h5>USER TYPE:</h5>
+                        <div className="interest-checkbox">
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="usertype"
+                                    value="Admin"
+                                    checked={updatedUser.usertype == "Admin"}
+                                    onChange={handleChange}
+                                />
+                                Admin
+                            </label>
 
-                    <button onClick={handleSave}>UPDATE</button>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="usertype"
+                                    value="User"
+                                    checked={updatedUser.usertype == "User"}
+                                    onChange={handleChange}
+                                />
+                                User
+                            </label>
+                        </div>
+                    </div>
+
+                    <button onClick={handleUpdate}>UPDATE</button>
                 </div>
             </div>
         </>

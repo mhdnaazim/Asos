@@ -50,7 +50,7 @@ const SignUp = () => {
             <div className="signup-container">
                 <div className="signup-inputs">
                     <div className="signup-top">
-                        <img src={asos} alt="logo" />
+                        <img src={asos} alt="logo" onClick={() => navigate("/")} />
                         <p>SIGN UP</p>
                     </div>
 

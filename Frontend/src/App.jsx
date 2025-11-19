@@ -27,7 +27,7 @@ const App = () => {
 
           {/* Admin  */}
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/edit" element={<UserEdit />} />
+          <Route path="/edit/:id" element={<UserEdit />} />
 
         </Routes>
       </BrowserRouter>

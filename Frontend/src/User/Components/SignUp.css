@@ -66,6 +66,7 @@
     height: 80px;
     width: 80px;
     object-fit: contain;
+    cursor: pointer;
 }
 
 .signup-inputs input{
