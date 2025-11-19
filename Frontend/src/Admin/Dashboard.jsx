@@ -32,6 +32,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import asos from "../assets/Logo.svg";
 import "../App.css";
+import { useEffect } from "react";
+import axios from "axios";
 
 const drawerWidth = 250;
 
@@ -134,6 +136,8 @@ const Dashboard = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  
 
   return (
     <Box sx={{ display: "flex", bgcolor: "#f4f6f8" }}>

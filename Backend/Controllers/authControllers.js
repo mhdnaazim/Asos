@@ -1,16 +1,16 @@
-import db from '../Config/db.js'
+import db from '../Config/db.js';
 
 // User Login
 export const logUser = ((req, res) => {
     const { email, password } = req.body;
-    const values = [email, password]
+    const values = [ email, password ];
     const sql = "SELECT * FROM users WHERE email = ? AND password = ?";
 
     db.query(sql, values, (err, result) => {
         if (err) {
             console.log(err);
             res.status(500).json("Server Error");
-        }
+        };
 
         if (result.length > 0) {
             // User found
