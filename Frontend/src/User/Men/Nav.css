@@ -211,6 +211,19 @@
     height: 20px;
     width: 20px;
     cursor: pointer;
+    position: relative;
+    z-index: 9;
+}
+
+.cart-qty p{
+    font-family: "Futura Cyrillic Medium";
+    color: #fff;
+    font-size: 10px;
+    position: absolute;
+    z-index: 99;
+    right: 356px;
+    top: 56px;
+    cursor: pointer;
 }
 
 

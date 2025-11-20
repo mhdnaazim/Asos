@@ -103,7 +103,10 @@ const Nav = () => {
                             )}
                         </div>
                         <img src={fav} />
-                        <img src={cart} />
+                        <img onClick={() => navigate("/cart")} src={cart} />
+                        <div className="cart-qty">
+                            <p onClick={() => navigate("/cart")}>10</p>
+                        </div>
                     </div>
                 </div>
             </div>

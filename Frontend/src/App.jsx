@@ -7,6 +7,7 @@ import SignUp from "./User/Components/SignUp";
 import Login from "./User/Components/Login";
 import Dashboard from './Admin/Dashboard'
 import UserEdit from "./Admin/UserEdit";
+import Cart from "./User/Components/Cart";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           {/* Components  */}
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/cart" element={<Cart />} />
 
           {/* Men  */}
           <Route path="/" element={<MenLanding />}/>
