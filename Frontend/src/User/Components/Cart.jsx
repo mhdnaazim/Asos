@@ -9,7 +9,7 @@ import pay2 from '../../assets/mastercard.png';
 import pay3 from '../../assets/paypal.png';
 import pay4 from '../../assets/amex.png';
 import pay5 from '../../assets/visa-electron.png';
-import sample from '../../assets/mb2.jpg';
+import sample from '../../assets/cl6.avif';
 
 const Cart = () => {
     const navigate = useNavigate();
@@ -28,6 +28,9 @@ const Cart = () => {
         { name: "Uniqlo ultra light padded jacket", image: sample, price: "89.00", color: "Olive", size: "XL", quantity: "1" }
     ];
 
+    const sizes = ["S", "M", "L", "XL"];
+    const quantities = Array.from({ length: 10 }, (_, i) => i + 1);
+
 
     return (
         <>
@@ -37,7 +40,33 @@ const Cart = () => {
                     <div className="cart-left-top">
                         <p>MY BAG</p>
                     </div>
-                    <div className="cart-left-items"></div>
+                    <div className="cart-left-items">
+                        <div className="cart-products">
+                            <div className="cart-products-image">
+                                <img src={sample} alt="" />
+                            </div>
+                            <div className="cart-products-details">
+                                <h4>$92.00 <span>✕</span></h4>
+                                <p>Weekday boxy oversized fit hoodie with dragon graphic print in black</p>
+                                <div className="cart-product-spec">
+                                    <p>Black</p>
+                                    <h5>|</h5>
+                                    <select name="size">
+                                        {sizes.map(size => (
+                                            <option key={size} value={size}>{size}</option>
+                                        ))}
+                                    </select>
+                                        <h5>|</h5>
+                                    <select name="quantity">
+                                        {quantities.map(q => (
+                                            <option key={q} value={q}>{q}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <button>Save for later</button>
+                            </div>
+                        </div>
+                    </div>
                     <div className="cart-left-bottom">
                         <div className="cart-left-bottom-icon">
                             <img src={delivery} />

@@ -1,0 +1,35 @@
+@font-face {
+    font-family: "Futura Cyrillic Heavy";
+    src: url("/Font/FuturaCyrillicHeavy.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Medium";
+    src: url("/Font/FuturaCyrillicMedium.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Light";
+    src: url("/Font/FuturaCyrillicLight.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Book";
+    src: url("/Font/FuturaCyrillicBook.ttf") format("truetype");
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.profile{
+    background-color: green;
+    height: 700px;
+    width: 100%;
+}

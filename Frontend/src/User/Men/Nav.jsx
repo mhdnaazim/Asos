@@ -30,7 +30,7 @@ const Nav = () => {
     useEffect(() => {
         let timer;
         if (!isHovering) {
-            timer = setTimeout(() => setDropdown(false), 200);
+            timer = setTimeout(() => setDropdown(false), 150);
         }
         return () => clearTimeout(timer);
     }, [isHovering]);
@@ -76,23 +76,24 @@ const Nav = () => {
                                 setDropdown(true);
                                 setIsHovering(true);
                             }}
-                            onMouseLeave={() => setIsHovering(false)}
-                        >
+                            onMouseLeave={() => {
+                                setIsHovering(false);
+                            }}>
                             <img src={profile} />
 
                             {dropdown && (
                                 <div
                                     className="profile-dropdown"
                                     onMouseEnter={() => setIsHovering(true)}
-                                    onMouseLeave={() => setIsHovering(false)}
-                                >
+                                    onMouseLeave={() => setIsHovering(false)}>
+
                                     <div className="profile-dropdown-top">
                                         <p onClick={() => navigate("/login")}>Login</p>
                                     </div>
                                     <div className="profile-dropdown-btm">
                                         <div className="drp-section">
                                             <img src={myProfile} />
-                                            <p>My Account</p>
+                                            <p onClick={() => navigate("/profile")}>My Account</p>
                                         </div>
                                         <div className="drp-section">
                                             <img src={myOrders} />
@@ -102,6 +103,7 @@ const Nav = () => {
                                 </div>
                             )}
                         </div>
+
                         <img src={fav} />
                         <img onClick={() => navigate("/cart")} src={cart} />
                         <div className="cart-qty">

@@ -93,7 +93,7 @@ const WomenNav = () => {
                                     <div className="profile-dropdown-btm">
                                         <div className="drp-section">
                                             <img src={myProfile} />
-                                            <p>My Account</p>
+                                            <p onClick={() => navigate("/profile")}>My Account</p>
                                         </div>
                                         <div className="drp-section">
                                             <img src={myOrders} />
@@ -105,6 +105,9 @@ const WomenNav = () => {
                         </div>
                         <img src={fav} />
                         <img src={cart} />
+                        <div className="cart-qty">
+                            <p onClick={() => navigate("/cart")}>10</p>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -37,7 +37,6 @@
     align-items: center;
     justify-content: center;
     padding-left: 1100px;
-    z-index: 30;
 }
 
 .miniNav-contents {
@@ -262,12 +261,10 @@
     color: #525050;
 }
 
-
 /* Category Tiles  */
-
 .sale-tile {
     position: absolute;
-    z-index: 3;
+    z-index: 9999;
     height: 400px;
     width: 100%;
     display: flex;
@@ -278,7 +275,7 @@
 .sale-tile-container {
     background-color: #fff;
     position: absolute;
-    z-index: 4;
+    z-index: 10000;
     height: 100%;
     width: 63%;
     display: none;
@@ -404,7 +401,6 @@
     gap: 20px;
     padding: 20px 15px;
 }
-
 
 .drp-section {
     height: min-content;

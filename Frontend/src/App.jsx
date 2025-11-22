@@ -8,6 +8,7 @@ import Login from "./User/Components/Login";
 import Dashboard from './Admin/Dashboard'
 import UserEdit from "./Admin/UserEdit";
 import Cart from "./User/Components/Cart";
+import Profile from "./User/Components/Profile";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/profile" element={<Profile />} />
 
           {/* Men  */}
           <Route path="/" element={<MenLanding />}/>
