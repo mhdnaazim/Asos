@@ -349,9 +349,10 @@
 /* Drop Menu  */
 .profile-icon-container {
     position: relative;
+    z-index: 500;
     display: inline-block;
     cursor: pointer;
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 /* Dropdown */
@@ -362,15 +363,15 @@
     background-color: #fff;
     border: 1px solid #5250503b;
     z-index: 999;
-    width: 280px;
-    height: 150px;
+    width: 170px;
+    height: 100px;
     display: flex;
     flex-direction: column;
     transform: translateY(5px);
 }
 
 .profile-dropdown-top {
-    height: 20%;
+    height: 30%;
     width: 100%;
     display: flex;
     align-items: center;
@@ -381,7 +382,7 @@
 .profile-dropdown-top p {
     color: #525050;
     font-family: "Futura Cyrillic Medium";
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
     letter-spacing: 1px;
     transition: color 0.2s ease;
@@ -394,7 +395,7 @@
 }
 
 .profile-dropdown-btm {
-    height: 80%;
+    height: 70%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -410,8 +411,8 @@
 }
 
 .drp-section img {
-    height: 15px;
-    width: 15px;
+    height: 12px;
+    width: 12px;
     object-fit: contain;
     filter: brightness(0);
     margin-top: 4px;
@@ -420,7 +421,7 @@
 
 .drp-section p {
     font-family: "Futura Cyrillic Medium";
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 1px;
     color: #525050;
 }

@@ -28,8 +28,188 @@
     box-sizing: border-box;
 }
 
-.profile{
-    background-color: green;
-    height: 700px;
+.profile-container {
+    background-color: #EEEEEE;
+    height: 100vh;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.profile-top{
+    height: 10%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-top-left{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.profile-top-left img{
+    object-fit: contain;
+    height: 28px;
+    width: 100px;
+    cursor: pointer;
+}
+
+.profile-top-right{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 10px;
+}   
+
+.profile-top-right p{
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 25px;
+    letter-spacing: 2px;
+}
+
+.profile{
+    height: 80%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-left{
+    height: 100%;
+    width: 32%;
+}
+
+.profile-details{
+    background-color: #fff;
+    height: 200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-details-abb{
+    background-color: #2d2d2d;
+    color: #fff;
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -20px;
+}
+
+.profile-details-abb p{
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 38px;
+    letter-spacing: 1px;
+}
+
+.profile-details-name{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.profile-details-name p{
+    font-family: "Futura Cyrillic Book";
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.profile-details-name h4{
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.profile-option-container{
+    background-color: #fff;
+    height: 590px;
+    width: 100%;
+}
+
+.profile-option,
+.profile-option-signout
+{
+    height: 56px;
+    width: 100%;
+    border-bottom: 1px solid #2d2d2d18;
+    display: flex;
+    align-items: center;
+    padding-left: 40px;
+}
+
+.profile-option:hover,
+.profile-option-signout:hover{
+    background-color: #EEEEEE;
+    text-decoration: underline;
+    text-underline-offset: 1px;
+}
+
+.profile-option-signout{
+    border-top: 1px solid #2d2d2d18;
+    margin-top: 200px;
+}
+
+.profile-option p,
+.profile-option-signout p
+{
+    font-family: "Futura Cyrillic Medium";
+    font-size: 18px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.profile-right{
+    background-image: url(../../assets/blckwhite.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 66%;
+    display: flex;
+    flex-direction: column;
+    padding: 70px 30px;
+    gap: 5px;
+}
+
+.welcome1{
+    background-color: #2d2d2d;
+    height: 56px;
+    width: 210px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome2{
+    background-color: #2d2d2d;
+    height: 56px;
+    width: 250px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.welcome1 p,
+.welcome2 p
+{
+    color: #fff;
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 28px;
+    letter-spacing: 1px;
 }

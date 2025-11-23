@@ -30,7 +30,7 @@ const Nav = () => {
     useEffect(() => {
         let timer;
         if (!isHovering) {
-            timer = setTimeout(() => setDropdown(false), 150);
+            timer = setTimeout(() => setDropdown(false), 500);
         }
         return () => clearTimeout(timer);
     }, [isHovering]);
@@ -84,7 +84,10 @@ const Nav = () => {
                             {dropdown && (
                                 <div
                                     className="profile-dropdown"
-                                    onMouseEnter={() => setIsHovering(true)}
+                                    onMouseEnter={() => {
+                                        setDropdown(true);
+                                        setIsHovering(true)
+                                    }}
                                     onMouseLeave={() => setIsHovering(false)}>
 
                                     <div className="profile-dropdown-top">
@@ -95,10 +98,10 @@ const Nav = () => {
                                             <img src={myProfile} />
                                             <p onClick={() => navigate("/profile")}>My Account</p>
                                         </div>
-                                        <div className="drp-section">
+                                        {/* <div className="drp-section">
                                             <img src={myOrders} />
                                             <p>My Orders</p>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             )}
