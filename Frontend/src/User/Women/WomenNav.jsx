@@ -27,10 +27,25 @@ const WomenNav = () => {
         setShowSale(false)
     }
 
+    const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+
+    const handleLogout = () => {
+        localStorage.removeItem("loggedUser");
+        navigate("/")
+    }
+
+    const handleProfile = () => {
+        if (!loggedUser) {
+            alert("Login first")
+        } else {
+            navigate("/profile")
+        }
+    }
+
     useEffect(() => {
         let timer;
         if (!isHovering) {
-            timer = setTimeout(() => setDropdown(false), 250);
+            timer = setTimeout(() => setDropdown(false), 500);
         }
         return () => clearTimeout(timer);
     }, [isHovering]);
@@ -88,16 +103,16 @@ const WomenNav = () => {
                                     onMouseLeave={() => setIsHovering(false)}
                                 >
                                     <div className="profile-dropdown-top">
-                                        <p onClick={() => navigate("/login")}>Sign in</p>
+                                        {!loggedUser ? (
+                                            <p onClick={() => navigate("/login")}>Login</p>
+                                        ) : (
+                                            <p onClick={handleLogout}>Logout</p>
+                                        )}
                                     </div>
                                     <div className="profile-dropdown-btm">
                                         <div className="drp-section">
                                             <img src={myProfile} />
                                             <p onClick={() => navigate("/profile")}>My Account</p>
-                                        </div>
-                                        <div className="drp-section">
-                                            <img src={myOrders} />
-                                            <p>My Orders</p>
                                         </div>
                                     </div>
                                 </div>

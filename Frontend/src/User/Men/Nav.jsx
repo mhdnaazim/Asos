@@ -9,7 +9,6 @@ import profile from '../../assets/profileIcon.svg';
 import fav from '../../assets/fav.svg';
 import cart from '../../assets/cart.svg';
 import myProfile from '../../assets/profileIcon.svg';
-import myOrders from '../../assets/orders.png';
 
 const Nav = () => {
 
@@ -25,6 +24,22 @@ const Nav = () => {
     const handleMouseLeave = () => {
         setShowSale(false);
     };
+    
+    const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+
+    const handleLogout = () => {
+        localStorage.removeItem("loggedUser");
+        navigate("/")
+    }
+
+    const handleProfile = () => {
+        if (!loggedUser) {
+            alert("Login first")
+        } else {
+            navigate("/profile")
+        }
+    }
+
 
     // Delay dropdown close when not hovering
     useEffect(() => {
@@ -91,17 +106,18 @@ const Nav = () => {
                                     onMouseLeave={() => setIsHovering(false)}>
 
                                     <div className="profile-dropdown-top">
-                                        <p onClick={() => navigate("/login")}>Login</p>
+                                        {!loggedUser ? (
+                                            <p onClick={() => navigate("/login")}>Login</p>
+                                        ) : (
+                                            <p onClick={handleLogout}>Logout</p>
+                                        )}
                                     </div>
                                     <div className="profile-dropdown-btm">
                                         <div className="drp-section">
                                             <img src={myProfile} />
-                                            <p onClick={() => navigate("/profile")}>My Account</p>
+                                            <p onClick={handleProfile}>My Account</p>
                                         </div>
-                                        {/* <div className="drp-section">
-                                            <img src={myOrders} />
-                                            <p>My Orders</p>
-                                        </div> */}
+
                                     </div>
                                 </div>
                             )}

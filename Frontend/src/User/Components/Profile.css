@@ -38,7 +38,7 @@
     justify-content: start;
 }
 
-.profile-top{
+.profile-top {
     height: 10%;
     width: 50%;
     display: flex;
@@ -46,7 +46,7 @@
     justify-content: center;
 }
 
-.profile-top-left{
+.profile-top-left {
     height: 100%;
     width: 50%;
     display: flex;
@@ -54,29 +54,29 @@
     padding-left: 10px;
 }
 
-.profile-top-left img{
+.profile-top-left img {
     object-fit: contain;
     height: 28px;
     width: 100px;
     cursor: pointer;
 }
 
-.profile-top-right{
+.profile-top-right {
     height: 100%;
     width: 50%;
     display: flex;
     align-items: center;
     justify-content: end;
     padding-right: 10px;
-}   
+}
 
-.profile-top-right p{
+.profile-top-right p {
     font-family: "Futura Cyrillic Heavy";
     font-size: 25px;
     letter-spacing: 2px;
 }
 
-.profile{
+.profile {
     height: 80%;
     width: 50%;
     display: flex;
@@ -84,12 +84,16 @@
     justify-content: space-between;
 }
 
-.profile-left{
+.profile-left {
     height: 100%;
     width: 32%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.profile-details{
+.profile-details {
     background-color: #fff;
     height: 200px;
     width: 100%;
@@ -98,7 +102,7 @@
     gap: 15px;
 }
 
-.profile-details-abb{
+.profile-details-abb {
     background-color: #2d2d2d;
     color: #fff;
     height: 90px;
@@ -107,43 +111,43 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: -20px;
+    margin-left: -12px;
 }
 
-.profile-details-abb p{
-    font-family: "Futura Cyrillic Heavy";
-    font-size: 38px;
-    letter-spacing: 1px;
+.profile-details-abb img {
+    object-fit: contain;
+    height: 70px;
+    width: 70px;
+    filter: invert(1);
 }
 
-.profile-details-name{
+.profile-details-name {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.profile-details-name p{
+.profile-details-name p {
     font-family: "Futura Cyrillic Book";
     font-size: 16px;
     letter-spacing: 1px;
 }
 
-.profile-details-name h4{
+.profile-details-name h4 {
     font-family: "Futura Cyrillic Heavy";
     font-size: 18px;
     letter-spacing: 2px;
 }
 
-.profile-option-container{
+.profile-option-container {
     background-color: #fff;
-    height: 590px;
+    height: 585px;
     width: 100%;
 }
 
 .profile-option,
-.profile-option-signout
-{
-    height: 56px;
+.profile-option-signout {
+    height: 55px;
     width: 100%;
     border-bottom: 1px solid #2d2d2d18;
     display: flex;
@@ -152,27 +156,27 @@
 }
 
 .profile-option:hover,
-.profile-option-signout:hover{
+.profile-option-signout:hover {
     background-color: #EEEEEE;
     text-decoration: underline;
     text-underline-offset: 1px;
 }
 
-.profile-option-signout{
+.profile-option-signout {
     border-top: 1px solid #2d2d2d18;
+    border-bottom: none;
     margin-top: 200px;
 }
 
 .profile-option p,
-.profile-option-signout p
-{
+.profile-option-signout p {
     font-family: "Futura Cyrillic Medium";
     font-size: 18px;
     letter-spacing: 1px;
     cursor: pointer;
 }
 
-.profile-right{
+/* .profile-right{
     background-image: url(../../assets/blckwhite.svg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -182,9 +186,100 @@
     flex-direction: column;
     padding: 70px 30px;
     gap: 5px;
+} */
+
+.profile-right {
+    background-color: #fff;
+    height: 100%;
+    width: 66%;
+    padding: 70px 30px;
 }
 
-.welcome1{
+.profile-title h2 {
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 35px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.profile-title p {
+    font-family: "Futura Cyrillic Book";
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+.profile-form label {
+    font-family: "Futura Cyrillic Book";
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 15px 0 6px;
+    letter-spacing: 1.5px;
+
+}
+
+.profile-form input,
+.profile-form select {
+    font-family: "Futura Cyrillic Book";
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    outline: none;
+    border-radius: 2px;
+    letter-spacing: 1px;
+}
+
+.profile-form input:focus,
+.profile-form select:focus {
+    border-color: #000;
+}
+
+.dob-row {
+    display: flex;
+    gap: 10px;
+}
+
+.dob-row select {
+    flex: 1;
+}
+
+.radio-row {
+    display: flex;
+    gap: 25px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.save-btn {
+    height: 48px;
+    width: 100%;
+    margin-top: 25px;
+    background-color: #eeeeee;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background-color: #d8d8d8;
+}
+
+
+.welcome1 {
     background-color: #2d2d2d;
     height: 56px;
     width: 210px;
@@ -194,7 +289,7 @@
     justify-content: center;
 }
 
-.welcome2{
+.welcome2 {
     background-color: #2d2d2d;
     height: 56px;
     width: 250px;
@@ -206,8 +301,7 @@
 
 
 .welcome1 p,
-.welcome2 p
-{
+.welcome2 p {
     color: #fff;
     font-family: "Futura Cyrillic Heavy";
     font-size: 28px;

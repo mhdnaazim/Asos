@@ -15,8 +15,7 @@ export const logUser = ((req, res) => {
         if (result.length > 0) {
             // User found
             res.status(200).json({ 
-                usertype: result[0].usertype,
-                interest: result[0].interest
+                user: result[0]
              });
         } else {
             // User not found

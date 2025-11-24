@@ -16,30 +16,33 @@ const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: ""
-  })
+  });
 
   const handleLogin = async () => {
     try {
       const response = await axios.post(`${URL}/auth/logUser`, formData);
-      const data = response.data;
+      const data = response.data.user;
       console.log(response.data);
       
       if(data.usertype === "Admin"){
-        navigate("/dashboard")
+        navigate("/dashboard");
       } else if(data.interest === "Womenswear"){
-        navigate("/women")
+        navigate("/women");
       } else{
-        navigate("/")
+        navigate("/");
       }
 
+      localStorage.setItem("loggedUser", JSON.stringify(data));
+      console.log(data);
+
     } catch (error) {
-      alert("Invalid Email or Password")
+      alert("Invalid Email or Password");
     }
   }
 
   const handleChange = (e) => {
     const {name, value} = e.target;
-    setFormData((prev) => ({...prev, [name]: value}))
+    setFormData((prev) => ({...prev, [name]: value}));
   }
 
   return (
