@@ -127,16 +127,11 @@
     gap: 5px;
 }
 
-.profile-details-name p {
-    font-family: "Futura Cyrillic Book";
-    font-size: 16px;
-    letter-spacing: 1px;
-}
-
 .profile-details-name h4 {
     font-family: "Futura Cyrillic Heavy";
     font-size: 18px;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
+    max-width: 50px;
 }
 
 .profile-option-container {
@@ -176,7 +171,7 @@
     cursor: pointer;
 }
 
-/* .profile-right{
+.profile-right-default{
     background-image: url(../../assets/blckwhite.svg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -186,7 +181,7 @@
     flex-direction: column;
     padding: 70px 30px;
     gap: 5px;
-} */
+}
 
 .profile-right {
     background-color: #fff;
@@ -208,7 +203,7 @@
     color: #666;
     margin-top: 5px;
     margin-bottom: 25px;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 }
 
 .profile-form label {
@@ -247,19 +242,65 @@
     flex: 1;
 }
 
-.radio-row {
+.profile-interested {
+    height: min-content;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.profile-interested h5 {
+    font-family: "Futura Cyrillic Book";
+    font-size: 14px;
+    color: #525050;
+    letter-spacing: 1px;
+}
+
+.profile-interest-checkbox {
     display: flex;
     gap: 25px;
-    margin-top: 10px;
     align-items: center;
 }
 
-.radio-item {
+.profile-interest-checkbox label {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 14px;
+    gap: 8px;
+    font-family: "Futura Cyrillic Medium";
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: #333;
     cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.profile-interest-checkbox input[type="radio"] {
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.profile-interest-checkbox input[type="radio"]:checked {
+    border-color: #007aff;
+    background-color: #007aff;
+}
+
+.profile-interest-checkbox input[type="radio"]:checked::after {
+    content: "✓";
+    position: absolute;
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    left: 6px;
+    bottom: 2px;
 }
 
 .save-btn {
