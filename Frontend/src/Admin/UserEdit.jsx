@@ -3,7 +3,7 @@ import '../User/Components/SignUp.css';
 import asos from "../assets/asos.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 const UserEdit = () => {
 
@@ -17,7 +17,7 @@ const UserEdit = () => {
         password: "",
         interest: "",
         usertype: ""
-    })
+    });
 
 
     const handleChange = (e) => {
@@ -36,12 +36,12 @@ const UserEdit = () => {
             })
         } catch (error) {
 
-        }
-    }
+        };
+    };
 
     useEffect(() => {
         handleFetch()
-    }, [])
+    }, []);
 
     const handleUpdate = async () => {
         try {
@@ -50,12 +50,12 @@ const UserEdit = () => {
                 alert("User Updated Successfully");
                 navigate("/dashboard");
             } else {
-                alert("error updating user")
+                alert("error updating user");
             }
         } catch (error) {
 
-        }
-    }
+        };
+    };
 
 
     return (
