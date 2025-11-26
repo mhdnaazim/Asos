@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { data, useNavigate, useParams } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -21,6 +21,7 @@ import {
   TableRow,
   Paper,
   TablePagination,
+  Button,
 } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
 import PeopleIcon from "@mui/icons-material/People";
@@ -120,9 +121,14 @@ const Dashboard = () => {
     setPage(0);
   };
 
-
+  const [showAddProduct, setShowAddProduct] = useState(false);
   const URL = import.meta.env.VITE_API_URL;
   const [userList, setUserList] = useState([])
+  const [data, setData] = useState({
+    name: "",
+    image: null
+  })
+
 
   const fetchUsers = async () => {
     try {
@@ -135,11 +141,43 @@ const Dashboard = () => {
 
   const handleDelete = async (userid) => {
     try {
-      const response = await axios.delete(`${URL}/user/delUser/${userid}`)
+      await axios.delete(`${URL}/user/delUser/${userid}`)
       fetchUsers()
       return;
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  const handleUpload = async () => {
+    try {
+      const form = new FormData();
+      form.append("name", data.name);
+      if (data.image) form.append("file", data.image);
+
+      const response = await axios.post(`${URL}/product/addProduct`, form, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+
+      if (response.status === 200) {
+        alert("Product Successfully Added");
+        // Reset local state and clear file input
+        setData({ name: "", image: null });
+        
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleChangeUpload = (e) => {
+    const { name, value, files } = e.target;
+    if (name === "image") {
+      setData((prev) => ({ ...prev, image: files && files[0] ? files[0] : null }))
+      console.log("selected file:", files && files[0]);
+    } else {
+      setData((prev) => ({ ...prev, [name]: value }))
     }
   }
 
@@ -377,13 +415,210 @@ const Dashboard = () => {
                 fontFamily: "Poppins",
               }}
             >
-              <Typography variant="h6" gutterBottom>
-                Manage Products
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Manage all product details, categories, and stock.
-              </Typography>
+              {/* Heading + Button Row */}
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  mb: 3,
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  sx={{ fontFamily: "Poppins" }}
+                >
+                  Manage Products
+                </Typography>
+
+                <Button
+                  variant="contained"
+                  onClick={() => setShowAddProduct(true)}
+                  sx={{
+                    backgroundColor: "black",
+                    color: "white",
+                    textTransform: "none",
+                    borderRadius: "7px",
+                    "&:hover": { backgroundColor: "#333" },
+                  }}
+                >
+                  ADD PRODUCT
+                </Button>
+
+              </Box>
+
+              {/* Table */}
+              <TableContainer
+                component={Paper}
+                sx={{
+                  borderRadius: "15px",
+                  boxShadow: "0 3px 15px rgba(0,0,0,0.05)",
+                }}
+              >
+                <Table>
+                  <TableHead sx={{ backgroundColor: "black" }}>
+                    <TableRow>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>Id</TableCell>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>Name</TableCell>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>Price</TableCell>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>Color</TableCell>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>Size</TableCell>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>Quantity</TableCell>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>Image</TableCell>
+                      <TableCell
+                        align="center"
+                        sx={{ color: "#fff", fontWeight: "bold" }}
+                      >
+                        Actions
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                </Table>
+              </TableContainer>
+
+              {showAddProduct && (
+                <Box
+                  sx={{
+                    mt: 4,
+                    p: 3,
+                    borderRadius: "12px",
+                    bgcolor: "#fafafa",
+                    border: "1px solid #ddd",
+                    boxShadow: "0px 2px 10px rgba(0,0,0,0.05)",
+                    fontFamily: "Poppins",
+                    maxWidth: 500
+                  }}
+                >
+                  <Typography variant="h6" sx={{ mb: 2 }}>
+                    Add New Product
+                  </Typography>
+
+                  <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+
+                    {/* Name */}
+                    <input
+                      type="text"
+                      placeholder="Product Name"
+                      style={{
+                        width: "100%",
+                        padding: "10px 12px",
+                        borderRadius: "6px",
+                        border: "1px solid #bbb",
+                        fontFamily: "Poppins",
+                        outline: "none",
+                      }}
+                      name="name"
+                      value={data.name}
+                      onChange={handleChangeUpload}
+                    />
+
+                    {/* Price */}
+                    {/* <input
+      type="text"
+      placeholder="Price"
+      style={{
+        width: "100%",
+        padding: "10px 12px",
+        borderRadius: "6px",
+        border: "1px solid #bbb",
+        fontFamily: "Poppins",
+        outline: "none",
+      }}
+    /> */}
+
+                    {/* Color */}
+                    {/* <input
+      type="text"
+      placeholder="Color"
+      style={{
+        width: "100%",
+        padding: "10px 12px",
+        borderRadius: "6px",
+        border: "1px solid #bbb",
+        fontFamily: "Poppins",
+        outline: "none",
+      }}
+    /> */}
+
+                    {/* Size */}
+                    {/* <input
+      type="text"
+      placeholder="Size (S, M, L, XL)"
+      style={{
+        width: "100%",
+        padding: "10px 12px",
+        borderRadius: "6px",
+        border: "1px solid #bbb",
+        fontFamily: "Poppins",
+        outline: "none",
+      }}
+    /> */}
+
+                    {/* Quantity */}
+                    {/* <input
+      type="text"
+      placeholder="Quantity"
+      style={{
+        width: "100%",
+        padding: "10px 12px",
+        borderRadius: "6px",
+        border: "1px solid #bbb",
+        fontFamily: "Poppins",
+        outline: "none",
+      }}
+    /> */}
+
+                    {/* Image upload */}
+                    <input
+                      type="file"
+                      style={{
+                        width: "100%",
+                        padding: "10px 12px",
+                        borderRadius: "6px",
+                        border: "1px solid #bbb",
+                        fontFamily: "Poppins",
+                        outline: "none",
+                      }}
+                      name="image"
+                      onChange={handleChangeUpload}  // ✔ removed value={}
+                    />
+
+                    {/* Submit */}
+                    <Button
+                      variant="contained"
+                      sx={{
+                        backgroundColor: "black",
+                        color: "white",
+                        textTransform: "none",
+                        "&:hover": { backgroundColor: "#333" },
+                      }}
+                      onClick={handleUpload}
+                    >
+                      Submit Product
+                    </Button>
+
+                    {/* Cancel */}
+                    <Button
+                      variant="outlined"
+                      onClick={() => setShowAddProduct(false)}
+                      sx={{
+                        borderColor: "black",
+                        color: "black",
+                        textTransform: "none",
+                      }}
+                    >
+                      Cancel
+                    </Button>
+
+                  </Box>
+                </Box>
+
+              )}
+
+
             </Box>
+
           )}
         </Box>
       </Box>

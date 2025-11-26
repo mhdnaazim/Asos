@@ -148,6 +148,12 @@
     display: flex;
     align-items: center;
     padding-left: 40px;
+    cursor: pointer;
+}
+
+.profile-option-signout{
+    background-color: rgb(223, 47, 47);
+    color: #fff;
 }
 
 .profile-option:hover,
@@ -155,6 +161,10 @@
     background-color: #EEEEEE;
     text-decoration: underline;
     text-underline-offset: 1px;
+}
+
+.profile-option-signout:hover {
+    background-color: rgb(185, 17, 17);
 }
 
 .profile-option-signout {

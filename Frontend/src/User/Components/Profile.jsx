@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import logo from '../../assets/Logo.svg';
 import asos from '../../assets/asos.svg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 
 const Profile = () => {
 
     const navigate = useNavigate();
+    const { id } = useParams()
     const storedUser = JSON.parse(localStorage.getItem("loggedUser"));
     const URL = import.meta.env.VITE_API_URL;
 
@@ -106,13 +107,37 @@ const Profile = () => {
     };
 
 
-    // ---------------- LOGOUT -------------------
-    const handleLogout = () => {
-        if (window.confirm("Are you sure you want to logout?")) {
+    // -------------- DELETE USER ---------------
+    const handleDelete = async (id) => {
+    console.log("Deleting user:", id);
+
+    const confirmDelete = window.confirm("Are you sure you want to delete your account?");
+    if (!confirmDelete) return;
+
+    try {
+        const response = await axios.delete(`${URL}/user/delUser/${id}`);
+        console.log("Response:", response);
+
+        if (response.status === 200) {
+            alert("Account Deleted Successfully");
             localStorage.removeItem("loggedUser");
-            navigate("/");
+            navigate("/signUp");
         }
-    };
+
+    } catch (error) {
+        console.log("Delete error:", error);
+        alert("Something went wrong while deleting your account");
+    }
+};
+
+
+    // // ---------------- LOGOUT -------------------
+    // const handleLogout = () => {
+    //     if (window.confirm("Are you sure you want to logout?")) {
+    //         localStorage.removeItem("loggedUser");
+    //         navigate("/");
+    //     }
+    // };
 
     return (
         <>
@@ -182,150 +207,150 @@ const Profile = () => {
                                 <p>Social Accounts</p>
                             </div>
 
-                            <div className="profile-option-signout">
-                                <p onClick={handleLogout}>Sign out</p>
+                            <div className="profile-option-signout" onClick={() => handleDelete(storedUser.userid)}>
+                                <p>Delete Account</p>
                             </div>
                         </div>
                     </div>
 
                     {activeSection === "myAccount" ? (
                         <>
-                        <div className="profile-right-default">
-                            <div className="welcome1">
-                                <p>WELCOME TO</p>
+                            <div className="profile-right-default">
+                                <div className="welcome1">
+                                    <p>WELCOME TO</p>
+                                </div>
+                                <div className="welcome2">
+                                    <p>YOUR ACCOUNT</p>
+                                </div>
                             </div>
-                            <div className="welcome2">
-                                <p>YOUR ACCOUNT</p>
-                            </div>
-                        </div>
                         </>
                     ) : (
-                    <div className="profile-right">
+                        <div className="profile-right">
 
-                        {activeSection === "details" && (
-                            <>
-                                <div className="profile-title">
-                                    <h2>MY DETAILS</h2>
-                                    <p>
-                                        Feel free to edit your details below so your ASOS account stays up to date.
-                                    </p>
-                                </div>
-
-                                <div className="profile-form">
-
-                                    {/* FULL NAME */}
-                                    <label>FULL NAME*</label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value={updatedUser.name}
-                                        onChange={handleChange}
-                                    />
-
-                                    {/* EMAIL */}
-                                    <label>EMAIL ADDRESS*</label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        value={updatedUser.email}
-                                        onChange={handleChange}
-                                    />
-
-                                    {/* PASSWORD */}
-                                    <label>PASSWORD*</label>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        value={updatedUser.password}
-                                        onChange={handleChange}
-                                    />
-
-                                    {/* DOB */}
-                                    <label>DATE OF BIRTH*</label>
-                                    <div className="dob-row">
-                                        <select value={selectedDay} onChange={(e) => setSelectedDay(Number(e.target.value))}>
-                                            {days.map(day => <option key={day} value={day}>{day}</option>)}
-                                        </select>
-
-                                        <select value={selectedMonth} onChange={(e) => setSelectedMonth(Number(e.target.value))}>
-                                            {months.map((m, index) => <option key={index} value={index}>{m}</option>)}
-                                        </select>
-
-                                        <select value={selectedYear} onChange={(e) => setSelectedYear(Number(e.target.value))}>
-                                            {years.map(y => <option key={y} value={y}>{y}</option>)}
-                                        </select>
+                            {activeSection === "details" && (
+                                <>
+                                    <div className="profile-title">
+                                        <h2>MY DETAILS</h2>
+                                        <p>
+                                            Feel free to edit your details below so your ASOS account stays up to date.
+                                        </p>
                                     </div>
 
-                                    {/* INTEREST */}
-                                    <div className="profile-interested">
-                                        <h5>INTERESTED IN:*</h5>
+                                    <div className="profile-form">
 
-                                        <div className="profile-interest-checkbox">
-                                            <label>
-                                                <input
-                                                    type="radio"
-                                                    name="interest"
-                                                    value="Menswear"
-                                                    checked={updatedUser.interest === "Menswear"}
-                                                    onChange={handleChange}
-                                                />
-                                                Menswear
-                                            </label>
+                                        {/* FULL NAME */}
+                                        <label>FULL NAME*</label>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            value={updatedUser.name}
+                                            onChange={handleChange}
+                                        />
 
-                                            <label>
-                                                <input
-                                                    type="radio"
-                                                    name="interest"
-                                                    value="Womenswear"
-                                                    checked={updatedUser.interest === "Womenswear"}
-                                                    onChange={handleChange}
-                                                />
-                                                Womenswear
-                                            </label>
+                                        {/* EMAIL */}
+                                        <label>EMAIL ADDRESS*</label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            value={updatedUser.email}
+                                            onChange={handleChange}
+                                        />
+
+                                        {/* PASSWORD */}
+                                        <label>PASSWORD*</label>
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            value={updatedUser.password}
+                                            onChange={handleChange}
+                                        />
+
+                                        {/* DOB */}
+                                        <label>DATE OF BIRTH*</label>
+                                        <div className="dob-row">
+                                            <select value={selectedDay} onChange={(e) => setSelectedDay(Number(e.target.value))}>
+                                                {days.map(day => <option key={day} value={day}>{day}</option>)}
+                                            </select>
+
+                                            <select value={selectedMonth} onChange={(e) => setSelectedMonth(Number(e.target.value))}>
+                                                {months.map((m, index) => <option key={index} value={index}>{m}</option>)}
+                                            </select>
+
+                                            <select value={selectedYear} onChange={(e) => setSelectedYear(Number(e.target.value))}>
+                                                {years.map(y => <option key={y} value={y}>{y}</option>)}
+                                            </select>
                                         </div>
+
+                                        {/* INTEREST */}
+                                        <div className="profile-interested">
+                                            <h5>INTERESTED IN:*</h5>
+
+                                            <div className="profile-interest-checkbox">
+                                                <label>
+                                                    <input
+                                                        type="radio"
+                                                        name="interest"
+                                                        value="Menswear"
+                                                        checked={updatedUser.interest === "Menswear"}
+                                                        onChange={handleChange}
+                                                    />
+                                                    Menswear
+                                                </label>
+
+                                                <label>
+                                                    <input
+                                                        type="radio"
+                                                        name="interest"
+                                                        value="Womenswear"
+                                                        checked={updatedUser.interest === "Womenswear"}
+                                                        onChange={handleChange}
+                                                    />
+                                                    Womenswear
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <button className="save-btn" onClick={handleUpdate}>SAVE CHANGES</button>
                                     </div>
+                                </>
+                            )}
 
-                                    <button className="save-btn" onClick={handleUpdate}>SAVE CHANGES</button>
+                            {activeSection === "orders" && (
+                                <div className="profile-title">
+                                    <h2>MY ORDERS</h2>
+                                    <p>You don't have any orders yet.</p>
                                 </div>
-                            </>
-                        )}
+                            )}
 
-                        {activeSection === "orders" && (
-                            <div className="profile-title">
-                                <h2>MY ORDERS</h2>
-                                <p>You don't have any orders yet.</p>
-                            </div>
-                        )}
+                            {activeSection === "payments" && (
+                                <div className="profile-title">
+                                    <h2>PAYMENT METHODS</h2>
+                                    <p>You have not added any payment methods yet.</p>
+                                </div>
+                            )}
 
-                        {activeSection === "payments" && (
-                            <div className="profile-title">
-                                <h2>PAYMENT METHODS</h2>
-                                <p>You have not added any payment methods yet.</p>
-                            </div>
-                        )}
+                            {activeSection === "contact" && (
+                                <div className="profile-title">
+                                    <h2>CONTACT PREFERENCES</h2>
+                                    <p>Manage your email and notification settings here.</p>
+                                </div>
+                            )}
 
-                        {activeSection === "contact" && (
-                            <div className="profile-title">
-                                <h2>CONTACT PREFERENCES</h2>
-                                <p>Manage your email and notification settings here.</p>
-                            </div>
-                        )}
+                            {activeSection === "help" && (
+                                <div className="profile-title">
+                                    <h2>HELP</h2>
+                                    <p>Need help? Visit our help center or contact support.</p>
+                                </div>
+                            )}
 
-                        {activeSection === "help" && (
-                            <div className="profile-title">
-                                <h2>HELP</h2>
-                                <p>Need help? Visit our help center or contact support.</p>
-                            </div>
-                        )}
+                            {activeSection === "social" && (
+                                <div className="profile-title">
+                                    <h2>SOCIAL ACCOUNTS</h2>
+                                    <p>Link your social media accounts here (coming soon).</p>
+                                </div>
+                            )}
 
-                        {activeSection === "social" && (
-                            <div className="profile-title">
-                                <h2>SOCIAL ACCOUNTS</h2>
-                                <p>Link your social media accounts here (coming soon).</p>
-                            </div>
-                        )}
-
-                    </div>
+                        </div>
                     )}
 
                 </div>

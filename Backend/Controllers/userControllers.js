@@ -53,6 +53,8 @@ export const delUser = ((req, res) => {
     db.query(sql, id, (err, result) => {
         if (err) {
             res.status(500).json("Server Error");
+            console.log(err);
+            
         } else {
             res.status(200).json("Deletion Success");
         }

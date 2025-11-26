@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-import multer from 'multer';
+import multer, { MulterError } from 'multer';
 import { addProduct } from '../Controllers/productControllers.js';
 
 const router = express.Router()

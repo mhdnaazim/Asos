@@ -112,7 +112,7 @@ const WomenNav = () => {
                                     <div className="profile-dropdown-btm">
                                         <div className="drp-section">
                                             <img src={myProfile} />
-                                            <p onClick={() => navigate("/profile")}>My Account</p>
+                                            <p onClick={handleProfile}>My Account</p>
                                         </div>
                                     </div>
                                 </div>
