@@ -124,6 +124,7 @@ const Dashboard = () => {
 
   const URL = import.meta.env.VITE_API_URL;
   const fileRef = useRef()
+  const {id} = useParams()
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [userList, setUserList] = useState([])
   const [products, setProducts] = useState([])
@@ -149,14 +150,13 @@ const Dashboard = () => {
     try {
       const response = await axios.get(`${URL}/product/getProduct`);
       setProducts(response.data)
-      console.log(response.data);
-      
+
     } catch (error) {
 
     }
   }
 
-
+  
   useEffect(() => {
     fetchUsers();
     handleProducts();
@@ -166,11 +166,24 @@ const Dashboard = () => {
 
   const handleDelete = async (userid) => {
     try {
-      await axios.delete(`${URL}/user/delUser/${userid}`)
+      await axios.delete(`${URL}/user/delUser/${userid}`);
       fetchUsers()
       return;
     } catch (error) {
-      console.log(error);
+    }
+  }
+
+  const handleDeleteProduct = async (id) => {
+    try {
+      const res = await axios.delete(`${URL}/product/deleteProduct/${id}`);
+
+      if(res.status === 200){
+        alert("Product deleted Successfully")
+      }
+      handleProducts();
+      return;
+
+    } catch (error) {      
     }
   }
 
@@ -178,27 +191,41 @@ const Dashboard = () => {
     try {
       const form = new FormData();
       form.append("name", data.name);
-      if (data.image) form.append("file", data.image);
+      form.append("price", data.price);
+      form.append("color", data.color);
+      form.append("size", data.size);
+      form.append("quantity", data.quantity);
+
+      if (data.image) {
+        form.append("file", data.image);
+      }
 
       const response = await axios.post(`${URL}/product/addProduct`, form, {
         headers: { "Content-Type": "multipart/form-data" },
-      })
+      });
 
       if (response.status === 200) {
         alert("Product Successfully Added");
-        // Reset local state and clear file input
-        setData({ name: "", image: null });
 
-        if (fileRef.current) {
-          fileRef.current.value = "";
-        }
-
+        // reset
+        setData({
+          name: "",
+          image: null,
+          price: "",
+          color: "",
+          size: "",
+          quantity: ""
+        });
+        if (fileRef.current) fileRef.current.value = "";
       }
+      handleProducts();
+      return;
 
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+
 
   const handleChangeUpload = (e) => {
     const { name, value, files } = e.target;
@@ -506,6 +533,35 @@ const Dashboard = () => {
                       </TableCell>
                     </TableRow>
                   </TableHead>
+                  <TableBody>
+                    {products
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                      .map((item) => (
+                        <TableRow
+                          sx={{
+                            "&:hover": {
+                              backgroundColor: "#f9f9f9",
+                            },
+                          }}
+                        >
+                          <TableCell>{item.id}</TableCell>
+                          <TableCell>{item.name}</TableCell>
+                          <TableCell>{item.price}</TableCell>
+                          <TableCell>{item.color}</TableCell>
+                          <TableCell>{item.size}</TableCell>
+                          <TableCell>{item.quantity}</TableCell>
+                          <TableCell>{item.image}</TableCell>
+                          <TableCell align="center">
+                            <IconButton color="primary" size="small" sx={{ mr: 1 }}>
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton onClick={() => handleDeleteProduct(item.id)} color="error" size="small">
+                              <DeleteIcon />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
                 </Table>
               </TableContainer>
 

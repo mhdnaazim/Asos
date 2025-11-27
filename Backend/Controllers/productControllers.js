@@ -10,8 +10,6 @@ export const addProduct = ((req, res) => {
 
     db.query(sql, values, (err, result) => {
         if (err) {
-            console.log(err);
-            
             res.status(500).json("Server Error");
         } else {
             res.status(200).json("Success");
@@ -31,4 +29,19 @@ export const getProduct = ((req,res) => {
             res.status(200).json(result);
         };
     });
+});
+
+// Delete Products
+export const deleteProduct = ((req, res) => {
+    const id = req.params.id;
+    const sql = "DELETE FROM products WHERE id = ?";
+
+    db.query(sql, [id], (err, result) => {
+        if(err){
+            console.log(err);
+            res.status(500).json("Server error")
+        } else{
+            res.status(200).json("Product Deleted")
+        }
+    })
 });
