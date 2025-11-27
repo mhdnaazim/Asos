@@ -35,6 +35,7 @@ import asos from "../assets/Logo.svg";
 import "../App.css";
 import { useEffect } from "react";
 import axios from "axios";
+import { useRef } from "react";
 
 const drawerWidth = 250;
 
@@ -102,10 +103,6 @@ const Dashboard = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const handleLogout = () => {
-    navigate("/login");
-  };
-
   const MenuItems = [
     { text: "Manage Users", icon: <PeopleIcon /> },
     { text: "Manage Products", icon: <InventoryIcon /> },
@@ -121,12 +118,22 @@ const Dashboard = () => {
     setPage(0);
   };
 
-  const [showAddProduct, setShowAddProduct] = useState(false);
+
+
+
+
   const URL = import.meta.env.VITE_API_URL;
+  const fileRef = useRef()
+  const [showAddProduct, setShowAddProduct] = useState(false);
   const [userList, setUserList] = useState([])
+  const [products, setProducts] = useState([])
   const [data, setData] = useState({
     name: "",
-    image: null
+    image: null,
+    price: "",
+    color: "",
+    size: "",
+    quantity: ""
   })
 
 
@@ -134,10 +141,28 @@ const Dashboard = () => {
     try {
       const response = await axios.get(`${URL}/user/fetchUsers`);
       setUserList(response.data);
-
     } catch (error) {
     }
   }
+
+  const handleProducts = async () => {
+    try {
+      const response = await axios.get(`${URL}/product/getProduct`);
+      setProducts(response.data)
+      console.log(response.data);
+      
+    } catch (error) {
+
+    }
+  }
+
+
+  useEffect(() => {
+    fetchUsers();
+    handleProducts();
+  }, [])
+
+
 
   const handleDelete = async (userid) => {
     try {
@@ -163,7 +188,11 @@ const Dashboard = () => {
         alert("Product Successfully Added");
         // Reset local state and clear file input
         setData({ name: "", image: null });
-        
+
+        if (fileRef.current) {
+          fileRef.current.value = "";
+        }
+
       }
 
     } catch (error) {
@@ -185,10 +214,13 @@ const Dashboard = () => {
     navigate(`/edit/${userid}`)
   }
 
-  useEffect(() => {
-    fetchUsers()
-  }, [])
 
+  JSON.parse(localStorage.getItem("loggedUser"));
+
+  const handleLogout = () => {
+    localStorage.removeItem("loggedUser")
+    navigate("/login");
+  };
 
   return (
     <Box sx={{ display: "flex", bgcolor: "#f4f6f8" }}>
@@ -514,64 +546,77 @@ const Dashboard = () => {
                     />
 
                     {/* Price */}
-                    {/* <input
-      type="text"
-      placeholder="Price"
-      style={{
-        width: "100%",
-        padding: "10px 12px",
-        borderRadius: "6px",
-        border: "1px solid #bbb",
-        fontFamily: "Poppins",
-        outline: "none",
-      }}
-    /> */}
+                    <input
+                      type="text"
+                      placeholder="Price"
+                      style={{
+                        width: "100%",
+                        padding: "10px 12px",
+                        borderRadius: "6px",
+                        border: "1px solid #bbb",
+                        fontFamily: "Poppins",
+                        outline: "none",
+                      }}
+                      name="price"
+                      value={data.price}
+                      onChange={handleChangeUpload}
+                    />
 
                     {/* Color */}
-                    {/* <input
-      type="text"
-      placeholder="Color"
-      style={{
-        width: "100%",
-        padding: "10px 12px",
-        borderRadius: "6px",
-        border: "1px solid #bbb",
-        fontFamily: "Poppins",
-        outline: "none",
-      }}
-    /> */}
+                    <input
+                      type="text"
+                      placeholder="Color"
+                      style={{
+                        width: "100%",
+                        padding: "10px 12px",
+                        borderRadius: "6px",
+                        border: "1px solid #bbb",
+                        fontFamily: "Poppins",
+                        outline: "none",
+                      }}
+                      name="color"
+                      value={data.color}
+                      onChange={handleChangeUpload}
+                    />
 
                     {/* Size */}
-                    {/* <input
-      type="text"
-      placeholder="Size (S, M, L, XL)"
-      style={{
-        width: "100%",
-        padding: "10px 12px",
-        borderRadius: "6px",
-        border: "1px solid #bbb",
-        fontFamily: "Poppins",
-        outline: "none",
-      }}
-    /> */}
+                    <input
+                      type="text"
+                      placeholder="Size (S, M, L, XL)"
+                      style={{
+                        width: "100%",
+                        padding: "10px 12px",
+                        borderRadius: "6px",
+                        border: "1px solid #bbb",
+                        fontFamily: "Poppins",
+                        outline: "none",
+                      }}
+                      name="size"
+                      value={data.size}
+                      onChange={handleChangeUpload}
+                    />
 
                     {/* Quantity */}
-                    {/* <input
-      type="text"
-      placeholder="Quantity"
-      style={{
-        width: "100%",
-        padding: "10px 12px",
-        borderRadius: "6px",
-        border: "1px solid #bbb",
-        fontFamily: "Poppins",
-        outline: "none",
-      }}
-    /> */}
+                    <input
+                      type="text"
+                      placeholder="Quantity"
+                      style={{
+                        width: "100%",
+                        padding: "10px 12px",
+                        borderRadius: "6px",
+                        border: "1px solid #bbb",
+                        fontFamily: "Poppins",
+                        outline: "none",
+                      }}
+                      name="quantity"
+                      value={data.quantity}
+                      onChange={handleChangeUpload}
+                    />
 
                     {/* Image upload */}
                     <input
                       type="file"
+                      ref={fileRef}
                       style={{
                         width: "100%",
                         padding: "10px 12px",
@@ -581,7 +626,7 @@ const Dashboard = () => {
                         outline: "none",
                       }}
                       name="image"
-                      onChange={handleChangeUpload}  // ✔ removed value={}
+                      onChange={handleChangeUpload}
                     />
 
                     {/* Submit */}
