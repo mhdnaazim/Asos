@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { data, useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -33,9 +33,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import asos from "../assets/Logo.svg";
 import "../App.css";
-import { useEffect } from "react";
 import axios from "axios";
-import { useRef } from "react";
 
 const drawerWidth = 250;
 
@@ -122,6 +120,7 @@ const Dashboard = () => {
 
 
 
+  
   const URL = import.meta.env.VITE_API_URL;
   const fileRef = useRef()
   const { id } = useParams()
@@ -196,6 +195,13 @@ const Dashboard = () => {
 
 
   const handleUpdateProduct = async () => {
+    const { name, price, color, size, quantity } = editData;
+
+    if (!name || !price || !color || !size || !quantity) {
+      alert("All fields required!");
+      return;
+    }
+
     try {
       const res = await axios.put(
         `${URL}/product/updateProduct/${editData.id}`,
@@ -211,6 +217,7 @@ const Dashboard = () => {
       console.log(error);
     }
   };
+
 
 
   const handleEditChange = (e) => {
@@ -697,9 +704,10 @@ const Dashboard = () => {
                     />
 
                     {/* Size */}
-                    <input
-                      type="text"
-                      placeholder="Size (S, M, L, XL)"
+                    <select
+                      name="size"
+                      value={data.size}
+                      onChange={handleChangeUpload}
                       style={{
                         width: "100%",
                         padding: "10px 12px",
@@ -708,10 +716,15 @@ const Dashboard = () => {
                         fontFamily: "Poppins",
                         outline: "none",
                       }}
-                      name="size"
-                      value={data.size}
-                      onChange={handleChangeUpload}
-                    />
+                    >
+                      <option value="">Select Size</option>
+                      <option value="S">XS</option>
+                      <option value="S">S</option>
+                      <option value="M">M</option>
+                      <option value="L">L</option>
+                      <option value="XL">XL</option>
+                    </select>
+
 
                     {/* Quantity */}
                     <input
@@ -858,12 +871,10 @@ const Dashboard = () => {
                   outline: "none",
                 }}
               />
-              <input
-                type="text"
+              <select
                 name="size"
                 value={editData.size}
                 onChange={handleEditChange}
-                placeholder="Size"
                 style={{
                   width: "100%",
                   padding: "10px 12px",
@@ -872,7 +883,15 @@ const Dashboard = () => {
                   fontFamily: "Poppins",
                   outline: "none",
                 }}
-              />
+              >
+                <option value="">Select Size</option>
+                <option value="S">XS</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+              </select>
+
               <input
                 type="text"
                 name="quantity"
