@@ -6,7 +6,7 @@ export const addProduct = ((req, res) => {
     console.log(req.file);
     const { name, price, color, size, quantity } = req.body;
     const sql = "INSERT INTO products (name, image, price, color, size, quantity) VALUES (?,?,?,?,?,?)";
-    const values = [ name, req.file.filename, price, color, size, quantity ]
+    const values = [name, req.file.filename, price, color, size, quantity]
 
     db.query(sql, values, (err, result) => {
         if (err) {
@@ -19,11 +19,11 @@ export const addProduct = ((req, res) => {
 
 
 // Get Products
-export const getProduct = ((req,res) => {
+export const getProduct = ((req, res) => {
     const sql = "SELECT * FROM products"
 
     db.query(sql, (err, result) => {
-        if(err){
+        if (err) {
             res.status(500).json("Serverside Error");
         } else {
             res.status(200).json(result);
@@ -37,11 +37,47 @@ export const deleteProduct = ((req, res) => {
     const sql = "DELETE FROM products WHERE id = ?";
 
     db.query(sql, [id], (err, result) => {
-        if(err){
+        if (err) {
             console.log(err);
             res.status(500).json("Server error")
-        } else{
+        } else {
             res.status(200).json("Product Deleted")
         }
     })
 });
+
+// Get Edit Product
+export const editProduct = (req, res) => {
+    const id = req.params.id;
+    const sql = "SELECT * FROM products WHERE id = ?";
+
+    db.query(sql, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json("Server error");
+        }
+        return res.status(200).json(result[0]);
+    });
+};
+
+// Update Product
+export const updateProduct = (req, res) => {
+    const id = req.params.id;
+    const { name, image, price, color, size, quantity } = req.body;
+    const values = [name, image, price, color, size, quantity, id];
+
+    const sql = `
+        UPDATE products 
+        SET name = ?, image = ?, price = ?, color = ?, size = ?, quantity = ? 
+        WHERE id = ?
+    `;
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json("Server Error");
+        }
+        return res.status(200).json("Update Success");
+    });
+};
+

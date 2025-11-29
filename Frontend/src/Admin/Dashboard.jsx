@@ -124,7 +124,7 @@ const Dashboard = () => {
 
   const URL = import.meta.env.VITE_API_URL;
   const fileRef = useRef()
-  const {id} = useParams()
+  const { id } = useParams()
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [userList, setUserList] = useState([])
   const [products, setProducts] = useState([])
@@ -136,6 +136,16 @@ const Dashboard = () => {
     size: "",
     quantity: ""
   })
+  const [openEdit, setOpenEdit] = useState(false);
+  const [editData, setEditData] = useState({
+    id: "",
+    name: "",
+    price: "",
+    color: "",
+    size: "",
+    quantity: "",
+    image: ""
+  });
 
 
   const fetchUsers = async () => {
@@ -150,17 +160,62 @@ const Dashboard = () => {
     try {
       const response = await axios.get(`${URL}/product/getProduct`);
       setProducts(response.data)
-
     } catch (error) {
 
     }
   }
 
-  
+
   useEffect(() => {
     fetchUsers();
     handleProducts();
-  }, [])
+  }, []);
+
+
+
+  const handleOpenEdit = async (productId) => {
+    try {
+      const res = await axios.get(`${URL}/product/editProduct/${productId}`);
+      const p = res.data;
+
+      setEditData({
+        id: p.id,
+        name: p.name,
+        price: p.price,
+        color: p.color,
+        size: p.size,
+        quantity: p.quantity,
+        image: p.image
+      });
+
+      setOpenEdit(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  const handleUpdateProduct = async () => {
+    try {
+      const res = await axios.put(
+        `${URL}/product/updateProduct/${editData.id}`,
+        editData
+      );
+
+      if (res.status === 200) {
+        alert("Product Updated Successfully");
+        handleProducts();
+        setOpenEdit(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  const handleEditChange = (e) => {
+    setEditData({ ...editData, [e.target.name]: e.target.value });
+  };
 
 
 
@@ -177,13 +232,13 @@ const Dashboard = () => {
     try {
       const res = await axios.delete(`${URL}/product/deleteProduct/${id}`);
 
-      if(res.status === 200){
+      if (res.status === 200) {
         alert("Product deleted Successfully")
       }
       handleProducts();
       return;
 
-    } catch (error) {      
+    } catch (error) {
     }
   }
 
@@ -552,9 +607,15 @@ const Dashboard = () => {
                           <TableCell>{item.quantity}</TableCell>
                           <TableCell>{item.image}</TableCell>
                           <TableCell align="center">
-                            <IconButton color="primary" size="small" sx={{ mr: 1 }}>
+                            <IconButton
+                              color="primary"
+                              size="small"
+                              sx={{ mr: 1 }}
+                              onClick={() => handleOpenEdit(item.id)}
+                            >
                               <EditIcon />
                             </IconButton>
+
                             <IconButton onClick={() => handleDeleteProduct(item.id)} color="error" size="small">
                               <DeleteIcon />
                             </IconButton>
@@ -723,6 +784,131 @@ const Dashboard = () => {
           )}
         </Box>
       </Box>
+      {openEdit && (
+        <Box
+          sx={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0,0,0,0.4)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+          }}
+        >
+          <Box
+            sx={{
+              width: 400,
+              p: 4,
+              bgcolor: "white",
+              borderRadius: "12px",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
+            }}
+          >
+            <Typography variant="h6" sx={{ mb: 2 }}>
+              Edit Product
+            </Typography>
+
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <input
+                type="text"
+                name="name"
+                value={editData.name}
+                onChange={handleEditChange}
+                placeholder="Product Name"
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  borderRadius: "6px",
+                  border: "1px solid #bbb",
+                  fontFamily: "Poppins",
+                  outline: "none",
+                }}
+              />
+              <input
+                type="text"
+                name="price"
+                value={editData.price}
+                onChange={handleEditChange}
+                placeholder="Price"
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  borderRadius: "6px",
+                  border: "1px solid #bbb",
+                  fontFamily: "Poppins",
+                  outline: "none",
+                }}
+              />
+              <input
+                type="text"
+                name="color"
+                value={editData.color}
+                onChange={handleEditChange}
+                placeholder="Color"
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  borderRadius: "6px",
+                  border: "1px solid #bbb",
+                  fontFamily: "Poppins",
+                  outline: "none",
+                }}
+              />
+              <input
+                type="text"
+                name="size"
+                value={editData.size}
+                onChange={handleEditChange}
+                placeholder="Size"
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  borderRadius: "6px",
+                  border: "1px solid #bbb",
+                  fontFamily: "Poppins",
+                  outline: "none",
+                }}
+              />
+              <input
+                type="text"
+                name="quantity"
+                value={editData.quantity}
+                onChange={handleEditChange}
+                placeholder="Quantity"
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  borderRadius: "6px",
+                  border: "1px solid #bbb",
+                  fontFamily: "Poppins",
+                  outline: "none",
+                }}
+              />
+
+              <Button
+                variant="contained"
+                sx={{ background: "black" }}
+                onClick={handleUpdateProduct}
+              >
+                Update
+              </Button>
+
+              <Button
+                variant="outlined"
+                sx={{ borderColor: "black", color: "black" }}
+                onClick={() => setOpenEdit(false)}
+              >
+                Cancel
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+      )}
+
     </Box>
   );
 };
