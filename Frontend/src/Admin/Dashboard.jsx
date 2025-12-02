@@ -523,10 +523,10 @@ const Dashboard = () => {
                           <TableCell>{item.interest}</TableCell>
                           <TableCell>{item.usertype}</TableCell>
                           <TableCell align="center">
-                            <IconButton onClick={() => handleEdit(item.userid)} color="primary" size="small" sx={{ mr: 1 }}>
+                            <IconButton onClick={() => handleEdit(item.userid)} color="primary" size="small" title="Edit" sx={{ mr: 1 }}>
                               <EditIcon />
                             </IconButton>
-                            <IconButton onClick={() => handleDelete(item.userid)} color="error" size="small">
+                            <IconButton onClick={() => handleDelete(item.userid)} color="error" size="small" title="Delete">
                               <DeleteIcon />
                             </IconButton>
                           </TableCell>

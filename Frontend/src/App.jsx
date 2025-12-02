@@ -10,6 +10,8 @@ import UserEdit from "./Admin/UserEdit";
 import Cart from "./User/Components/Cart";
 import Profile from "./User/Components/Profile";
 import ProductView from "./User/Components/ProductView";
+import MenProducts from "./User/Men/MenProducts";
+import WomenProducts from "./User/Women/WomenProducts";
 
 const App = () => {
   return (
@@ -26,9 +28,11 @@ const App = () => {
 
           {/* Men  */}
           <Route path="/" element={<MenLanding />}/>
+          <Route path="/menProducts" element={<MenProducts />}/>
 
           {/* Women  */}
           <Route path="/women" element={<WomenLanding />} />
+          <Route path="/womenProducts" element={<WomenProducts />} />
 
           {/* Admin  */}
           <Route path="/dashboard" element={<Dashboard />} />

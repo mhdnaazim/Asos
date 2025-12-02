@@ -123,7 +123,7 @@ const Nav = () => {
                             )}
                         </div>
 
-                        <img src={fav} />
+                        <img title='Favourites' src={fav} />
                         <img onClick={() => navigate("/cart")} src={cart} />
                         <div className="cart-qty">
                             <p onClick={() => navigate("/cart")}>10</p>

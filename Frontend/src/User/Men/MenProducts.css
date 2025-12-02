@@ -1,0 +1,77 @@
+@font-face {
+    font-family: "Futura Cyrillic Heavy";
+    src: url("/Font/FuturaCyrillicHeavy.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Medium";
+    src: url("/Font/FuturaCyrillicMedium.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Light";
+    src: url("/Font/FuturaCyrillicLight.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Book";
+    src: url("/Font/FuturaCyrillicBook.ttf") format("truetype");
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.men-item-container{
+    background-color: yellow;
+    height: min-content;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.men-items{
+    background-color: red;
+    height: min-content;
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    align-items: center;
+}
+
+.men-item-card{
+    background-color: red;
+    height:500px ;
+    width: 330px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.men-item-card img{
+    object-fit: contain;
+    height: 420px;
+    width: 100%;
+}
+
+.men-item-card p{
+    font-family: "Futura Cyrillic Medium";
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: #2d2d2d;
+}
+
+.men-item-card span{
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 17px;
+    letter-spacing: 1px;
+    color: #000;
+}

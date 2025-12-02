@@ -19,6 +19,7 @@ import cl13 from '../../assets/cl13.avif';
 import cl14 from '../../assets/cl14.avif';
 import cl15 from '../../assets/cl15.avif';
 import cl16 from '../../assets/cl16.avif';
+import { useNavigate } from 'react-router-dom';
 
 const MenCollective = () => {
     const collectives = [
@@ -52,6 +53,8 @@ const MenCollective = () => {
         </div>
     );
 
+    const navigate = useNavigate()
+
 
     const settings = {
         dots: true,
@@ -78,7 +81,7 @@ const MenCollective = () => {
                     <p>ASOS Collective</p>
                 </div>
                 <div className="menCollective-head-right">
-                    <button>SHOP NOW</button>
+                    <button onClick={() => navigate("/menProducts")}>SHOP NOW</button>
                 </div>
             </div>
             <div className="menCollective-content">
@@ -96,7 +99,7 @@ const MenCollective = () => {
                     </Slider>
                 </div>
                 <div className="collectives-bottom">
-                    <button>SHOP NOW</button>
+                    <button onClick={() => navigate("/menProducts")}>SHOP NOW</button>
                 </div>
             </div>
         </div>

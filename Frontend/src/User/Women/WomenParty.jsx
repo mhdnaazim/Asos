@@ -16,6 +16,7 @@ import wp10 from '../../assets/wp10.avif';
 import wp11 from '../../assets/wp11.avif';
 import wp12 from '../../assets/wp12.avif';
 import wp13 from '../../assets/wp13.avif';
+import { useNavigate } from 'react-router-dom';
 
 const WomenParty = () => {
     const womenParty = [
@@ -46,6 +47,8 @@ const WomenParty = () => {
         </div>
     );
 
+    const navigate = useNavigate()
+
 
     const settings = {
         dots: true,
@@ -72,7 +75,7 @@ const WomenParty = () => {
                         <p>The party preview</p>
                     </div>
                     <div className="menCollective-head-right">
-                        <button>SHOP NOW</button>
+                    <button onClick={() => navigate("/womenProducts")}>SHOP NOW</button>
                     </div>
                 </div>
                 <div className="menCollective-content">
@@ -90,7 +93,7 @@ const WomenParty = () => {
                         </Slider>
                     </div>
                     <div className="collectives-bottom">
-                        <button>SHOP NOW</button>
+                    <button onClick={() => navigate("/womenProducts")}>SHOP NOW</button>
                     </div>
                 </div>
             </div>
