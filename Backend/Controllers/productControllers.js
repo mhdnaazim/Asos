@@ -11,6 +11,8 @@ export const addProduct = ((req, res) => {
     db.query(sql, values, (err, result) => {
         if (err) {
             res.status(500).json("Server Error");
+            console.log(err);
+            
         } else {
             res.status(200).json("Success");
         };
@@ -63,21 +65,29 @@ export const editProduct = (req, res) => {
 // Update Product
 export const updateProduct = (req, res) => {
     const id = req.params.id;
-    const { name, image, price, color, size, quantity } = req.body;
-    const values = [name, image, price, color, size, quantity, id];
+    const { name, price, color, size, quantity } = req.body;
+    const image = req.file ? req.file.filename : null;
 
-    const sql = `
-        UPDATE products 
-        SET name = ?, image = ?, price = ?, color = ?, size = ?, quantity = ? 
-        WHERE id = ?
-    `;
+    let sql = "";
+    let values = [];
+
+    if (image) {
+        // If user uploaded a new image
+         sql = `UPDATE products SET name = ?, price = ?, color = ?, size = ?, quantity = ?, image = ? WHERE id = ?`;
+         values = [name, price, color, size, quantity, image, id];
+    } else{
+        // If user not updated image
+         sql = `UPDATE products SET name = ?, price = ?, color = ?, size = ?, quantity = ? WHERE id = ?`;
+         values = [name, price, color, size, quantity, id];
+    }
 
     db.query(sql, values, (err, result) => {
         if (err) {
-            console.log(err);
-            return res.status(500).json("Server Error");
+            res.status(500).json("Server Error");
+        } else {
+            res.status(200).json("Update Success");
         }
-        return res.status(200).json("Update Success");
-    });
+    })
+
 };
 

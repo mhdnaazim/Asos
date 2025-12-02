@@ -9,6 +9,7 @@ import Dashboard from './Admin/Dashboard'
 import UserEdit from "./Admin/UserEdit";
 import Cart from "./User/Components/Cart";
 import Profile from "./User/Components/Profile";
+import ProductView from "./User/Components/ProductView";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
           {/* Admin  */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/edit/:id" element={<UserEdit />} />
+          <Route path="/detail" element={<ProductView />} />
 
         </Routes>
       </BrowserRouter>

@@ -1,0 +1,137 @@
+@font-face {
+    font-family: "Futura Cyrillic Heavy";
+    src: url("/Font/FuturaCyrillicHeavy.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Medium";
+    src: url("/Font/FuturaCyrillicMedium.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Light";
+    src: url("/Font/FuturaCyrillicLight.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Book";
+    src: url("/Font/FuturaCyrillicBook.ttf") format("truetype");
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.product-detail-container{
+    background-color: yellow;
+    height: 800px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-detail{
+    background-color: blue;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.detail-left{
+    background-color: red;
+    height: 100%;
+    width: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-left img{ 
+    object-fit: cover;
+    height: 650px;
+    width: 520px;
+    border: 1.5px solid #000;
+}
+
+.detail-right{
+    background-color: brown;
+    height: 100%;
+    width: 40%;
+}
+
+.detail-right p{
+    font-family: "Futura Cyrillic Medium";
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: #2D2D2D;
+}
+.detail-right h3{
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 21px;
+    letter-spacing: 1px;
+    color: #555555;
+
+}
+.detail-right h4{
+    font-family: "Futura Cyrillic Book";
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: #2D2D2D;
+}
+
+.detail-right h4 span{
+    font-family: "Futura Cyrillic Medium";
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #000;
+}
+
+.detail-btn{
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fav{
+    background-color: #c7c7c7;
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fav img{
+    margin-top: 3px;
+    height: 60%;
+    width: 60%;
+    object-fit: contain;
+}
+
+.detail-btn button{
+    background-color: #018849;
+    color: #fff;
+    height: 45px;
+    width: 230px;
+    outline: none;
+    border: none;
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 18px;
+    letter-spacing: 1px;    
+}
+
+.detail-btn button:hover{
+    background-color: #054d2b;
+    cursor: pointer;
+}

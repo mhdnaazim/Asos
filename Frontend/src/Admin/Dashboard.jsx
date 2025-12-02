@@ -120,13 +120,12 @@ const Dashboard = () => {
 
 
 
-  
   const URL = import.meta.env.VITE_API_URL;
-  const fileRef = useRef()
-  const { id } = useParams()
+  const fileRef = useRef();
+  const { id } = useParams();
   const [showAddProduct, setShowAddProduct] = useState(false);
-  const [userList, setUserList] = useState([])
-  const [products, setProducts] = useState([])
+  const [userList, setUserList] = useState([]);
+  const [products, setProducts] = useState([]);
   const [data, setData] = useState({
     name: "",
     image: null,
@@ -134,7 +133,7 @@ const Dashboard = () => {
     color: "",
     size: "",
     quantity: ""
-  })
+  });
   const [openEdit, setOpenEdit] = useState(false);
   const [editData, setEditData] = useState({
     id: "",
@@ -152,17 +151,17 @@ const Dashboard = () => {
       const response = await axios.get(`${URL}/user/fetchUsers`);
       setUserList(response.data);
     } catch (error) {
-    }
-  }
+    };
+  };
+
 
   const handleProducts = async () => {
     try {
       const response = await axios.get(`${URL}/product/getProduct`);
       setProducts(response.data)
     } catch (error) {
-
-    }
-  }
+    };
+  };
 
 
   useEffect(() => {
@@ -190,12 +189,12 @@ const Dashboard = () => {
       setOpenEdit(true);
     } catch (error) {
       console.log(error);
-    }
+    };
   };
 
 
   const handleUpdateProduct = async () => {
-    const { name, price, color, size, quantity } = editData;
+    const { name, price, color, size, quantity, image } = editData;
 
     if (!name || !price || !color || !size || !quantity) {
       alert("All fields required!");
@@ -203,27 +202,48 @@ const Dashboard = () => {
     }
 
     try {
-      const res = await axios.put(
-        `${URL}/product/updateProduct/${editData.id}`,
-        editData
+      const form = new FormData();
+
+      form.append("name", name);
+      form.append("price", price);
+      form.append("color", color);
+      form.append("size", size);
+      form.append("quantity", quantity);
+
+      const response = await axios.put(`${URL}/product/updateProduct/${editData.id}`,
+        form,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
-      if (res.status === 200) {
-        alert("Product Updated Successfully");
+      if (response.status === 200) {
+        alert("Product updated successfully");
         handleProducts();
-        setOpenEdit(false);
+        setOpenEdit(false)
+      } else {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
+
+    } catch (error) {
+
+    }
+
+  };
 
 
   const handleEditChange = (e) => {
-    setEditData({ ...editData, [e.target.name]: e.target.value });
-  };
+    const { name, value, files } = e.target;
 
+    if (name === "image") {
+      setEditData((prev) => ({ ...prev, image: files[0] }));
+    } else {
+      setEditData((prev) => ({ ...prev, [name]: value }));
+    }
+  };
 
 
   const handleDelete = async (userid) => {
@@ -234,6 +254,7 @@ const Dashboard = () => {
     } catch (error) {
     }
   }
+
 
   const handleDeleteProduct = async (id) => {
     try {
@@ -539,6 +560,7 @@ const Dashboard = () => {
               {/* Heading + Button Row */}
               <Box
                 sx={{
+                  height:"min-content",
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
@@ -631,6 +653,15 @@ const Dashboard = () => {
                       ))}
                   </TableBody>
                 </Table>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 15]}
+                  component="div"
+                  count={products.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
               </TableContainer>
 
               {showAddProduct && (
@@ -718,7 +749,7 @@ const Dashboard = () => {
                       }}
                     >
                       <option value="">Select Size</option>
-                      <option value="S">XS</option>
+                      <option value="XS">XS</option>
                       <option value="S">S</option>
                       <option value="M">M</option>
                       <option value="L">L</option>
@@ -885,7 +916,7 @@ const Dashboard = () => {
                 }}
               >
                 <option value="">Select Size</option>
-                <option value="S">XS</option>
+                <option value="XS">XS</option>
                 <option value="S">S</option>
                 <option value="M">M</option>
                 <option value="L">L</option>
@@ -905,6 +936,22 @@ const Dashboard = () => {
                   border: "1px solid #bbb",
                   fontFamily: "Poppins",
                   outline: "none",
+                }}
+              />
+
+              <input
+                type="file"
+                name="image"
+                onChange={(e) =>
+                  setEditData((prev) => ({ ...prev, image: e.target.files[0] }))
+                }
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  borderRadius: "6px",
+                  border: "1px solid #bbb",
+                  fontFamily: "poppins",
+                  outline: "none"
                 }}
               />
 
