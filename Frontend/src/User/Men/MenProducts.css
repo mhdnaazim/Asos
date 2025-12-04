@@ -29,7 +29,6 @@
 }
 
 .men-item-container{
-    background-color: yellow;
     height: min-content;
     width: 100%;
     display: flex;
@@ -38,22 +37,24 @@
 }
 
 .men-items{
-    background-color: red;
     height: min-content;
     width: 80%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     justify-items: center;
     align-items: center;
+    padding: 60px 0;
+    gap: 30px;
 }
 
 .men-item-card{
-    background-color: red;
+    background-color: green;
     height:500px ;
     width: 330px;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    cursor: pointer;
 }
 
 .men-item-card img{
@@ -71,7 +72,7 @@
 
 .men-item-card span{
     font-family: "Futura Cyrillic Heavy";
-    font-size: 17px;
+    font-size: 16px;
     letter-spacing: 1px;
     color: #000;
 }

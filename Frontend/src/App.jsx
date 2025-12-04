@@ -37,7 +37,7 @@ const App = () => {
           {/* Admin  */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/edit/:id" element={<UserEdit />} />
-          <Route path="/detail" element={<ProductView />} />
+          <Route path="/detail/:id" element={<ProductView />} />
 
         </Routes>
       </BrowserRouter>

@@ -3,11 +3,13 @@ import './MenProducts.css';
 import Nav from './Nav';
 import Footer from './Footer';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 const MenProducts = () => {
 
   const URL = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate()
     const [data, setData] = useState([])
 
     const getProducts = async () => {
@@ -23,6 +25,10 @@ const MenProducts = () => {
         getProducts()
     }, [])
 
+    const handleViewProduct = () => {
+        navigate(`/detail/:id`)
+    }
+
     return (
         <>
             <Nav />
@@ -30,8 +36,11 @@ const MenProducts = () => {
                 <div className="men-items">
                     {data.map((item) => {
                     return(
-                        <div className="men-item-card">
-                        <img src={item.image} alt="" />
+                        <div
+                         className="men-item-card"
+                         onClick={handleViewProduct}
+                         >
+                        <img src={`${URL}/Uploads/${item.image}`} alt="" />
                         <p>{item.name}</p>
                         <span>${item.price}</span>
                     </div>
