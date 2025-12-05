@@ -50,7 +50,7 @@ const MenProducts = () => {
             </div>
             <Footer />
         </>
-    )
-}
+    );
+};
 
 export default MenProducts;
