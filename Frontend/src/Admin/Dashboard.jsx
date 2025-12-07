@@ -227,7 +227,6 @@ const Dashboard = () => {
         console.log(error);
       }
 
-
     } catch (error) {
 
     }
@@ -572,7 +571,7 @@ const Dashboard = () => {
                   gutterBottom
                   sx={{ fontFamily: "Poppins" }}
                 >
-                  Manage Products
+                  MENS
                 </Typography>
 
                 <Button

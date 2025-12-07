@@ -48,17 +48,17 @@
 }
 
 .men-item-card{
-    background-color: green;
-    height:500px ;
+    height: 500px;
     width: 330px;
     display: flex;
     flex-direction: column;
     gap: 8px;
     cursor: pointer;
+    position: relative;
 }
 
 .men-item-card img{
-    object-fit: contain;
+    object-fit: cover;
     height: 420px;
     width: 100%;
 }
@@ -68,6 +68,7 @@
     font-size: 14px;
     letter-spacing: 1px;
     color: #2d2d2d;
+    cursor: pointer;
 }
 
 .men-item-card span{

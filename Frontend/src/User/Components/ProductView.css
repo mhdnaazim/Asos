@@ -153,3 +153,10 @@
 .detail-btn button:hover{
     background-color: #056438;
 }
+
+.loading{
+    color: #555555;
+    font-family: "Futura Cyrillic Medium";
+    font-size: 18px;
+    letter-spacing: px;
+}

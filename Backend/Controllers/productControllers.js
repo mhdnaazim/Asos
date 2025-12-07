@@ -12,7 +12,7 @@ export const addProduct = ((req, res) => {
         if (err) {
             res.status(500).json("Server Error");
             console.log(err);
-            
+
         } else {
             res.status(200).json("Success");
         };
@@ -32,6 +32,21 @@ export const getProduct = ((req, res) => {
         };
     });
 });
+
+// Get Product Detail
+export const getProductDetail = ((req, res) => {
+    const id = req.params.id;
+    const sql = "SELECT * FROM products WHERE id = ?";
+
+    db.query(sql, [id], (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json("SERVER ERROR")
+        } else {
+            res.status(200).json(result[0])
+        }
+    })
+})
 
 // Delete Products
 export const deleteProduct = ((req, res) => {
@@ -73,12 +88,12 @@ export const updateProduct = (req, res) => {
 
     if (image) {
         // If user uploaded a new image
-         sql = `UPDATE products SET name = ?, price = ?, color = ?, size = ?, quantity = ?, image = ? WHERE id = ?`;
-         values = [name, price, color, size, quantity, image, id];
-    } else{
+        sql = `UPDATE products SET name = ?, price = ?, color = ?, size = ?, quantity = ?, image = ? WHERE id = ?`;
+        values = [name, price, color, size, quantity, image, id];
+    } else {
         // If user not updated image
-         sql = `UPDATE products SET name = ?, price = ?, color = ?, size = ?, quantity = ? WHERE id = ?`;
-         values = [name, price, color, size, quantity, id];
+        sql = `UPDATE products SET name = ?, price = ?, color = ?, size = ?, quantity = ? WHERE id = ?`;
+        values = [name, price, color, size, quantity, id];
     }
 
     db.query(sql, values, (err, result) => {
