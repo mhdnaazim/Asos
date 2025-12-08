@@ -80,7 +80,7 @@ const Nav = () => {
                     </div>
                     <div className="search-container">
                         <div className="searchbar">
-                            <input type="text" placeholder="Search for items and brands" />
+                            <input type="text" placeholder="Search for items" />
                             <img src={search} />
                         </div>
                     </div>
