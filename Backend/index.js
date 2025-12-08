@@ -3,6 +3,7 @@ import cors from 'cors';
 import userRoutes from './Routes/userRoutes.js';
 import authRoutes from './Routes/authRoutes.js';
 import productRoutes from './Routes/productRoutes.js';
+import womenRoutes from './Routes/womenRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -20,6 +21,7 @@ app.use(cors());
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/product", productRoutes);
+app.use("/api/women", womenRoutes)
 
 
 const port = 3000;

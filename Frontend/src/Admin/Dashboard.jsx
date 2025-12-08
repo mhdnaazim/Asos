@@ -104,6 +104,7 @@ const Dashboard = () => {
   const MenuItems = [
     { text: "Manage Users", icon: <PeopleIcon /> },
     { text: "Manage Products", icon: <InventoryIcon /> },
+    { text: "Manage Womens", icon: <InventoryIcon /> },
   ];
 
   // Pagination handlers
@@ -331,6 +332,16 @@ const Dashboard = () => {
     navigate("/login");
   };
 
+  // Womens Services
+  
+  
+
+
+    useEffect(() => {
+    fetchUsers();
+    handleProducts();
+  }, []);
+
   return (
     <Box sx={{ display: "flex", bgcolor: "#f4f6f8" }}>
       {/* Sidebar */}
@@ -547,6 +558,286 @@ const Dashboard = () => {
           )}
 
           {selected === "Manage Products" && (
+            <Box
+              sx={{
+                p: 3,
+                bgcolor: "#fff",
+                borderRadius: "16px",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+                fontFamily: "Poppins",
+              }}
+            >
+              {/* Heading + Button Row */}
+              <Box
+                sx={{
+                  height:"min-content",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  mb: 3,
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  sx={{ fontFamily: "Poppins" }}
+                >
+                  MENS
+                </Typography>
+
+                <Button
+                  variant="contained"
+                  onClick={() => setShowAddProduct(true)}
+                  sx={{
+                    backgroundColor: "black",
+                    color: "white",
+                    textTransform: "none",
+                    borderRadius: "7px",
+                    "&:hover": { backgroundColor: "#333" },
+                  }}
+                >
+                  ADD PRODUCT
+                </Button>
+
+              </Box>
+
+              {/* Table */}
+              <TableContainer
+                component={Paper}
+                sx={{
+                  borderRadius: "15px",
+                  boxShadow: "0 3px 15px rgba(0,0,0,0.05)",
+                }}
+              >
+                <Table>
+                  <TableHead sx={{ backgroundColor: "black" }}>
+                    <TableRow>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>Id</TableCell>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>Name</TableCell>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>Price</TableCell>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>Color</TableCell>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>Size</TableCell>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>Quantity</TableCell>
+                      <TableCell sx={{ color: "#fff", fontWeight: "bold", letterSpacing: "1px" }}>Image</TableCell>
+                      <TableCell
+                        align="center"
+                        sx={{ color: "#fff", fontWeight: "bold" }}
+                      >
+                        Actions
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {products
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                      .map((item) => (
+                        <TableRow
+                          sx={{
+                            "&:hover": {
+                              backgroundColor: "#f9f9f9",
+                            },
+                          }}
+                        >
+                          <TableCell>{item.id}</TableCell>
+                          <TableCell>{item.name}</TableCell>
+                          <TableCell>{item.price}</TableCell>
+                          <TableCell>{item.color}</TableCell>
+                          <TableCell>{item.size}</TableCell>
+                          <TableCell>{item.quantity}</TableCell>
+                          <TableCell>{item.image}</TableCell>
+                          <TableCell align="center">
+                            <IconButton
+                              color="primary"
+                              size="small"
+                              sx={{ mr: 1 }}
+                              onClick={() => handleOpenEdit(item.id)}
+                            >
+                              <EditIcon />
+                            </IconButton>
+
+                            <IconButton onClick={() => handleDeleteProduct(item.id)} color="error" size="small">
+                              <DeleteIcon />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 15]}
+                  component="div"
+                  count={products.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+              </TableContainer>
+
+              {showAddProduct && (
+                <Box
+                  sx={{
+                    mt: 4,
+                    p: 3,
+                    borderRadius: "12px",
+                    bgcolor: "#fafafa",
+                    border: "1px solid #ddd",
+                    boxShadow: "0px 2px 10px rgba(0,0,0,0.05)",
+                    fontFamily: "Poppins",
+                    maxWidth: 500
+                  }}
+                >
+                  <Typography variant="h6" sx={{ mb: 2 }}>
+                    Add New Product
+                  </Typography>
+
+                  <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+
+                    {/* Name */}
+                    <input
+                      type="text"
+                      placeholder="Product Name"
+                      style={{
+                        width: "100%",
+                        padding: "10px 12px",
+                        borderRadius: "6px",
+                        border: "1px solid #bbb",
+                        fontFamily: "Poppins",
+                        outline: "none",
+                      }}
+                      name="name"
+                      value={data.name}
+                      onChange={handleChangeUpload}
+                    />
+
+                    {/* Price */}
+                    <input
+                      type="text"
+                      placeholder="Price"
+                      style={{
+                        width: "100%",
+                        padding: "10px 12px",
+                        borderRadius: "6px",
+                        border: "1px solid #bbb",
+                        fontFamily: "Poppins",
+                        outline: "none",
+                      }}
+                      name="price"
+                      value={data.price}
+                      onChange={handleChangeUpload}
+                    />
+
+                    {/* Color */}
+                    <input
+                      type="text"
+                      placeholder="Color"
+                      style={{
+                        width: "100%",
+                        padding: "10px 12px",
+                        borderRadius: "6px",
+                        border: "1px solid #bbb",
+                        fontFamily: "Poppins",
+                        outline: "none",
+                      }}
+                      name="color"
+                      value={data.color}
+                      onChange={handleChangeUpload}
+                    />
+
+                    {/* Size */}
+                    <select
+                      name="size"
+                      value={data.size}
+                      onChange={handleChangeUpload}
+                      style={{
+                        width: "100%",
+                        padding: "10px 12px",
+                        borderRadius: "6px",
+                        border: "1px solid #bbb",
+                        fontFamily: "Poppins",
+                        outline: "none",
+                      }}
+                    >
+                      <option value="">Select Size</option>
+                      <option value="XS">XS</option>
+                      <option value="S">S</option>
+                      <option value="M">M</option>
+                      <option value="L">L</option>
+                      <option value="XL">XL</option>
+                    </select>
+
+
+                    {/* Quantity */}
+                    <input
+                      type="text"
+                      placeholder="Quantity"
+                      style={{
+                        width: "100%",
+                        padding: "10px 12px",
+                        borderRadius: "6px",
+                        border: "1px solid #bbb",
+                        fontFamily: "Poppins",
+                        outline: "none",
+                      }}
+                      name="quantity"
+                      value={data.quantity}
+                      onChange={handleChangeUpload}
+                    />
+
+                    {/* Image upload */}
+                    <input
+                      type="file"
+                      ref={fileRef}
+                      style={{
+                        width: "100%",
+                        padding: "10px 12px",
+                        borderRadius: "6px",
+                        border: "1px solid #bbb",
+                        fontFamily: "Poppins",
+                        outline: "none",
+                      }}
+                      name="image"
+                      onChange={handleChangeUpload}
+                    />
+
+                    {/* Submit */}
+                    <Button
+                      variant="contained"
+                      sx={{
+                        backgroundColor: "black",
+                        color: "white",
+                        textTransform: "none",
+                        "&:hover": { backgroundColor: "#333" },
+                      }}
+                      onClick={handleUpload}
+                    >
+                      Submit Product
+                    </Button>
+
+                    {/* Cancel */}
+                    <Button
+                      variant="outlined"
+                      onClick={() => setShowAddProduct(false)}
+                      sx={{
+                        borderColor: "black",
+                        color: "black",
+                        textTransform: "none",
+                      }}
+                    >
+                      Cancel
+                    </Button>
+
+                  </Box>
+                </Box>
+
+              )}
+
+
+            </Box>
+
+          )}
+
+          {selected === "Manage Womens" && (
             <Box
               sx={{
                 p: 3,
