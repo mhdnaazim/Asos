@@ -165,11 +165,6 @@ const Dashboard = () => {
   };
 
 
-  useEffect(() => {
-    fetchUsers();
-    handleProducts();
-  }, []);
-
 
 
   const handleOpenEdit = async (productId) => {
@@ -332,14 +327,179 @@ const Dashboard = () => {
     navigate("/login");
   };
 
-  // Womens Services
-  
-  
 
 
-    useEffect(() => {
+  // WOMENS SERVICES
+
+  const [openEditWomen, setOpenEditWomen] = useState(false)
+  const [womenList, setWomenList] = useState([]);
+  const [womenData, setWomenData] = useState({
+    name: "",
+    image: null,
+    price: "",
+    color: "",
+    size: "",
+    quantity: ""
+  });
+  const [editWomen, setEditWomen] = useState({
+    id: "",
+    name: "",
+    price: "",
+    color: "",
+    size: "",
+    quantity: "",
+    image: ""
+  })
+
+  const handleChangeWomen = (e) => {
+    const { name, value, files } = e.target;
+    if (name === "image") {
+      setWomenData((prev) => ({ ...prev, image: files && files[0] ? files[0] : null }))
+      console.log("selected file:", files && files[0]);
+    } else {
+      setWomenData((prev) => ({ ...prev, [name]: value }))
+    }
+  }
+
+  const fetchWomenProducts = async () => {
+    try {
+      const res = await axios.get(`${URL}/women/getWomens`);
+      setWomenList(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleDeleteWomens = async (id) => {
+    const res = await axios.delete(`${URL}/women/deleteWomen/${id}`);
+    if (res.status === 200) {
+      alert("Product Deleted Successfully");
+      fetchWomenProducts();
+    } else {
+      alert("DELETION FAILED");
+    };
+  };
+
+  const handleAddWomen = async () => {
+    try {
+      const form = new FormData();
+      form.append("name", womenData.name);
+      form.append("price", womenData.price);
+      form.append("color", womenData.color);
+      form.append("size", womenData.size);
+      form.append("quantity", womenData.quantity);
+
+      if (womenData.image) {
+        form.append("file", womenData.image);
+      };
+
+      const response = await axios.post(`${URL}/women/addWomens`, form, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+
+      if (response.status === 200) {
+        alert("Product Added Successfully")
+      }
+
+      setWomenData({
+        name: "",
+        image: null,
+        price: "",
+        color: "",
+        size: "",
+        quantity: ""
+      });
+
+      if (fileRef.current) {
+        fileRef.current.value = "";
+      };
+
+      fetchWomenProducts();
+      return;
+
+    } catch (error) {
+      console.log(error);
+    };
+  };
+
+
+  const handleEditWomen = async (id) => {
+    try {
+      const response = await axios.get(`${URL}/women/editWomen/${id}`);
+      const p = response.data;
+
+      setEditWomen({
+        id: p.id,
+        name: p.name,
+        price: p.price,
+        color: p.color,
+        size: p.size,
+        quantity: p.quantity,
+        image: p.image
+      });
+
+      setOpenEditWomen(true);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleUpdateWomen = async (id) => {
+    const { name, price, color, size, quantity } = editWomen;
+
+    if (!name || !price || !color || !size || !quantity) {
+      alert("All fields required!");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+
+      formData.append("name", name);
+      formData.append("price", price);
+      formData.append("color", color);
+      formData.append("size", size);
+      formData.append("quantity", quantity);
+
+      const res = await axios.put(`${URL}/women/updateWomen/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+
+      if (res.status === 200) {
+        alert("Product Updated Successfully");
+        fetchWomenProducts();
+        setOpenEditWomen(false);
+      } else {
+        console.log(error);
+      }
+
+    } catch (error) {
+
+    }
+
+  }
+
+  const handleEditWomenChange = (e) => {
+    const { name, value, files } = e.target;
+
+    if (name === "image") {
+      setEditWomen((prev) => ({ ...prev, image: files[0] }));
+    } else {
+      setEditWomen((prev) => ({ ...prev, [name]: value }));
+    }
+  }
+
+
+  useEffect(() => {
     fetchUsers();
     handleProducts();
+    fetchWomenProducts();
   }, []);
 
   return (
@@ -570,7 +730,7 @@ const Dashboard = () => {
               {/* Heading + Button Row */}
               <Box
                 sx={{
-                  height:"min-content",
+                  height: "min-content",
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
@@ -850,7 +1010,7 @@ const Dashboard = () => {
               {/* Heading + Button Row */}
               <Box
                 sx={{
-                  height:"min-content",
+                  height: "min-content",
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
@@ -862,7 +1022,7 @@ const Dashboard = () => {
                   gutterBottom
                   sx={{ fontFamily: "Poppins" }}
                 >
-                  MENS
+                  WOMENS
                 </Typography>
 
                 <Button
@@ -908,7 +1068,7 @@ const Dashboard = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {products
+                    {womenList
                       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                       .map((item) => (
                         <TableRow
@@ -924,18 +1084,21 @@ const Dashboard = () => {
                           <TableCell>{item.color}</TableCell>
                           <TableCell>{item.size}</TableCell>
                           <TableCell>{item.quantity}</TableCell>
-                          <TableCell>{item.image}</TableCell>
+                          <TableCell>
+                            {item.image}
+
+                          </TableCell>
                           <TableCell align="center">
                             <IconButton
                               color="primary"
                               size="small"
                               sx={{ mr: 1 }}
-                              onClick={() => handleOpenEdit(item.id)}
+                              onClick={() => handleEditWomen(item.id)}
                             >
                               <EditIcon />
                             </IconButton>
 
-                            <IconButton onClick={() => handleDeleteProduct(item.id)} color="error" size="small">
+                            <IconButton onClick={() => handleDeleteWomens(item.id)} color="error" size="small">
                               <DeleteIcon />
                             </IconButton>
                           </TableCell>
@@ -986,8 +1149,8 @@ const Dashboard = () => {
                         outline: "none",
                       }}
                       name="name"
-                      value={data.name}
-                      onChange={handleChangeUpload}
+                      value={womenData.name}
+                      onChange={handleChangeWomen}
                     />
 
                     {/* Price */}
@@ -1003,8 +1166,8 @@ const Dashboard = () => {
                         outline: "none",
                       }}
                       name="price"
-                      value={data.price}
-                      onChange={handleChangeUpload}
+                      value={womenData.price}
+                      onChange={handleChangeWomen}
                     />
 
                     {/* Color */}
@@ -1020,15 +1183,15 @@ const Dashboard = () => {
                         outline: "none",
                       }}
                       name="color"
-                      value={data.color}
-                      onChange={handleChangeUpload}
+                      value={womenData.color}
+                      onChange={handleChangeWomen}
                     />
 
                     {/* Size */}
                     <select
                       name="size"
-                      value={data.size}
-                      onChange={handleChangeUpload}
+                      value={womenData.size}
+                      onChange={handleChangeWomen}
                       style={{
                         width: "100%",
                         padding: "10px 12px",
@@ -1060,8 +1223,8 @@ const Dashboard = () => {
                         outline: "none",
                       }}
                       name="quantity"
-                      value={data.quantity}
-                      onChange={handleChangeUpload}
+                      value={womenData.quantity}
+                      onChange={handleChangeWomen}
                     />
 
                     {/* Image upload */}
@@ -1077,7 +1240,7 @@ const Dashboard = () => {
                         outline: "none",
                       }}
                       name="image"
-                      onChange={handleChangeUpload}
+                      onChange={handleChangeWomen}
                     />
 
                     {/* Submit */}
@@ -1089,7 +1252,7 @@ const Dashboard = () => {
                         textTransform: "none",
                         "&:hover": { backgroundColor: "#333" },
                       }}
-                      onClick={handleUpload}
+                      onClick={handleAddWomen}
                     >
                       Submit Product
                     </Button>
@@ -1257,6 +1420,154 @@ const Dashboard = () => {
                 variant="outlined"
                 sx={{ borderColor: "black", color: "black" }}
                 onClick={() => setOpenEdit(false)}
+              >
+                Cancel
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+      )}
+
+
+      {openEditWomen && (
+        <Box
+          sx={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0,0,0,0.4)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+          }}
+        >
+          <Box
+            sx={{
+              width: 400,
+              p: 4,
+              bgcolor: "white",
+              borderRadius: "12px",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
+            }}
+          >
+            <Typography variant="h6" sx={{ mb: 2 }}>
+              Edit Product
+            </Typography>
+
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <input
+                type="text"
+                name="name"
+                value={editWomen.name}
+                onChange={handleEditWomenChange}
+                placeholder="Product Name"
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  borderRadius: "6px",
+                  border: "1px solid #bbb",
+                  fontFamily: "Poppins",
+                  outline: "none",
+                }}
+              />
+              <input
+                type="text"
+                name="price"
+                value={editWomen.price}
+                onChange={handleEditWomenChange}
+                placeholder="Price"
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  borderRadius: "6px",
+                  border: "1px solid #bbb",
+                  fontFamily: "Poppins",
+                  outline: "none",
+                }}
+              />
+              <input
+                type="text"
+                name="color"
+                value={editWomen.color}
+                onChange={handleEditWomenChange}
+                placeholder="Color"
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  borderRadius: "6px",
+                  border: "1px solid #bbb",
+                  fontFamily: "Poppins",
+                  outline: "none",
+                }}
+              />
+              <select
+                name="size"
+                value={editWomen.size}
+                onChange={handleEditWomenChange}
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  borderRadius: "6px",
+                  border: "1px solid #bbb",
+                  fontFamily: "Poppins",
+                  outline: "none",
+                }}
+              >
+                <option value="">Select Size</option>
+                <option value="XS">XS</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+              </select>
+
+              <input
+                type="text"
+                name="quantity"
+                value={editWomen.quantity}
+                onChange={handleEditWomenChange}
+                placeholder="Quantity"
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  borderRadius: "6px",
+                  border: "1px solid #bbb",
+                  fontFamily: "Poppins",
+                  outline: "none",
+                }}
+              />
+
+              <input
+                type="file"
+                name="image"
+                onChange={(e) =>
+                  setEditWomen((prev) => ({ ...prev, image: e.target.files[0] }))
+                }
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  borderRadius: "6px",
+                  border: "1px solid #bbb",
+                  fontFamily: "poppins",
+                  outline: "none"
+                }}
+              />
+
+              <Button
+                variant="contained"
+                sx={{ background: "black" }}
+                onClick={() => handleUpdateWomen(editWomen.id)}
+              >
+                Update
+              </Button>
+
+              <Button
+                variant="outlined"
+                sx={{ borderColor: "black", color: "black" }}
+                onClick={() => setOpenEditWomen(false)}
               >
                 Cancel
               </Button>

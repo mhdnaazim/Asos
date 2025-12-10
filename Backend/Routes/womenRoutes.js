@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 import multer from 'multer';
-import { addWomens, deleteWomen, editWomen, getWomenDetail, getWomens } from '../Controllers/womenControllers.js';
+import { addWomens, deleteWomen, editWomen, getWomenDetail, getWomens, updateWomen } from '../Controllers/womenControllers.js';
 
 const router = express.Router();
 
@@ -24,7 +24,8 @@ const upload = multer({
 router.get("/getWomens", getWomens);
 router.get("/getWomenDetail/:id", getWomenDetail);
 router.get("/editWomen/:id", editWomen);
-router.delete("/deleteWomen", deleteWomen);
-router.post("/addWomens", addWomens)
+router.delete("/deleteWomen/:id", deleteWomen);
+router.post("/addWomens", upload.single("file"), addWomens);
+router.put("/updateWomen/:id", upload.single("image"), updateWomen);
 
 export default router;

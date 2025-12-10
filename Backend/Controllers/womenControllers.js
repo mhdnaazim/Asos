@@ -6,10 +6,9 @@ export const getWomens = ((req, res) => {
 
     db.query(sql, (err, result) => {
         if (err) {
-            console.log(err);
             res.status(500).json("SERVER ERROR");
         } else {
-            res.status(200).json("PRODUCTS FETCHED");
+            res.status(200).json(result);
         };
     });
 });
@@ -24,23 +23,46 @@ export const addWomens = ((req, res) => {
     const sql = "INSERT INTO womens (name, image, price, color, size, quantity) VALUES (?,?,?,?,?,?)";
     const values = [name, req.file.filename, price, color, size, quantity];
 
-    db.query((err, result) => {
+    db.query(sql, values, (err, result) => {
         if (err) {
             console.log(err);
             res.status(500).json("SERVER ERROR");
         } else {
-            res.status(200).json("SUCCESS")
+            res.status(200).json("SUCCESS");
         }
     });
 });
 
 
-// // Update Product
-// export const updateWomen = ((req, res) => {
-//     db.query((err, result) => {
+// Update Product
+export const updateWomen = ((req, res) => {
 
-//     })
-// })
+    const id = req.params.id;
+    const { name, price, color, size, quantity } = req.body;
+    const image = req.file ? req.file.filename : null;
+
+    let sql = "";
+    let values = [];
+    
+    if (image) {
+        sql = "UPDATE womens SET name = ?, price = ?, color = ?, size = ?, quantity = ?, image = ? WHERE id = ?";
+        values = [ name, price, color, size, quantity, image, id ];
+    } else {
+        sql = "UPDATE womens SET name = ?, price = ?, color = ?, size = ?, quantity = ? WHERE id = ?";
+        values = [ name, price, color, size, quantity, id ];
+    }
+
+
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json("SERVER ERROR");
+        } else {
+            res.status(200).json("UPDATE SUCCESS");
+        }
+    });
+});
 
 
 // Delete Product
@@ -50,7 +72,6 @@ export const deleteWomen = ((req, res) => {
 
     db.query(sql, [id], (err, result) => {
         if (err) {
-            console.log(err);
             res.status(500).json("SERVER ERROR");
         } else {
             res.status(200).json("PRODUCT DELETED")
