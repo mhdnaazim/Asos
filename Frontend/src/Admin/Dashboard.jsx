@@ -804,7 +804,13 @@ const Dashboard = () => {
                           <TableCell>{item.color}</TableCell>
                           <TableCell>{item.size}</TableCell>
                           <TableCell>{item.quantity}</TableCell>
-                          <TableCell>{item.image}</TableCell>
+                          <TableCell>
+                            {item.image}
+                            <img 
+                            src={`${URL}/Uploads/${item.image}`}
+                            style={{height: "100px", width: "100px", objectFit: "contain"}}
+                            />
+                            </TableCell>
                           <TableCell align="center">
                             <IconButton
                               color="primary"
@@ -1086,7 +1092,10 @@ const Dashboard = () => {
                           <TableCell>{item.quantity}</TableCell>
                           <TableCell>
                             {item.image}
-
+                            <img 
+                            src={`${URL}/Uploads/${item.image}`}
+                            style={{height: "100px", width: "100px", objectFit: "contain"}}
+                            />
                           </TableCell>
                           <TableCell align="center">
                             <IconButton

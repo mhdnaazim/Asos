@@ -1,4 +1,4 @@
-import {React, useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../Men/MenProducts.css';
 import WomenNav from "./WomenNav";
@@ -7,40 +7,40 @@ import axios from "axios";
 
 const WomenProducts = () => {
 
-    const URL = import.meta.env.VITE_API_URL;
-    const navigate = useNavigate();
-    const [ data, setData ] = useState([]);
+  const URL = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
+  const [data, setData] = useState([]);
 
-    const getProducts = async () => {
-        try {
-            const response = await axios.get(`${URL}/women/getWomens`);
-            console.log(response.data);
-            setData(response.data);
-        } catch (error) {
-            console.log(error);
-        }
+  const getProducts = async () => {
+    try {
+      const response = await axios.get(`${URL}/women/getWomens`);
+      console.log(response.data);
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
     }
+  }
 
-    useEffect(() => {
-        getProducts()
-    }, []);
+  useEffect(() => {
+    getProducts()
+  }, []);
 
-    const handleViewProduct = (id) => {
-    navigate(`/detail/${id}`);
+  const handleViewWomen = (id) => {
+    navigate(`/womenProductDetail/${id}`);
   };
 
-    return(
-        <>
+  return (
+    <>
 
-        <WomenNav />
+      <WomenNav />
 
-        <div className="men-item-container">
+      <div className="men-item-container">
         <div className="men-items">
           {data.map((item) => (
             <div
               key={item.id}
               className="men-item-card"
-              onClick={() => handleViewProduct(item.id)}
+              onClick={() => handleViewWomen(item.id)}
             >
               <img
                 src={`${URL}/Uploads/${item.image}`}
@@ -55,8 +55,8 @@ const WomenProducts = () => {
 
       <Footer />
 
-        </>
-    )
+    </>
+  )
 }
 
 export default WomenProducts;

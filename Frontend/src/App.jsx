@@ -12,6 +12,7 @@ import Profile from "./User/Components/Profile";
 import ProductView from "./User/Components/ProductView";
 import MenProducts from "./User/Men/MenProducts";
 import WomenProducts from "./User/Women/WomenProducts";
+import WomenProductView from "./User/Women/WomenProductView";
 
 const App = () => {
   return (
@@ -29,15 +30,16 @@ const App = () => {
           {/* Men  */}
           <Route path="/" element={<MenLanding />}/>
           <Route path="/menProducts" element={<MenProducts />}/>
+          <Route path="/detail/:id" element={<ProductView />} />
 
           {/* Women  */}
           <Route path="/women" element={<WomenLanding />} />
           <Route path="/womenProducts" element={<WomenProducts />} />
+          <Route path="/womenProductDetail/:id" element={<WomenProductView />} />
 
           {/* Admin  */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/edit/:id" element={<UserEdit />} />
-          <Route path="/detail/:id" element={<ProductView />} />
 
         </Routes>
       </BrowserRouter>
