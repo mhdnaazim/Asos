@@ -60,7 +60,7 @@ export const deleteProduct = ((req, res) => {
         } else {
             res.status(200).json("Product Deleted")
         }
-    })
+    });
 });
 
 // Get Edit Product
@@ -102,7 +102,6 @@ export const updateProduct = (req, res) => {
         } else {
             res.status(200).json("Update Success");
         }
-    })
-
+    });
 };
 

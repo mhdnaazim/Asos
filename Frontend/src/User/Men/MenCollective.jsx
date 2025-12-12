@@ -81,7 +81,9 @@ const MenCollective = () => {
                     <p>ASOS Collective</p>
                 </div>
                 <div className="menCollective-head-right">
-                    <button onClick={() => navigate("/menProducts")}>SHOP NOW</button>
+                    <button onClick={() => navigate("/menProducts", { state: { refresh: Date.now() } })}>
+  SHOP NOW
+</button>
                 </div>
             </div>
             <div className="menCollective-content">
