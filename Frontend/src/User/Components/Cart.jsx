@@ -1,75 +1,140 @@
-import React from "react";
-import './Cart.css';
+import React, { useEffect, useState } from "react";
+import "./Cart.css";
 import Nav from "../Men/Nav";
 import Footer from "../Men/Footer";
-import { useNavigate } from "react-router-dom";
-import delivery from '../../assets/delivery.svg';
-import pay1 from '../../assets/visa.png';
-import pay2 from '../../assets/mastercard.png';
-import pay3 from '../../assets/paypal.png';
-import pay4 from '../../assets/amex.png';
-import pay5 from '../../assets/visa-electron.png';
-import sample from '../../assets/cl6.avif';
+import delivery from "../../assets/delivery.svg";
+import pay1 from "../../assets/visa.png";
+import pay2 from "../../assets/mastercard.png";
+import pay3 from "../../assets/paypal.png";
+import pay4 from "../../assets/amex.png";
+import pay5 from "../../assets/visa-electron.png";
+import axios from "axios";
+import { useStore } from "../../Context/StoreContext";
 
 const Cart = () => {
-    const navigate = useNavigate();
+    const URL = import.meta.env.VITE_API_URL;
+    const [data, setData] = useState([]);
+    const { handleFetchCartCount } = useStore();
 
-    const cartItems = [
-        { name: "Weekday boxy oversized fit hoodie with dragon graphic print in black", image: sample, price: "92.00", color: "Black", size: "M", quantity: "1" },
-        { name: "ASOS DESIGN relaxed fit t-shirt with vintage wash", image: sample, price: "25.00", color: "Grey", size: "L", quantity: "2" },
-        { name: "Nike Club fleece joggers in navy", image: sample, price: "60.00", color: "Navy", size: "M", quantity: "1" },
-        { name: "Adidas Originals Trefoil hoodie", image: sample, price: "75.00", color: "Green", size: "XL", quantity: "1" },
-        { name: "Pull&Bear oversized shirt in check print", image: sample, price: "45.00", color: "Red/Black", size: "M", quantity: "1" },
-        { name: "Topman slim fit stretch jeans", image: sample, price: "50.00", color: "Blue", size: "32", quantity: "1" },
-        { name: "Bershka cargo pants with pocket detail", image: sample, price: "48.00", color: "Khaki", size: "30", quantity: "2" },
-        { name: "Hollister logo print hoodie in white", image: sample, price: "62.00", color: "White", size: "L", quantity: "1" },
-        { name: "Zara knitted sweater with ribbed texture", image: sample, price: "55.00", color: "Beige", size: "M", quantity: "1" },
-        { name: "Puma Essentials small logo t-shirt", image: sample, price: "22.00", color: "Black", size: "S", quantity: "3" },
-        { name: "Uniqlo ultra light padded jacket", image: sample, price: "89.00", color: "Olive", size: "XL", quantity: "1" }
-    ];
+    const handleGetCart = async () => {
+        try {
+            const res = await axios.get(`${URL}/cart/getCart`);
+            const cartData = res.data.map((item) => ({
+                ...item,
+                quantity: Number(item.quantity),
+            }));
+            setData(cartData);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-    const sizes = ["S", "M", "L", "XL"];
-    const quantities = Array.from({ length: 10 }, (_, i) => i + 1);
+    useEffect(() => {
+        handleGetCart();
+    }, []);
 
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`${URL}/cart/deleteFromCart/${id}`);
+            handleGetCart();
+            handleFetchCartCount();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const updateQuantity = async (id, newQty) => {
+        // Convert to number and ensure it's at least 1
+        const numQty = Number(newQty);
+        if (numQty < 1) return;
+
+        // Optimistic UI update (prevents glitches)
+        setData((prev) =>
+            prev.map((item) =>
+                item.id === id ? { ...item, quantity: numQty } : item
+            )
+        );
+
+        try {
+            await axios.put(`${URL}/cart/updateQuantity/${id}`, {
+                quantity: numQty,
+            });
+        } catch (error) {
+            console.log(error);
+            handleGetCart();
+        }
+    };
 
     return (
         <>
             <Nav />
+
             <div className="cart">
                 <div className="cart-left">
                     <div className="cart-left-top">
                         <p>MY BAG</p>
                     </div>
+
                     <div className="cart-left-items">
-                        <div className="cart-products">
-                            <div className="cart-products-image">
-                                <img src={sample} alt="" />
-                            </div>
-                            <div className="cart-products-details">
-                                <h4>$92.00 <span>✕</span></h4>
-                                <p>Weekday boxy oversized fit hoodie with dragon graphic print in black</p>
-                                <div className="cart-product-spec">
-                                    <p>Black</p>
-                                    <h5>|</h5>
-                                    <select name="size">
-                                        {sizes.map(size => (
-                                            <option key={size} value={size}>{size}</option>
-                                        ))}
-                                    </select>
-                                        <h5>|</h5>
-                                    <select name="quantity">
-                                        {quantities.map(q => (
-                                            <option key={q} value={q}>{q}</option>
-                                        ))}
-                                    </select>
+                        {data.map((item) => (
+                            <div className="cart-products" key={item.id}>
+                                <div className="cart-products-image">
+                                    <img
+                                        src={`${URL}/Uploads/${item.image}`}
+                                        alt={item.name}
+                                    />
                                 </div>
-                                <button>Save for later</button>
+
+                                <div className="cart-products-details">
+                                    <h4>
+                                        ${item.price}
+                                        <span onClick={() => handleDelete(item.id)}>✕</span>
+                                    </h4>
+
+                                    <p>{item.name}</p>
+
+                                    <div className="cart-product-spec">
+                                        <p>{item.color}</p>
+                                        <h5>|</h5>
+                                        <p>{item.size}</p>
+                                        <h5>|</h5>
+                                        <div className="qty-control">
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    updateQuantity(item.id, Number(item.quantity) - 1)
+                                                }
+                                            >
+                                                −
+                                            </button>
+
+                                            <input
+                                                type="text"
+                                                readOnly
+                                                value={item.quantity}
+                                                className="qty-input"
+                                            />
+
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    updateQuantity(item.id, Number(item.quantity) + 1)
+                                                }
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <button>Save for later</button>
+                                </div>
                             </div>
-                        </div>
+                        ))}
                     </div>
+
                     <div className="cart-left-bottom">
                         <div className="cart-left-bottom-icon">
-                            <img src={delivery} />
+                            <img src={delivery} alt="delivery" />
                         </div>
                         <div className="cart-left-bottom-des">
                             <p>FREE* STANDARD DELIVERY</p>
@@ -78,41 +143,55 @@ const Cart = () => {
                         </div>
                     </div>
                 </div>
+
                 <div className="cart-right">
                     <div className="checkout-box">
                         <div className="checkout-box-head">
                             <p>TOTAL</p>
                         </div>
+
                         <div className="sub-total">
                             <div className="sub-total-section">
                                 <h4>Sub-Total</h4>
-                                <p>$631.00</p>
+                                <p>
+                                    $
+                                    {data
+                                        .reduce(
+                                            (sum, item) => sum + item.price * item.quantity,
+                                            0
+                                        )
+                                        .toFixed(2)}
+                                </p>
                             </div>
+
                             <div className="sub-total-section">
                                 <h4>Delivery</h4>
                                 <p>FREE</p>
                             </div>
                         </div>
+
                         <div className="checkout-btn">
                             <button>CHECKOUT</button>
                         </div>
+
                         <div className="accepted-cards">
                             <h4>WE ACCEPT:</h4>
                             <div className="accepted-cards-img">
-                                <img src={pay1} />
-                                <img src={pay2} />
-                                <img src={pay3} />
-                                <img src={pay4} />
-                                <img src={pay5} />
+                                <img src={pay1} alt="visa" />
+                                <img src={pay2} alt="mastercard" />
+                                <img src={pay3} alt="paypal" />
+                                <img src={pay4} alt="amex" />
+                                <img src={pay5} alt="visa-electron" />
                             </div>
                             <p>Got a discount code? Add it in the next step.</p>
                         </div>
                     </div>
                 </div>
             </div>
+
             <Footer />
         </>
-    )
-}
+    );
+};
 
-export default Cart
+export default Cart;

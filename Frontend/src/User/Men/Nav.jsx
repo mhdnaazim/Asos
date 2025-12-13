@@ -13,7 +13,7 @@ import myProfile from '../../assets/profileIcon.svg';
 const Nav = () => {
 
     const navigate = useNavigate();
-    const { showSale, setShowSale } = useStore();
+    const { showSale, setShowSale, cartCount } = useStore();
     const [dropdown, setDropdown] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
 
@@ -126,7 +126,7 @@ const Nav = () => {
                         <img title='Favourites' src={fav} />
                         <img onClick={() => navigate("/cart")} src={cart} />
                         <div className="cart-qty">
-                            <p onClick={() => navigate("/cart")}>10</p>
+                            <p onClick={() => navigate("/cart")}>{cartCount}</p>
                         </div>
                     </div>
                 </div>

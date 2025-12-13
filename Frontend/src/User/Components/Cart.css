@@ -149,7 +149,7 @@
 }
 
 .cart-products-details button:hover{
-    background-color: #2d2d2d;
+    background-color: #ce4343;
     color: #fff;
 }
 
@@ -354,5 +354,37 @@
 .accepted-cards p {
     font-family: "Futura Cyrillic Book";
     font-size: 16px;
+    color: #2d2d2d;
+}
+
+.qty-control{
+    height: 25px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #adadad;
+}
+
+.qty-control button{
+    height: 100%;
+    width: 30%;
+    border: none;
+    outline: none;
+}
+
+.qty-control button:hover{
+    background-color: #adadad;
+    cursor: pointer;
+}
+
+.qty-input {
+  width: 40px;
+  text-align: center;
+  border: none;
+  background: transparent;
+  font-weight: bold;
+  font-family: "Futura Cyrillic Book";
+    font-size: 15px;
     color: #2d2d2d;
 }

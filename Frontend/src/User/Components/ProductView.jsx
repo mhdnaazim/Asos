@@ -6,12 +6,14 @@ import delivery from '../../assets/delivery.svg';
 import outlineFav from '../../assets/outlineHeart.png';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useStore } from '../../Context/StoreContext';
 
 const ProductView = () => {
   const URL = import.meta.env.VITE_API_URL;
+  const { handleFetchCartCount } = useStore();
   const { id } = useParams();
-
   const [data, setData] = useState({});
+  const [isAdded, setIsAdded] = useState(false)
 
   const handleFetchProduct = async () => {
     try {
@@ -25,6 +27,25 @@ const ProductView = () => {
   useEffect(() => {
     handleFetchProduct();
   }, []);
+
+  const handleAddtoCart = async () => {
+    try {
+      await axios.post(`${URL}/cart/addToCart`, {
+        name: data.name,
+        image: data.image,
+        price: data.price,
+        color: data.color,
+        size: data.size,
+        quantity: 1
+      });
+      handleFetchCartCount();
+      setIsAdded(true)
+
+    } catch (error) {
+      console.log(error);
+
+    };
+  };
 
 
   return (
@@ -60,7 +81,13 @@ const ProductView = () => {
             </h4>
 
             <div className="detail-btn">
-              <button>ADD TO BAG</button>
+              <button
+                onClick={handleAddtoCart}
+                disabled={isAdded}
+                className={isAdded ? 'added' : ''}
+              >
+                {isAdded ? 'ADDED' : 'ADD TO BAG'}
+              </button>
               <div className="fav">
                 <img src={outlineFav} alt="wishlist" />
               </div>
