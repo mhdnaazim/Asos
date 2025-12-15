@@ -43,10 +43,32 @@ const ProductView = () => {
 
     } catch (error) {
       console.log(error);
-
     };
   };
 
+  const handleCheckCart = async () => {
+    try {
+      const res = await axios.get(`${URL}/cart/getCart`);
+
+      const alreadyAdded = res.data.some(
+        (item) => item.name === data.name
+        // OR use item.productId === id (BEST PRACTICE)
+
+      );
+
+      if (alreadyAdded) {
+        setIsAdded(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (data.name) {
+      handleCheckCart();
+    }
+  }, [data]);
 
   return (
     <>
@@ -105,7 +127,6 @@ const ProductView = () => {
                 <h5>More info</h5>
               </div>
             </div>
-
           </div>
         </div>
       </div>
