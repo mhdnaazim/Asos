@@ -270,21 +270,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.sale-tile.active{
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
 }
 
 .sale-tile-container {
     background-color: #fff;
-    position: absolute;
-    z-index: 10000;
     height: 100%;
     width: 63%;
-    display: none;
+    display: flex;
     border: 1px solid #dbdbdb;
     border-top: none;
-}
-
-.category-nav-container button:hover .sale-tile {
-    display: flex;
 }
 
 .category-nav-container button.active-btn {

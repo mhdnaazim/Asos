@@ -10,9 +10,11 @@ import pay4 from "../../assets/amex.png";
 import pay5 from "../../assets/visa-electron.png";
 import axios from "axios";
 import { useStore } from "../../Context/StoreContext";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
     const URL = import.meta.env.VITE_API_URL;
+    const navigate = useNavigate()
     const [data, setData] = useState([]);
     const { handleFetchCartCount } = useStore();
 
@@ -44,11 +46,9 @@ const Cart = () => {
     };
 
     const updateQuantity = async (id, newQty) => {
-        // Convert to number and ensure it's at least 1
         const numQty = Number(newQty);
         if (numQty < 1) return;
 
-        // Optimistic UI update (prevents glitches)
         setData((prev) =>
             prev.map((item) =>
                 item.id === id ? { ...item, quantity: numQty } : item
@@ -65,6 +65,20 @@ const Cart = () => {
         }
     };
 
+    const calculateTotal = () => {
+        return data
+            .reduce((sum, item) => sum + item.price * item.quantity, 0)
+            .toFixed(2);
+    };
+
+    const handleCheckout = () => {
+        if (data.length === 0) {
+            alert("Your cart is empty");
+            return;
+        }
+        navigate("/checkout");
+    };
+
     return (
         <>
             <Nav />
@@ -76,60 +90,64 @@ const Cart = () => {
                     </div>
 
                     <div className="cart-left-items">
-                        {data.map((item) => (
-                            <div className="cart-products" key={item.id}>
-                                <div className="cart-products-image">
-                                    <img
-                                        src={`${URL}/Uploads/${item.image}`}
-                                        alt={item.name}
-                                    />
-                                </div>
-
-                                <div className="cart-products-details">
-                                    <h4>
-                                        ${item.price}
-                                        <span onClick={() => handleDelete(item.id)}>✕</span>
-                                    </h4>
-
-                                    <p>{item.name}</p>
-
-                                    <div className="cart-product-spec">
-                                        <p>{item.color}</p>
-                                        <h5>|</h5>
-                                        <p>{item.size}</p>
-                                        <h5>|</h5>
-                                        <div className="qty-control">
-                                            <button
-                                                type="button"
-                                                onClick={() =>
-                                                    updateQuantity(item.id, Number(item.quantity) - 1)
-                                                }
-                                            >
-                                                −
-                                            </button>
-
-                                            <input
-                                                type="text"
-                                                readOnly
-                                                value={item.quantity}
-                                                className="qty-input"
-                                            />
-
-                                            <button
-                                                type="button"
-                                                onClick={() =>
-                                                    updateQuantity(item.id, Number(item.quantity) + 1)
-                                                }
-                                            >
-                                                +
-                                            </button>
-                                        </div>
+                        {data.length === 0 ? (
+                            <p className="empty-cart">Your cart is empty</p>
+                        ) : (
+                            data.map((item) => (
+                                <div className="cart-products" key={item.id}>
+                                    <div className="cart-products-image">
+                                        <img
+                                            src={`${URL}/Uploads/${item.image}`}
+                                            alt={item.name}
+                                        />
                                     </div>
 
-                                    <button>Save for later</button>
+                                    <div className="cart-products-details">
+                                        <h4>
+                                            ${item.price}
+                                            <span onClick={() => handleDelete(item.id)}>✕</span>
+                                        </h4>
+
+                                        <p>{item.name}</p>
+
+                                        <div className="cart-product-spec">
+                                            <p>{item.color}</p>
+                                            <h5>|</h5>
+                                            <p>{item.size}</p>
+                                            <h5>|</h5>
+                                            <div className="qty-control">
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        updateQuantity(item.id, Number(item.quantity) - 1)
+                                                    }
+                                                >
+                                                    −
+                                                </button>
+
+                                                <input
+                                                    type="text"
+                                                    readOnly
+                                                    value={item.quantity}
+                                                    className="qty-input"
+                                                />
+
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        updateQuantity(item.id, Number(item.quantity) + 1)
+                                                    }
+                                                >
+                                                    +
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <button>Save for later</button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))
+                        )}
                     </div>
 
                     <div className="cart-left-bottom">
@@ -153,15 +171,7 @@ const Cart = () => {
                         <div className="sub-total">
                             <div className="sub-total-section">
                                 <h4>Sub-Total</h4>
-                                <p>
-                                    $
-                                    {data
-                                        .reduce(
-                                            (sum, item) => sum + item.price * item.quantity,
-                                            0
-                                        )
-                                        .toFixed(2)}
-                                </p>
+                                <p>${calculateTotal()}</p>
                             </div>
 
                             <div className="sub-total-section">
@@ -171,7 +181,7 @@ const Cart = () => {
                         </div>
 
                         <div className="checkout-btn">
-                            <button>CHECKOUT</button>
+                            <button onClick={handleCheckout}>CHECKOUT</button>
                         </div>
 
                         <div className="accepted-cards">

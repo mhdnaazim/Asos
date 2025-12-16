@@ -24,7 +24,7 @@ const Nav = () => {
     const handleMouseLeave = () => {
         setShowSale(false);
     };
-    
+
     const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
 
     const handleLogout = () => {
@@ -153,12 +153,13 @@ const Nav = () => {
                 </div>
             </div>
 
-            {/* Category Tile  */}
-            <div className="sale-tile">
-                <div style={{ display: showSale ? "flex" : "none", alignItems: "center", justifyContent: "space-between" }} className="sale-tile-container"
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                >
+            {/* Category Tile */}
+            <div
+                className={`sale-tile ${showSale ? "active" : ""}`}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+            >
+                <div className="sale-tile-container">
                     <div className="tile-section">
                         <h3>SHOP BY PRODUCT</h3>
                         <ul>
@@ -173,7 +174,9 @@ const Nav = () => {
                             <li>SALE Trainers</li>
                         </ul>
                     </div>
+
                     <hr />
+
                     <div className="tile-section">
                         <h3>SHOP BY SHOES</h3>
                         <ul>
@@ -188,7 +191,9 @@ const Nav = () => {
                             <li>Vans Old Skool</li>
                         </ul>
                     </div>
+
                     <hr />
+
                     <div className="tile-section">
                         <h3>SHOP BY CLOTHING</h3>
                         <ul>
@@ -203,7 +208,9 @@ const Nav = () => {
                             <li>Cargo</li>
                         </ul>
                     </div>
+
                     <hr />
+
                     <div className="tile-section">
                         <h3>SHOP BY ACCESSORIES</h3>
                         <ul>
@@ -220,6 +227,7 @@ const Nav = () => {
                     </div>
                 </div>
             </div>
+
 
             {/* Bottom Nav */}
             <div className="btm-nav">

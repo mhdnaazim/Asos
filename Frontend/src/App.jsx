@@ -13,6 +13,7 @@ import ProductView from "./User/Components/ProductView";
 import MenProducts from "./User/Men/MenProducts";
 import WomenProducts from "./User/Women/WomenProducts";
 import WomenProductView from "./User/Women/WomenProductView";
+import Checkout from "./User/Components/Checkout";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/checkout" element={<Checkout />} />
 
           {/* Men  */}
           <Route path="/" element={<MenLanding />}/>

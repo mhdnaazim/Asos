@@ -1,0 +1,646 @@
+@font-face {
+    font-family: "Futura Cyrillic Heavy";
+    src: url("/Font/FuturaCyrillicHeavy.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Medium";
+    src: url("/Font/FuturaCyrillicMedium.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Light";
+    src: url("/Font/FuturaCyrillicLight.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Book";
+    src: url("/Font/FuturaCyrillicBook.ttf") format("truetype");
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.checkout {
+    background-color: #EEE;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.checkout-nav {
+    height: 70px;
+    width: 60%;
+    max-width: 1400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    border-bottom: 1px solid #ddd;
+}
+
+.checkout-nav p {
+    font-size: 22px;
+    font-family: "Futura Cyrillic Heavy";
+    letter-spacing: 2px;
+    color: #2d2d2d;
+}
+
+.checkout-container {
+    width: 60%;
+    max-width: 1400px;
+    min-height: 88vh;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 30px 0;
+}
+
+.checkout-left {
+    width: 60%;
+    height: fit-content;
+}
+
+.delivery {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.delivery-top {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.delivery-top p {
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #2d2d2d;
+}
+
+.delivery-top button {
+    background-color: #2d2d2d;
+    color: #fff;
+    height: 40px;
+    padding: 0 20px;
+    font-family: "Futura Cyrillic Medium";
+    font-size: 14px;
+    letter-spacing: 1px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.delivery-top button:hover {
+    background-color: #000;
+}
+
+.user-email {
+    padding: 20px 30px;
+    border-bottom: 1px solid #EEEEEE;
+    background-color: #f9f9f9;
+}
+
+.user-email p {
+    font-family: "Futura Cyrillic Medium";
+    font-size: 16px;
+    color: #2d2d2d;
+    letter-spacing: 1px;
+}
+
+.user-email span {
+    font-family: "Futura Cyrillic Heavy";
+    color: #000;
+}
+
+.add-address-form {
+    background-color: #f5f5f5;
+    padding: 20px 30px;
+    border-bottom: 1px solid #EEEEEE;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.add-address-form input {
+    height: 40px;
+    width: 100%;
+    font-family: "Futura Cyrillic Medium";
+    font-size: 15px;
+    letter-spacing: 1px;
+    padding: 0 12px;
+    outline: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+.add-address-form input:focus {
+    border-color: #2d2d2d;
+}
+
+.address-form-btm {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.save-btn {
+    background-color: #2d2d2d;
+    color: #fff;
+    height: 40px;
+    padding: 0 30px;
+    font-family: "Futura Cyrillic Medium";
+    font-size: 16px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.save-btn:hover {
+    background-color: #000;
+}
+
+.cancel-btn {
+    background-color: transparent;
+    color: #2d2d2d;
+    border: 1px solid #2d2d2d;
+    height: 40px;
+    padding: 0 30px;
+    font-family: "Futura Cyrillic Medium";
+    font-size: 16px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.cancel-btn:hover {
+    background-color: #EEE;
+}
+
+.address-section {
+    padding: 20px 30px;
+}
+
+.no-address {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.no-address p {
+    font-family: "Futura Cyrillic Book";
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.no-address button {
+    background-color: #2d2d2d;
+    color: #fff;
+    padding: 12px 30px;
+    font-family: "Futura Cyrillic Medium";
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.selected-address-display {
+    margin-bottom: 30px;
+}
+
+.primary-address {
+    background-color: #f0f0f0;
+    border-left: 4px solid #2d2d2d;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.primary-address h3 {
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #2d2d2d;
+    margin-bottom: 15px;
+}
+
+.address-details {
+    margin-bottom: 15px;
+}
+
+.address-details p {
+    font-family: "Futura Cyrillic Book";
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: #333;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+}
+
+.change-address-btn {
+    background-color: #2d2d2d;
+    color: #fff;
+    padding: 10px 20px;
+    font-family: "Futura Cyrillic Medium";
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.change-address-btn:hover {
+    background-color: #000;
+}
+
+.other-addresses {
+    margin-top: 30px;
+}
+
+.other-addresses h4 {
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #2d2d2d;
+    margin-bottom: 15px;
+}
+
+.address-container {
+    background-color: #fff;
+    border: 1px solid #EEEEEE;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    transition: box-shadow 0.3s;
+}
+
+.address-container:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.address-info {
+    flex: 1;
+}
+
+.address-container span {
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 16px;
+    color: #2d2d2d;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.address-container p {
+    font-family: "Futura Cyrillic Book";
+    font-size: 14px;
+    color: #666;
+    letter-spacing: 0.5px;
+    line-height: 1.5;
+    margin-bottom: 4px;
+}
+
+.address-container-btns {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.select-btn {
+    background-color: #2d2d2d;
+    color: #fff;
+    border: none;
+    outline: none;
+    height: 40px;
+    padding: 0 20px;
+    font-family: "Futura Cyrillic Medium";
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.select-btn:hover {
+    background-color: #000;
+}
+
+.delete-btn {
+    background-color: #ff6b6b;
+    color: #fff;
+    border: none;
+    outline: none;
+    height: 40px;
+    padding: 0 20px;
+    font-family: "Futura Cyrillic Medium";
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #ff5252;
+}
+
+/* RIGHT SIDE - ORDER SUMMARY */
+
+.checkout-right {
+    width: 39%;
+    height: fit-content;
+}
+
+.order-summary {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    position: sticky;
+    top: 20px;
+}
+
+.order-summary h3 {
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #2d2d2d;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.cart-items-checkout {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.checkout-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.checkout-item:last-child {
+    border-bottom: none;
+}
+
+.item-image {
+    width: 80px;
+    height: 80px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-name {
+    font-family: "Futura Cyrillic Medium";
+    font-size: 14px;
+    color: #555555;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.item-specs {
+    font-family: "Futura Cyrillic Book";
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 5px;
+}
+
+.item-qty {
+    font-family: "Futura Cyrillic Book";
+    font-size: 13px;
+    color: #4e4e4e;
+}
+
+.item-price {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 16px;
+    color: #2d2d2d;
+}
+
+.checkout-summary {
+    padding: 20px 0;
+    border-top: 1px solid #EEEEEE;
+    border-bottom: 1px solid #EEEEEE;
+    margin-bottom: 20px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-family: "Futura Cyrillic Book";
+    font-size: 15px;
+    color: #666;
+    letter-spacing: 0.5px;
+}
+
+.summary-row.total {
+    padding: 15px 0;
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 18px;
+    color: #2d2d2d;
+    letter-spacing: 1px;
+}
+
+.place-order-btn {
+    width: 100%;
+    height: 50px;
+    background-color: #2d2d2d;
+    color: #fff;
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 16px;
+    letter-spacing: 2px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.place-order-btn:hover:not(:disabled) {
+    background-color: #000;
+}
+
+.place-order-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 40px 20px;
+    font-family: "Futura Cyrillic Book";
+    font-size: 16px;
+    color: #999;
+}
+
+.payment-type{
+    background-color: #fff;
+    margin-top: 10px;
+    height: 420px;
+    width: 100%;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 15px;
+    padding-left: 30px;
+}
+
+.payment-type-top{
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.payment-type-top h2{
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.payment-type p{
+    font-size: 16px;
+    font-family: "Futura Cyrillic Medium";
+    letter-spacing: 1px;
+    margin-left: 160px;
+}
+
+.payment-mode{
+    background-color: #fff;
+    color: #2d2d2d;
+    border: 2px solid #2d2d2d;
+    height: 60px;
+    width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    cursor: pointer;
+}
+
+.payment-mode:hover{
+    background-color: #d6d6d6;
+}
+
+.payment-mode.active{
+    background-color: #d6d6d6;
+}
+
+.payment-mode img{
+    height: 20px;
+    width: 20px;
+    object-fit: contain;
+}
+
+.payment-mode h3{
+    font-family: "Futura Cyrillic Book";
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+.order-confirm-policy{
+    background-color: #fff;
+    margin-top: 10px;
+    height: 150px;
+    width: 100%;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.order-confirm-policy p{
+    font-family: "Futura Cyrillic Book";
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #666666;
+    width: 80%;
+}
+
+.order-confirm-policy p span{
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
+.order-confirm-policy p span:hover{
+    text-decoration-color: #ccc;
+}
+
+
+
+
+
+
+
+
+
+.checkout-footer {
+    height: 50px;
+    width: 100%;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.checkout-footer p{
+    font-family: "Futura Cyrillic Book";
+    font-size: 18px;
+}
+
+.checkout-footer p:hover{
+    text-decoration: underline;
+    text-underline-offset: 1px;
+}
