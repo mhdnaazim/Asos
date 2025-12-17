@@ -214,14 +214,37 @@
     z-index: 9;
 }
 
-.cart-qty p{
-    font-family: "Futura Cyrillic Medium";
-    color: #fff;
-    font-size: 10px;
+.cart-icon-wrapper {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.cart-icon-wrapper img {
+    height: 20px;
+    width: 20px;
+    object-fit: contain;
+}
+
+.cart-qty {
     position: absolute;
-    z-index: 99;
-    right: 356px;
-    top: 56px;
+    top: -12px;
+    right: -15px;
+    background-color: #eeeeee;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-qty p {
+    font-family: "Futura Cyrillic Medium";
+    font-size: 12px;
+    color: #000;
+    font-weight: 600;
+    margin: 0;
     cursor: pointer;
 }
 

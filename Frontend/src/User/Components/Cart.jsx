@@ -18,6 +18,8 @@ const Cart = () => {
     const [data, setData] = useState([]);
     const { handleFetchCartCount } = useStore();
 
+    const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));    
+
     const handleGetCart = async () => {
         try {
             const res = await axios.get(`${URL}/cart/getCart`);

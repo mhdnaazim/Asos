@@ -1,0 +1,162 @@
+@font-face {
+    font-family: "Futura Cyrillic Heavy";
+    src: url("/Font/FuturaCyrillicHeavy.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Medium";
+    src: url("/Font/FuturaCyrillicMedium.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Light";
+    src: url("/Font/FuturaCyrillicLight.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Futura Cyrillic Book";
+    src: url("/Font/FuturaCyrillicBook.ttf") format("truetype");
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.search-results-container {
+    min-height: calc(100vh - 300px);
+    padding: 40px 20px;
+}
+
+.search-results-header {
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    text-align: center;
+}
+
+.search-results-header h1 {
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 32px;
+    color: #2d2d2d;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.search-results-header p {
+    font-family: "Futura Cyrillic Medium";
+    font-size: 16px;
+    color: #525050;
+    letter-spacing: 0.5px;
+}
+
+.search-results-header p span {
+    font-weight: 600;
+    color: #2d2d2d;
+}
+
+.result-count {
+    margin-top: 8px;
+    font-family: "Futura Cyrillic Light";
+    font-size: 14px;
+    color: #888;
+}
+
+.search-results-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.search-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.search-item-card {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-item-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    border-color: #d0d0d0;
+}
+
+.search-item-image {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.search-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.search-item-details {
+    padding: 15px;
+}
+
+.search-item-name {
+    font-family: "Futura Cyrillic Medium";
+    font-size: 14px;
+    color: #2d2d2d;
+    margin-bottom: 8px;
+    min-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    letter-spacing: 0.5px;
+}
+
+.search-item-price {
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 16px;
+    color: #525050;
+    letter-spacing: 0.5px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.no-results p {
+    font-family: "Futura Cyrillic Medium";
+    font-size: 18px;
+    color: #525050;
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
+}
+
+.no-results button {
+    background-color: #2d2d2d;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    font-family: "Futura Cyrillic Heavy";
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.no-results button:hover {
+    background-color: #525050;
+}

@@ -13,7 +13,8 @@ const ProductView = () => {
   const { handleFetchCartCount } = useStore();
   const { id } = useParams();
   const [data, setData] = useState({});
-  const [isAdded, setIsAdded] = useState(false)
+  const [isAdded, setIsAdded] = useState(false);
+  const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
 
   const handleFetchProduct = async () => {
     try {
@@ -32,6 +33,7 @@ const ProductView = () => {
     try {
       await axios.post(`${URL}/cart/addToCart`, {
         name: data.name,
+        userid: loggedUser.userid,
         image: data.image,
         price: data.price,
         color: data.color,

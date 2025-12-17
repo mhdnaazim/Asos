@@ -2,10 +2,10 @@ import db from '../Config/db.js';
 
 // Add to Cart
 export const addToCart = (req, res) => {
-    const { name, image, price, color, size, quantity } = req.body;
+    const { name, userid, image, price, color, size, quantity } = req.body;
 
-    const sql = "INSERT INTO cart (name, image, price, color, size, quantity) VALUES (?, ?, ?, ?, ?, ?)";
-    const values = [name, image, price, color, size, quantity];
+    const sql = "INSERT INTO cart (name, userid, image, price, color, size, quantity) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    const values = [name, userid, image, price, color, size, quantity];
 
     db.query(sql, values, (err, result) => {
         if (err) {
@@ -63,4 +63,3 @@ export const updateQuantity = ((req, res) => {
         }
     })
 })
-

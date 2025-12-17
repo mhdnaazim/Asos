@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { StoreProvider } from "./Context/StoreContext";
 import MenLanding from "./User/Men/MenLanding";
 import WomenLanding from "./User/Women/WomenLanding";
-import { StoreProvider } from "./Context/StoreContext";
 import SignUp from "./User/Components/SignUp";
 import Login from "./User/Components/Login";
 import Dashboard from './Admin/Dashboard'
@@ -14,6 +14,7 @@ import MenProducts from "./User/Men/MenProducts";
 import WomenProducts from "./User/Women/WomenProducts";
 import WomenProductView from "./User/Women/WomenProductView";
 import Checkout from "./User/Components/Checkout";
+import Products from "./User/Components/Products";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/search-results" element={<Products />} />
 
           {/* Men  */}
           <Route path="/" element={<MenLanding />}/>
