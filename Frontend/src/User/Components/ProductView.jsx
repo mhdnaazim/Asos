@@ -22,7 +22,7 @@ const ProductView = () => {
       setData(res.data);
     } catch (error) {
       console.log(error);
-    }
+    };
   };
 
   useEffect(() => {

@@ -115,6 +115,11 @@ const Checkout = () => {
 
     const selectedAddressData = addressData.find((addr) => addr.id === selectedAddress);
 
+
+    const handlePlaceOrder = () => {
+
+    }
+
     return (
         <>
             <div className="checkout">
@@ -279,6 +284,13 @@ const Checkout = () => {
                                 <img src={cod} />
                                 <h3>CASH ON DELIVERY</h3>
                             </div>
+
+                        </div>
+                        <div className="accepted-payments">
+                                <p>WE ACCEPT: </p>
+                                <img src={visa} />
+                                <img src={master} />
+                                <img src={paypal} />
                         </div>
 
                         <div className="order-confirm-policy">

@@ -31,6 +31,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import LogoutIcon from "@mui/icons-material/Logout";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import asos from "../assets/Logo.svg";
 import "../App.css";
 import axios from "axios";
@@ -105,6 +106,7 @@ const Dashboard = () => {
     { text: "Manage Users", icon: <PeopleIcon /> },
     { text: "Manage Products", icon: <InventoryIcon /> },
     { text: "Manage Womens", icon: <InventoryIcon /> },
+    { text: "Manage Orders", icon: <ShoppingCartIcon /> }
   ];
 
   // Pagination handlers
@@ -1288,6 +1290,10 @@ const Dashboard = () => {
             </Box>
 
           )}
+
+          {/* {selected === "Manage Orders" && (
+
+          )} */}
         </Box>
       </Box>
       {openEdit && (

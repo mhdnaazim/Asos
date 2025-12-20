@@ -6,6 +6,7 @@ import productRoutes from './Routes/productRoutes.js';
 import womenRoutes from './Routes/womenRoutes.js';
 import cartRoutes from './Routes/cartRoutes.js';
 import addressRoutes from './Routes/addressRoutes.js';
+import orderRoutes from './Routes/orderRoutes.js';
 
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -27,6 +28,7 @@ app.use("/api/product", productRoutes);
 app.use("/api/women", womenRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/address", addressRoutes);
+app.use("/api/orders", orderRoutes);
 
 
 const port = 3000;
