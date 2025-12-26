@@ -10,7 +10,7 @@ import fav from '../../assets/fav.svg';
 import cart from '../../assets/cart.svg';
 import myProfile from '../../assets/profileIcon.svg';
 
-const Nav = () => {
+const Nav = ({onClothingClick}) => {
 
   const navigate = useNavigate();
   const { showSale, setShowSale, cartCount, searchTerm, setSearchTerm } = useStore();
@@ -168,7 +168,7 @@ const Nav = () => {
             className={showSale ? "active-btn" : ""}
           >Sale</button>
           <button>New in</button>
-          <button>Clothing</button>
+          <button onClick={onClothingClick}>Sellers</button>
           <button>Shoes</button>
           <button>Accessories</button>
           <button>Gifting</button>

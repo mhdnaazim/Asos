@@ -7,18 +7,31 @@ import MenBestSellers from "./MenBestSellers";
 import MenBrands from "./MenBrands";
 import Social from "./Social";
 import Footer from "./Footer";
+import { useRef } from "react";
 
 const MenLanding = () => {
-    return(
+
+    const bestSellerRef = useRef(null);
+
+    const scrollToBestSellers = () => {
+        bestSellerRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        })
+    }
+
+    return (
         <>
-        <Nav />
-        <MenBanner />
-        <MenCollective />
-        <MenNew />
-        <MenBestSellers />
-        <MenBrands />
-        <Social />
-        <Footer />
+            <Nav onClothingClick={scrollToBestSellers} />
+            <MenBanner />
+            <MenCollective />
+            <MenNew />
+            <div ref={bestSellerRef}>
+                <MenBestSellers />
+            </div>
+            <MenBrands />
+            <Social />
+            <Footer />
         </>
     )
 }
