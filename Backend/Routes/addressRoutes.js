@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.post("/addAddress", addAddress);
 router.delete("/deleteAddress/:id", deleteAddress);
-router.get("/getAddress", getAddress);
+router.get("/getAddress/:userid", getAddress);
 
 export default router;

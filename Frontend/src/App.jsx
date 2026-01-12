@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { StoreProvider } from "./Context/StoreContext";
+import { ToastContainer } from 'react-toastify';
 import MenLanding from "./User/Men/MenLanding";
 import WomenLanding from "./User/Women/WomenLanding";
 import SignUp from "./User/Components/SignUp";
@@ -21,32 +22,33 @@ const App = () => {
     <>
       <StoreProvider>
         <BrowserRouter>
-        <Routes>
+          <Routes>
 
-          {/* Components  */}
-          <Route path="/signUp" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/search-results" element={<Products />} />
+            {/* Components  */}
+            <Route path="/signUp" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/cart/:id" element={<Cart />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/checkout/:id" element={<Checkout />} />
+            <Route path="/search-results" element={<Products />} />
 
-          {/* Men  */}
-          <Route path="/" element={<MenLanding />}/>
-          <Route path="/menProducts" element={<MenProducts />}/>
-          <Route path="/detail/:id" element={<ProductView />} />
+            {/* Men  */}
+            <Route path="/" element={<MenLanding />} />
+            <Route path="/menProducts" element={<MenProducts />} />
+            <Route path="/detail/:id" element={<ProductView />} />
 
-          {/* Women  */}
-          <Route path="/women" element={<WomenLanding />} />
-          <Route path="/womenProducts" element={<WomenProducts />} />
-          <Route path="/womenProductDetail/:id" element={<WomenProductView />} />
+            {/* Women  */}
+            <Route path="/women" element={<WomenLanding />} />
+            <Route path="/womenProducts" element={<WomenProducts />} />
+            <Route path="/womenProductDetail/:id" element={<WomenProductView />} />
 
-          {/* Admin  */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/edit/:id" element={<UserEdit />} />
+            {/* Admin  */}
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/edit/:id" element={<UserEdit />} />
 
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+          <ToastContainer position="top-right" autoClose={1500} />
+        </BrowserRouter>
       </StoreProvider>
     </>
   )

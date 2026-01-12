@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../../Context/StoreContext";
+import 'react-toastify/dist/ReactToastify.css';
 import './Nav.css';
 import india from '../../assets/in.png'
 import logo from '../../assets/Logo.svg';
@@ -9,11 +10,12 @@ import profile from '../../assets/profileIcon.svg';
 import fav from '../../assets/fav.svg';
 import cart from '../../assets/cart.svg';
 import myProfile from '../../assets/profileIcon.svg';
+import { toast } from "react-toastify";
 
-const Nav = ({onClothingClick}) => {
+const Nav = ({ onClothingClick }) => {
 
   const navigate = useNavigate();
-  const { showSale, setShowSale, cartCount, searchTerm, setSearchTerm } = useStore();
+  const { showSale, setShowSale, cartCount, searchTerm, setSearchTerm, handleFetchCartCount } = useStore();
   const [dropdown, setDropdown] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -26,6 +28,8 @@ const Nav = ({onClothingClick}) => {
   };
 
   const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+  console.log(loggedUser);
+  
 
   const handleLogout = () => {
     localStorage.removeItem("loggedUser");
@@ -34,7 +38,7 @@ const Nav = ({onClothingClick}) => {
 
   const handleProfile = () => {
     if (!loggedUser) {
-      alert("Login first")
+      toast.warning("Login required");
     } else {
       navigate("/profile")
     }
@@ -60,6 +64,20 @@ const Nav = ({onClothingClick}) => {
     }
     return () => clearTimeout(timer);
   }, [isHovering]);
+
+  useEffect(() => {
+    handleFetchCartCount()
+  }, [])
+
+
+  const handleCart = () => {
+    if (!loggedUser) {
+      toast.warning("Login required");
+      return;
+    } else {
+      navigate(`/cart/${loggedUser.userid}`);
+    };
+  };
 
   return (
     <>
@@ -91,15 +109,15 @@ const Nav = ({onClothingClick}) => {
           </div>
           <div className="search-container">
             <div className="searchbar">
-              <input 
-                type="text" 
-                placeholder="Search for items" 
+              <input
+                type="text"
+                placeholder="Search for items"
                 value={searchTerm}
                 onChange={handleSearchChange}
                 onKeyPress={handleSearchSubmit}
               />
-              <img 
-                src={search} 
+              <img
+                src={search}
                 onClick={handleSearchSubmit}
                 style={{ cursor: 'pointer' }}
               />
@@ -146,14 +164,13 @@ const Nav = ({onClothingClick}) => {
 
             <img title='Favourites' src={fav} />
             <div className="cart-icon-wrapper">
-              <img onClick={() => navigate("/cart")} src={cart} />
-              {cartCount > 0 ? (
+              <img onClick={handleCart} src={cart} />
+
+              {loggedUser && cartCount > 0 && (
                 <div className="cart-qty">
-                  <p onClick={() => navigate("/cart")}>{cartCount}</p>
-              </div>
-                ): (
-                    null
-                )}
+                  <p onClick={handleCart}>{cartCount}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

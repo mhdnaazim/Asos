@@ -28,13 +28,14 @@ const Checkout = () => {
         state: "",
         pin: "",
         country: "",
-        contact: ""
+        contact: "",
+        userid: storedUser?.userid || ""
     });
 
-
     const getAddresses = async () => {
+        if (!storedUser?.userid) return;
         try {
-            const res = await axios.get(`${URL}/address/getAddress`);
+            const res = await axios.get(`${URL}/address/getAddress/${storedUser.userid}`);
             setAddressData(res.data);
             if (res.data.length > 0) {
                 setSelectedAddress(res.data[0].id);
@@ -45,8 +46,9 @@ const Checkout = () => {
     };
 
     const getCart = async () => {
+        if (!storedUser?.userid) return;
         try {
-            const res = await axios.get(`${URL}/cart/getCart`);
+            const res = await axios.get(`${URL}/cart/getCartItems/${storedUser.userid}`);
             const cartItems = res.data.map((item) => ({
                 ...item,
                 quantity: Number(item.quantity),
@@ -58,9 +60,11 @@ const Checkout = () => {
     };
 
     useEffect(() => {
-        getAddresses();
-        getCart();
-    }, []);
+        if (storedUser?.userid) {
+            getAddresses();
+            getCart();
+        }
+    }, [storedUser]);
 
     const handleAddAddress = async () => {
         if (!formData.name || !formData.address || !formData.district || !formData.state || !formData.pin || !formData.country || !formData.contact) {
@@ -69,7 +73,10 @@ const Checkout = () => {
         }
 
         try {
-            const response = await axios.post(`${URL}/address/addAddress`, formData);
+            const response = await axios.post(`${URL}/address/addAddress`, {
+                ...formData,
+                userid: storedUser.userid
+            });
             if (response.status === 200) {
                 setFormData({
                     name: "",
@@ -78,7 +85,8 @@ const Checkout = () => {
                     state: "",
                     pin: "",
                     country: "",
-                    contact: ""
+                    contact: "",
+                    userid: storedUser.userid
                 });
                 setShowForm(false);
                 getAddresses();
@@ -107,6 +115,19 @@ const Checkout = () => {
         }
     };
 
+    const setPrimaryAddress = async (id) => {
+        try {
+            await axios.put(`${URL}/address/setPrimary/${id}`);
+            getAddresses();
+            setSelectedAddress(id);
+            setOtherAddress(false);
+            alert("Address set as primary");
+        } catch (error) {
+            console.log(error);
+            alert("Failed to set primary address");
+        }
+    };
+
     const calculateSubTotal = () => {
         return cartData
             .reduce((sum, item) => sum + item.price * item.quantity, 0)
@@ -115,10 +136,31 @@ const Checkout = () => {
 
     const selectedAddressData = addressData.find((addr) => addr.id === selectedAddress);
 
+    const handlePlaceOrder = async () => {
+        if (!selectedAddress || cartData.length === 0 || !paymentMode) {
+            alert("Please select address and payment method");
+            return;
+        }
 
-    const handlePlaceOrder = () => {
-
-    }
+        try {
+            await axios.post(`${URL}/orders/placeOrder`, {
+                userid: storedUser.userid,
+                name: selectedAddressData.name,
+                address: selectedAddressData.address,
+                district: selectedAddressData.district,
+                state: selectedAddressData.state,
+                pin: selectedAddressData.pin,
+                country: selectedAddressData.country,
+                contact: selectedAddressData.contact,
+                payment_method: paymentMode
+            });
+            alert("Order placed successfully");
+            setCartData([]);
+        } catch (error) {
+            console.log(error);
+            alert("Failed to place order");
+        }
+    };
 
     return (
         <>
@@ -243,10 +285,13 @@ const Checkout = () => {
                                                             </div>
 
                                                             <div className="address-container-btns">
-                                                                <button className="select-btn" onClick={() => setSelectedAddress(item.id)} >
+                                                                <button className="select-btn" onClick={() => {
+                                                                    setSelectedAddress(item.id);
+                                                                    setOtherAddress(false);
+                                                                }}>
                                                                     SELECT
                                                                 </button>
-                                                                <button className="delete-btn" onClick={() => deleteAddress(item.id)} >
+                                                                <button className="delete-btn" onClick={() => deleteAddress(item.id)}>
                                                                     DELETE
                                                                 </button>
                                                             </div>
@@ -265,32 +310,29 @@ const Checkout = () => {
                                 <h2>PAYMENT TYPE</h2>
                             </div>
                             <div className={`payment-mode ${paymentMode === "CARD" ? "active" : ""}`}
-                                onClick={() => setPaymentMode("CARD")}
-                            >
-                                <img src={card} />
+                                onClick={() => setPaymentMode("CARD")}>
+                                <img src={card} alt="card" />
                                 <h3>CREDIT CARD OR DEBIT CARD</h3>
                             </div>
                             <p>OR</p>
                             <div className={`payment-mode ${paymentMode === "PAYPAL" ? "active" : ""}`}
-                                onClick={() => setPaymentMode("PAYPAL")}
-                            >
-                                <img src={paypal} />
+                                onClick={() => setPaymentMode("PAYPAL")}>
+                                <img src={paypal} alt="paypal" />
                                 <h3>PAYPAL OR UPI</h3>
                             </div>
                             <p>OR</p>
                             <div className={`payment-mode ${paymentMode === "COD" ? "active" : ""}`}
-                                onClick={() => setPaymentMode("COD")}
-                            >
-                                <img src={cod} />
+                                onClick={() => setPaymentMode("COD")}>
+                                <img src={cod} alt="cod" />
                                 <h3>CASH ON DELIVERY</h3>
                             </div>
 
                         </div>
                         <div className="accepted-payments">
                                 <p>WE ACCEPT: </p>
-                                <img src={visa} />
-                                <img src={master} />
-                                <img src={paypal} />
+                                <img src={visa} alt="visa" />
+                                <img src={master} alt="mastercard" />
+                                <img src={paypal} alt="paypal" />
                         </div>
 
                         <div className="order-confirm-policy">
@@ -344,7 +386,7 @@ const Checkout = () => {
                                 </div>
                             </div>
 
-                            <button className="place-order-btn" disabled={!selectedAddress || cartData.length === 0}>
+                            <button className="place-order-btn" onClick={handlePlaceOrder} disabled={!selectedAddress || cartData.length === 0 || !paymentMode}>
                                 PLACE ORDER
                             </button>
                         </div>

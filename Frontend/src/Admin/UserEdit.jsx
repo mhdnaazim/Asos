@@ -57,7 +57,6 @@ const UserEdit = () => {
         };
     };
 
-
     return (
         <>
             <div className="signup-container">

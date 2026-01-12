@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 export const StoreContext = createContext();
 
@@ -11,19 +12,23 @@ export const StoreProvider = ({ children }) => {
   const [showSale, setShowSale] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
+  const {id} = useParams()
 
-  const handleFetchCartCount = async () => {
+    const handleFetchCartCount = async () => {
+    const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+    if (!loggedUser) return;
+
     try {
-      const res = await axios.get(`${URL}/cart/getCart`);
-      setCartCount(res.data.length)
+      const res = await axios.get(`${URL}/cart/getCartItems/${loggedUser.userid}`);
+      setCartCount(res.data.length);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     handleFetchCartCount()
-  }, []);
+  }, [id]);
 
   return (
     <StoreContext.Provider value={{

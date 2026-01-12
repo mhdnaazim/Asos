@@ -55,7 +55,6 @@ const ProductView = () => {
       const alreadyAdded = res.data.some(
         (item) => item.name === data.name
         // OR use item.productId === id (BEST PRACTICE)
-
       );
 
       if (alreadyAdded) {

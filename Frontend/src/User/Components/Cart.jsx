@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useStore } from "../../Context/StoreContext";
+import { useNavigate, useParams } from "react-router-dom";
 import "./Cart.css";
 import Nav from "../Men/Nav";
 import Footer from "../Men/Footer";
@@ -9,8 +11,6 @@ import pay3 from "../../assets/paypal.png";
 import pay4 from "../../assets/amex.png";
 import pay5 from "../../assets/visa-electron.png";
 import axios from "axios";
-import { useStore } from "../../Context/StoreContext";
-import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
     const URL = import.meta.env.VITE_API_URL;
@@ -18,11 +18,15 @@ const Cart = () => {
     const [data, setData] = useState([]);
     const { handleFetchCartCount } = useStore();
 
-    const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));    
+    const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+    const { id } = useParams()
+
 
     const handleGetCart = async () => {
+        if (!loggedUser) return;
+
         try {
-            const res = await axios.get(`${URL}/cart/getCart`);
+            const res = await axios.get(`${URL}/cart/getCartItems/${id}`);
             const cartData = res.data.map((item) => ({
                 ...item,
                 quantity: Number(item.quantity),
@@ -35,7 +39,7 @@ const Cart = () => {
 
     useEffect(() => {
         handleGetCart();
-    }, []);
+    }, [id]);
 
     const handleDelete = async (id) => {
         try {
@@ -78,7 +82,7 @@ const Cart = () => {
             alert("Your cart is empty");
             return;
         }
-        navigate("/checkout");
+        navigate(`/checkout/${loggedUser.userid}`);
     };
 
     return (
